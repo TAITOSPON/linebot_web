@@ -16,5 +16,14 @@ class Api_list extends REST_Controller{
 
        }
 
+       public function list_token_get(){
+
+              $main = $this->db->select('*')
+                            ->get('lb_token')
+                            ->result_array();
+              echo json_encode($main,JSON_PRETTY_PRINT);
+
+       }
+
 
 }
