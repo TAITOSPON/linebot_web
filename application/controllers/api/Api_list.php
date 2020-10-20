@@ -9,10 +9,9 @@ class Api_list extends REST_Controller{
 
        public function list_log_login_get(){
 
-              $main = $this->db->select('*')
-                            ->get('lb_login_log')
-                            ->result_array();
-              echo json_encode($main,JSON_PRETTY_PRINT);
+              $this->load->model('Model_User');
+              $data = $this->Model_User->Get_log_login();
+              echo json_encode($data,JSON_PRETTY_PRINT);
 
        }
 
