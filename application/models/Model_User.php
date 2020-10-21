@@ -166,6 +166,28 @@ class Model_User extends CI_Model
     }
 
 
+    public function Get_user_login($result){
+
+
+        $user_line_uid = $result["user_line_uid"];
+
+
+        $query = $this->db->query("SELECT COUNT(user_line_uid)FROM lb_user_connect WHERE user_line_uid = '$user_line_uid'")->result_array();
+        $count = $query[0]["COUNT(user_line_uid)"];
+
+        if($count == "1"){
+            $query = $this->db->get_where('lb_user_connect', array('user_line_uid' => $user_line_uid))->result_array();
+            return $query;  
+
+        }else if($count == "0"){
+            return "notlogin";
+        }
+
+        return false;
+
+       
+    }
+
     public function Get_log_login() {
 
         $query = $this->db->select('*')

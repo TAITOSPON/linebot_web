@@ -11,8 +11,21 @@ class Api_User extends REST_Controller{
 
               $data = json_decode(file_get_contents('php://input'), true);
               $this->load->model('Model_User');
-              $result = $this->Model_User->Set_user_logout($data[0]);  
+              $result = $this->Model_User->Set_user_logout($data);  
               $result = array('status' => $result, );
+              echo json_encode($result,JSON_PRETTY_PRINT);
+ 
+       }
+
+       public function User_check_login_post(){
+
+              $data = json_decode(file_get_contents('php://input'), true);
+              $this->load->model('Model_User');
+
+              $result = $this->Model_User->Get_user_login($data);  
+
+              // $result = array('status' => $result, );
+
               echo json_encode($result,JSON_PRETTY_PRINT);
  
        }
