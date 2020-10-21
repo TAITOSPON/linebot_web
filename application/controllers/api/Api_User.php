@@ -2,9 +2,20 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 require(APPPATH.'libraries/REST_Controller.php');
 
-class Api_list extends REST_Controller{
+class Api_User extends REST_Controller{
 
        public function index_get(){}
+
+       
+       public function User_logout_post(){
+
+              $data = json_decode(file_get_contents('php://input'), true);
+              $this->load->model('Model_User');
+              $result = $this->Model_User->Set_user_logout($data[0]);  
+              $result = array('status' => $result, );
+              echo json_encode($result,JSON_PRETTY_PRINT);
+ 
+       }
 
 
        public function list_log_login_get(){
@@ -23,6 +34,8 @@ class Api_list extends REST_Controller{
               echo json_encode($main,JSON_PRETTY_PRINT);
 
        }
+
+
 
 
 }

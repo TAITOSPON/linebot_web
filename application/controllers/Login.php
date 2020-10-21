@@ -71,9 +71,9 @@ class Login extends CI_Controller {
     public function Postcallbacklogin($result){
 
         $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://webhook.toat.co.th/linebot/webhook/callback');
+        curl_setopt($ch, CURLOPT_URL, 'https://webhook.toat.co.th/linebot/webhook/webhook');
         curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('type: login-true','Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('User-Agent: login-true','Content-Type: application/json'));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($result));

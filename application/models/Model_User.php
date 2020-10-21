@@ -96,8 +96,12 @@ class Model_User extends CI_Model
     }
 
     public function Set_user_connect_login($result) {
+        
+        // ---logout before ---//
+        $this->Set_user_logout($result);
 
-
+       
+        // --- new connect ---//
         $user_ad_code = $result['PERSON_CODE'];
         $data = $this->db->query("SELECT COUNT(user_ad_code)FROM lb_user_connect WHERE user_ad_code = '$user_ad_code'")->result_array();
         
@@ -134,6 +138,31 @@ class Model_User extends CI_Model
             }
         }
         return false;  
+    }
+
+    public function Set_user_logout($result){
+
+        $user_line_uid = $result["user_line_uid"];
+
+        $query = $this->db->query("SELECT COUNT(user_line_uid)FROM lb_user_connect WHERE user_line_uid = '$user_line_uid'")->result_array();
+        $count = $query[0]["COUNT(user_line_uid)"];
+
+        $data = array(
+            'user_line_uid' => "",
+        );
+
+        $this->db->trans_begin();
+        $this->db->where('user_line_uid', $user_line_uid)->set($data)->update('lb_user_connect');
+                
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            return false;
+        } else {
+            $this->db->trans_commit();
+            return true;
+        }
+
+        return false;
     }
 
 
