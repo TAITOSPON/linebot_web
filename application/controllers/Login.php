@@ -19,8 +19,8 @@ class Login extends CI_Controller {
         // echo $user_ad." ".$user_ad_pass." ".$user_line_uid." ".$user_line_name; exit();
 
         $this->GetLogin_AD($user_ad,$user_ad_pass,$user_line_uid, $user_line_name,$user_line_pic_url);
-        // $this->load->view('welcome_view');
      
+
     }  
 
 
@@ -42,18 +42,16 @@ class Login extends CI_Controller {
         if($PERSON_CODE!=""){
 
             $this->load->model('Model_User');
-            $status_user_ad = $this->Model_User->Set_user_ad($result);
+            // $status_user_ad = $this->Model_User->Set_user_ad($result);
             
-            if($status_user_ad == "true"){
-                $status_user_line = $this->Model_User->Set_user_line_account($result);
-                if($status_user_line == "true"){
+            if($this->Model_User->Set_user_ad($result)){
+                if($this->Model_User->Set_user_line_account($result)){
+                    if($this->Model_User->Set_user_connect_login($result)){
 
-                    $status_user_connect = $this->Model_User->Set_user_connect_login($result);
-                    if($status_user_connect == "true"){
-
-                        // echo  "status_user_connect".$status_user_connect;
-
-                        $this->load->view('welcome_view');
+                     
+                        if($this->Postcallbacklogin($result)){    
+                            $this->load->view('welcome_view');
+                        }
 
                     }else {echo "db user_connect false";}
 
@@ -68,50 +66,23 @@ class Login extends CI_Controller {
         }
    
 
-         
     }
 
+    public function Postcallbacklogin($result){
 
-    // public function Send_Firebase_Notification_Android($token, $data){
-	//  		// echo "Send_Firebase_Notification_Android";
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://webhook.toat.co.th/linebot/webhook/callback');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('type: login-true','Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($result));
+        $result = curl_exec($ch);
+        curl_close($ch);
 
-    //              $title           = "Device disconnect";
-    //              $message         = $data[0]["user_beacon_device_name"];
-    //              $timestamp       = date('Y-m-d H:i:s');
-    //              $track_id        = "DEVICEDISCONNECT";
-    //              $user_id 		  = $data[0]["fk_user_id"];
-    //              $device_id 	  = $data[0]["fk_beacon_device_id"];
+        return true;
+    }
 
-    //              $msg_android = array
-    //                  (
-    //                  'title' => $title,
-    //                  'message' => $message,
-    //                  'timestamp' => $timestamp,
-    //                  'track_id' => $track_id,
-    //                  'user_id' => $user_id,
-    //                  'beacon_device_id' => $device_id,
-    //              );
-    //              $fields = array( 
-    //                  'to' => $token,
-    //                  'data' => $msg_android,
-                     
-    //              );
-    //              $headers = array
-    //                  (
-    //                  'Authorization: key=AAAAA2Yrf1U:APA91bH_6qZRUcJkK9NihbrZiOgXSfwy3sDVLRCY4zo0lFMARkPKXSVC3MRymbSl92uyNf9GWQdqSO8Ip-jCEGBTOtKi9Fmi84zNpxRdM-gBfTS8de9gUA9coVVJ_IhXxyoNeHr-OEOF',
-    //                  'Content-Type: application/json',
-    //              );
-    //              $ch = curl_init();
-    //              curl_setopt($ch, CURLOPT_URL, 'https://fcm.googleapis.com/fcm/send');
-    //              curl_setopt($ch, CURLOPT_POST, true);
-    //              curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    //              curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    //              curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-    //              curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($fields));
-    //              $result = curl_exec($ch);
-    //              curl_close($ch);
-
-    //  }
    
 }  
 ?>  

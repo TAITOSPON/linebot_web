@@ -22,7 +22,7 @@ class Model_User extends CI_Model
             
             $this->db->insert('lb_user_ad', $data);
 
-            return "true";  
+            return true;  
 
         }else if($count == "1"){
 
@@ -38,14 +38,14 @@ class Model_User extends CI_Model
                    
             if ($this->db->trans_status() === false) {
                 $this->db->trans_rollback();
-                return "false";
+                return false;
             } else {
                 $this->db->trans_commit();
-                return "true";
+                return true;
             }
         }
                                 
-        return "false";  
+        return false;  
     }
 
     public function Set_user_line_account($result) {
@@ -68,7 +68,7 @@ class Model_User extends CI_Model
             );
 
             $this->db->insert('lb_user_line_account', $data);
-            return "true";
+            return true;
     
    
         }else if($count == "1"){
@@ -84,15 +84,15 @@ class Model_User extends CI_Model
                    
             if ($this->db->trans_status() === false) {
                 $this->db->trans_rollback();
-                return "false";
+                return false;
             } else {
                 $this->db->trans_commit();
-                return "true";
+                return true;
             }
 
         }
     
-        return "false";  
+        return false;  
     }
 
     public function Set_user_connect_login($result) {
@@ -113,7 +113,7 @@ class Model_User extends CI_Model
             );
 
             $this->db->insert('lb_user_connect', $data);
-            return "true";
+            return true;
 
         }else if($count == "1"){
 
@@ -127,13 +127,13 @@ class Model_User extends CI_Model
                    
             if ($this->db->trans_status() === false) {
                 $this->db->trans_rollback();
-                return "false";
+                return false;
             } else {
                 $this->db->trans_commit();
-                return "true";
+                return true;
             }
         }
-        return "false";  
+        return false;  
     }
 
 
