@@ -103,9 +103,9 @@ span.psw {
               liff.login({ redirectUri: window.location.href }) 
           }
 
-          function CloseWindow(){
-              liff.closeWindow()
-          }
+          // function CloseWindow(){
+          //     liff.closeWindow()
+          // }
           async function getUserProfile() {
               const profile = await liff.getProfile()
               
@@ -125,14 +125,17 @@ span.psw {
           async function main() {
               await liff.init({ liffId: "1655109480-NdbD97GK" })
               if(liff.isInClient()){
+
                   getUserProfile()
+
               }else{
-              if(liff.isLoggedIn()) {
-                  getUserProfile()
-              }else{
-                  logIn()
+
+                if(liff.isLoggedIn()) {
+                    getUserProfile()
+                }else{
+                    logIn()
+                }
               }
-            }
           }
           main()
         </script>

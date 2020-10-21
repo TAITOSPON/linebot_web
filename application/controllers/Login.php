@@ -19,7 +19,7 @@ class Login extends CI_Controller {
         // echo $user_ad." ".$user_ad_pass." ".$user_line_uid." ".$user_line_name; exit();
 
         $this->GetLogin_AD($user_ad,$user_ad_pass,$user_line_uid, $user_line_name,$user_line_pic_url);
-
+        // $this->load->view('welcome_view');
      
     }  
 
@@ -42,21 +42,33 @@ class Login extends CI_Controller {
         if($PERSON_CODE!=""){
 
             $this->load->model('Model_User');
-            $status = $this->Model_User->Set_user_ad($result);
+            $status_user_ad = $this->Model_User->Set_user_ad($result);
             
-            if($status == "true"){
-                // $status = $this->Model_User->Set_user_line_account($result);
-        
-            }
+            if($status_user_ad == "true"){
+                $status_user_line = $this->Model_User->Set_user_line_account($result);
+                if($status_user_line == "true"){
+
+                    $status_user_connect = $this->Model_User->Set_user_connect_login($result);
+                    if($status_user_connect == "true"){
+
+                        // echo  "status_user_connect".$status_user_connect;
+
+                        $this->load->view('welcome_view');
+
+                    }else {echo "db user_connect false";}
+
+                }else {echo "db user_line false";}
+  
+            }else {echo "db user_ad false";}
       
-        
+    
 
         }else{
-            echo "empty";
+            echo "ad PERSON_CODE false";
         }
    
 
-         // $this->load->view('welcome_message');
+         
     }
 
 

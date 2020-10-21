@@ -14,7 +14,6 @@ class Model_User extends CI_Model
         if($count == "0"){
         
             $data = array(
-                    'user_ad_id' => NULL,
                     'user_ad_code' => $result['PERSON_CODE'], 
                     'user_ad_name' => $result['PERSON_NAME'],
                     'user_ad_dept_code' => $result['PERSON_DEPT_CODE'],
@@ -28,7 +27,6 @@ class Model_User extends CI_Model
         }else if($count == "1"){
 
             $data = array(
-                'user_ad_id' => NULL,
                 'user_ad_code' => $result['PERSON_CODE'], 
                 'user_ad_name' => $result['PERSON_NAME'],
                 'user_ad_dept_code' => $result['PERSON_DEPT_CODE'],
@@ -52,26 +50,91 @@ class Model_User extends CI_Model
 
     public function Set_user_line_account($result) {
 
-        // INSERT INTO `lb_user_line_account` (`user_line_id`, `user_line_uid`, `user_line_display_name`, `user_line_picture_url`) VALUES (NULL, 'sdfsdfsdfsdfsdfsfdsdfsdfsdf', 'test', 'www.test.com');
-      
-        $data = array(
-            'user_line_id' => NULL,
-            'user_line_uid' =>  $result['user_line_uid'], 
-            'user_line_display_name' => $result['user_line_name'],
-            'user_line_picture_url' => $result['user_line_pic_url']
-            
-        );
+        // SELECT COUNT(user_line_uid)FROM lb_user_line_account WHERE user_line_uid = "U4f34652f4e163d5492b3fbe573a50d0a"
+        $user_line_uid = $result['user_line_uid'];
+        $data = $this->db->query("SELECT COUNT(user_line_uid)FROM lb_user_line_account WHERE user_line_uid = '$user_line_uid'")->result_array();
+        
+        $count = $data[0]["COUNT(user_line_uid)"];
+
+        // echo $count; exit();
+
+        if($count == "0"){
+
+            $data = array(
+                'user_line_uid' =>  $result['user_line_uid'], 
+                'user_line_display_name' => $result['user_line_name'],
+                'user_line_picture_url' => $result['user_line_pic_url']
+                
+            );
+
+            $this->db->insert('lb_user_line_account', $data);
+            return "true";
     
-        $this->db->insert('lb_user_line_account', $data);
+   
+        }else if($count == "1"){
+
+            $data = array(
+                'user_line_uid' =>  $result['user_line_uid'], 
+                'user_line_display_name' => $result['user_line_name'],
+                'user_line_picture_url' => $result['user_line_pic_url']
+                
+            );
+            $this->db->trans_begin();
+            $this->db->where('user_line_uid', $user_line_uid)->set($data)->update('lb_user_line_account');
+                   
+            if ($this->db->trans_status() === false) {
+                $this->db->trans_rollback();
+                return "false";
+            } else {
+                $this->db->trans_commit();
+                return "true";
+            }
+
+        }
+    
         return "false";  
     }
 
-    // public function Connect_userad_with_userline($result) {
+    public function Set_user_connect_login($result) {
 
-    //     // INSERT INTO `lb_user` (`user_id`, `user_line_id`, `user_line_uid`, `user_ad_id`, `user_status`) VALUES (NULL, '5', 'htrfhgj44', '154898', '1');
 
-    //     return "false";  
-    // }
+        $user_ad_code = $result['PERSON_CODE'];
+        $data = $this->db->query("SELECT COUNT(user_ad_code)FROM lb_user_connect WHERE user_ad_code = '$user_ad_code'")->result_array();
+        
+        $count = $data[0]["COUNT(user_ad_code)"];
+        if($count == "0"){
+
+            // INSERT INTO `lb_user_connect` (`user_connect_id`, `user_ad_code`, `user_line_uid`, `user_connect_status`) VALUES (NULL, '56365', 'sdfgsdfgs', 'true');
+            $data = array(
+                'user_connect_id' =>  NULL, 
+                'user_ad_code' => $result['PERSON_CODE'],
+                'user_line_uid' => $result['user_line_uid'],
+                'user_connect_status' => "true"
+            );
+
+            $this->db->insert('lb_user_connect', $data);
+            return "true";
+
+        }else if($count == "1"){
+
+            $data = array(
+                'user_ad_code' => $result['PERSON_CODE'],
+                'user_line_uid' => $result['user_line_uid'],
+                'user_connect_status' => "true"
+            );
+            $this->db->trans_begin();
+            $this->db->where('user_ad_code', $user_ad_code)->set($data)->update('lb_user_connect');
+                   
+            if ($this->db->trans_status() === false) {
+                $this->db->trans_rollback();
+                return "false";
+            } else {
+                $this->db->trans_commit();
+                return "true";
+            }
+        }
+        return "false";  
+    }
 
 
     public function Get_log_login() {
