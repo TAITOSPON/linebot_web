@@ -12,7 +12,6 @@ class Api_User extends REST_Controller{
               $data = json_decode(file_get_contents('php://input'), true);
               $this->load->model('Model_User');
               $result = $this->Model_User->Set_user_logout($data);  
-              $result = array('status' => $result, );
               echo json_encode($result,JSON_PRETTY_PRINT);
  
        }
@@ -21,11 +20,7 @@ class Api_User extends REST_Controller{
 
               $data = json_decode(file_get_contents('php://input'), true);
               $this->load->model('Model_User');
-
               $result = $this->Model_User->Get_user_login($data);  
-
-              // $result = array('status' => $result, );
-
               echo json_encode($result,JSON_PRETTY_PRINT);
  
        }
@@ -47,8 +42,6 @@ class Api_User extends REST_Controller{
               echo json_encode($main,JSON_PRETTY_PRINT);
 
        }
-
-
 
 
 }

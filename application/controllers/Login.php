@@ -4,9 +4,35 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends CI_Controller {  
       
     public function index()  
-    {  
-        $this->load->view('login_view');  
+    {       
+        $this->load->view('login_check_view'); 
     }  
+
+    public function Check_login(){
+
+        $result['user_line_uid']        = $this->input->post('user_line_uid');
+        $result['user_line_name']       = $this->input->post('user_line_name');
+        $result['user_line_pic_url']    = $this->input->post('user_line_pic_url');
+
+        $this->load->model('Model_User');
+        $result = $this->Model_User->Get_user_login($result);  
+
+        // echo json_encode($result,JSON_PRETTY_PRINT);
+
+        if($result["result"] == "check_login_true"){
+
+            $this->load->view('login_success_view');
+
+        }else if($result["result"] == "check_login_false"){
+            
+            $this->load->view('login_view');  
+        
+        }else{
+            echo "db check login false";
+        }
+
+
+    }
     
     public function login_process()  
     {  
@@ -50,7 +76,7 @@ class Login extends CI_Controller {
 
                      
                         if($this->Postcallbacklogin($result)){    
-                            $this->load->view('welcome_view');
+                            $this->load->view('login_success_view');
                         }
 
                     }else {echo "db user_connect false";}
@@ -58,7 +84,6 @@ class Login extends CI_Controller {
                 }else {echo "db user_line false";}
   
             }else {echo "db user_ad false";}
-      
     
 
         }else{

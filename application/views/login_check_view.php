@@ -69,13 +69,18 @@ span.psw {
 
 </head>
     <body>
-        <form action="<?php echo site_url('Login/login_process'); ?>" method="post">
+
+        <form id="myform" action="<?php echo site_url('Login/Check_login'); ?>" method="post">
+
+          
             <div class="container">
-                <label for="uname"><b>รหัสพนักงานการยาสูบแห่งประเทศไทย</b></label>
-                <input type="text" placeholder="รหัสพนักงาน 6 หลัก" name="user" required>
+
+                <label for="loading"><b>loading</b></label>
+                <!-- <label for="uname"><b>ชื่อผู้ใช้งาน</b></label>
+                <input type="text" placeholder="กรอกชื่อผู้ใช้งาน" name="user" required>
                 
                 <label for="psw"><b>รหัสผ่าน</b></label>
-                <input type="password" placeholder="กรอกรหัสผ่าน" name="pass" required>
+                <input type="password" placeholder="กรอกรหัสผ่าน" name="pass" required> -->
         
                 <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
@@ -83,31 +88,29 @@ span.psw {
                 <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
                 <input type="text" id="user_line_name" name="user_line_name" >
                 <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
-
-                <button type="submit" >เข้าสู่ระบบ</button>
-
-                <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button> -->
+                
+                <!-- <button type="submit" >เข้าสู่ระบบ</button> -->
+                <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button>  -->
 
             </div>
-          
 
-          <!-- <img id="pictureUrl"> -->
-         
-          
+      
             <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
             <script>
+
+                function logIn(){  liff.login({ redirectUri: window.location.href })  }
+
+
                 function logOut(){
                     liff.logout() 
                     window.location.reload()
                 }
+        
 
-                function logIn(){ 
-                    liff.login({ redirectUri: window.location.href }) 
+                function CloseWindow(){
+                    liff.closeWindow()
                 }
 
-                // function CloseWindow(){
-                //     liff.closeWindow()
-                // }
                 async function getUserProfile() {
                     const profile = await liff.getProfile()
                     
@@ -119,27 +122,25 @@ span.psw {
                         document.getElementById('user_line_uid').value = user_id;
                         document.getElementById('user_line_name').value = name;
                         document.getElementById('user_line_pic_url').value = user_line_pic_url;
+                        document.getElementById("myform").submit();
                     }
-                  // document.getElementById("pictureUrl").src = profile.pictureUrl           
+        
                 } 
-
 
                 async function main() {
                     await liff.init({ liffId: "1655109480-NdbD97GK" })
-                    if(liff.isInClient()){
-
-                        getUserProfile()
-
-                    }else{
-
-                        if(liff.isLoggedIn()) {
+                        if(liff.isInClient()){
                             getUserProfile()
                         }else{
-                            logIn()
+
+                            if(liff.isLoggedIn()) {
+                                getUserProfile()
+                            }else{
+                                logIn()
+                            }
                         }
-                    }
                 }
-              main()
+                main()
             </script>
         </form>
     </body>

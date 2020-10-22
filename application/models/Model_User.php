@@ -144,47 +144,39 @@ class Model_User extends CI_Model
 
         $user_line_uid = $result["user_line_uid"];
 
-        $query = $this->db->query("SELECT COUNT(user_line_uid)FROM lb_user_connect WHERE user_line_uid = '$user_line_uid'")->result_array();
-        $count = $query[0]["COUNT(user_line_uid)"];
-
-        $data = array(
-            'user_line_uid' => "",
-        );
+        $data = array('user_line_uid' => "");
 
         $this->db->trans_begin();
         $this->db->where('user_line_uid', $user_line_uid)->set($data)->update('lb_user_connect');
                 
         if ($this->db->trans_status() === false) {
             $this->db->trans_rollback();
-            return false;
+            
+            return array('status' => false, 'result' => "logout_update_false" ,'data' => "");
         } else {
             $this->db->trans_commit();
-            return true;
+            return array('status' => true, 'result' => "logout_update_true" ,'data' =>  "");
         }
 
-        return false;
+        return array('status' => false, 'result' => "logout_update_error" ,'data' =>  "");;
     }
 
 
     public function Get_user_login($result){
 
-
         $user_line_uid = $result["user_line_uid"];
-
-
         $query = $this->db->query("SELECT COUNT(user_line_uid)FROM lb_user_connect WHERE user_line_uid = '$user_line_uid'")->result_array();
         $count = $query[0]["COUNT(user_line_uid)"];
 
         if($count == "1"){
             $query = $this->db->get_where('lb_user_connect', array('user_line_uid' => $user_line_uid))->result_array();
-            return $query;  
+            return array('status' => true, 'result' => "check_login_true" ,'data' =>  $query);
 
         }else if($count == "0"){
-            return "notlogin";
+            return array('status' => false, 'result' => "check_login_false", 'data' =>  "");
         }
 
-        return false;
-
+        return array('status' => false, 'result' => "check_login_error", 'data' =>  "");
        
     }
 
