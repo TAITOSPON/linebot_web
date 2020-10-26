@@ -25,6 +25,15 @@ class Api_User extends REST_Controller{
  
        }
 
+       // public function User_tick_logout_get(){
+       //        // $this->uri->segment('3');
+       //        $this->load->model('Model_User');
+       //        $data = $this->Model_User->Get_log_login();
+       //        echo json_encode($data,JSON_PRETTY_PRINT);
+
+       // }
+
+
 
        public function list_log_login_get(){
 
