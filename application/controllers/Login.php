@@ -5,8 +5,17 @@ class Login extends CI_Controller {
       
     public function index()  
     {       
-        $this->load->view('login_check_view'); 
+        $this->Goto_login_success_view('login_check_view');
+
     }  
+
+    public function Goto_login_success_view($view){
+        $data = array( 
+            'site_url' => "Login/Check_login" ,
+            'liff_id' => "1655109480-NdbD97GK"
+        );
+        $this->load->view($view,$data);
+    }
 
     public function Check_login(){
 
@@ -21,7 +30,7 @@ class Login extends CI_Controller {
 
         if($result["result"] == "check_login_true"){
 
-            $this->load->view('login_success_view');
+            $this->Goto_login_success_view('login_success_view');
 
         }else if($result["result"] == "check_login_false"){
             
@@ -76,7 +85,7 @@ class Login extends CI_Controller {
 
                      
                         if($this->Postcallbacklogin($result)){    
-                            $this->load->view('login_success_view');
+                            $this->Goto_login_success_view('login_success_view');
                         }
 
                     }else {echo "db user_connect false";}
@@ -108,6 +117,6 @@ class Login extends CI_Controller {
         return true;
     }
 
-   
+
 }  
 ?>  

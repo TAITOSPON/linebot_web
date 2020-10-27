@@ -161,7 +161,6 @@ class Model_User extends CI_Model
         return array('status' => false, 'result' => "logout_update_error" ,'data' =>  "");;
     }
 
-
     public function Get_user_login($result){
 
         $user_line_uid = $result["user_line_uid"];
@@ -179,8 +178,6 @@ class Model_User extends CI_Model
         return array('status' => false, 'result' => "check_login_error", 'data' =>  "");
        
     }
-
-  
 
     public function Get_user_ad_with_line_uid($result){
 

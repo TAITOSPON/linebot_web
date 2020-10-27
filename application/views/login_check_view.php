@@ -70,7 +70,7 @@ span.psw {
 </head>
     <body>
 
-        <form id="myform" action="<?php echo site_url('Login/Check_login'); ?>" method="post">
+        <form id="myform" action="<?php echo site_url($site_url); ?>" method="post">
 
           
             <div class="container">
@@ -128,7 +128,9 @@ span.psw {
                 } 
 
                 async function main() {
-                    await liff.init({ liffId: "1655109480-NdbD97GK" })
+                    var liff_id="<?php echo $liff_id;?>";
+                    await liff.init({ liffId: liff_id })
+
                         if(liff.isInClient()){
                             getUserProfile()
                         }else{
@@ -141,6 +143,8 @@ span.psw {
                         }
                 }
                 main()
+              
+      
             </script>
         </form>
     </body>

@@ -69,10 +69,10 @@ span.psw {
 
 </head>
   <body>
-     
+
         <div class="container">
           
-            <label for="psw"><b>เข้าสู่ระบบสำเร็จ</b></label>
+            <!-- <label for="psw"><b>เข้าสู่ระบบสำเร็จ</b></label> -->
 
         </div>
       
@@ -83,7 +83,10 @@ span.psw {
 
           async function closeWindow() {liff.closeWindow() } 
           async function main() {
-              await liff.init({ liffId: "1655109480-NdbD97GK" })
+
+              var liff_id="<?php echo $liff_id;?>";
+              await liff.init({ liffId: liff_id })
+              // await liff.init({ liffId: "1655109480-NdbD97GK" })
                 if(liff.isInClient()){
                     closeWindow()
                 }else{

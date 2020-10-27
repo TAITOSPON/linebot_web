@@ -37,8 +37,7 @@ class Api_User extends REST_Controller{
 
        public function list_log_login_get(){
 
-              $this->load->model('Model_User');
-              $data = $this->Model_User->Get_log_login();
+              $data = array('liff_id' => "1655109480-VOMzYnqm");
               echo json_encode($data,JSON_PRETTY_PRINT);
 
        }
