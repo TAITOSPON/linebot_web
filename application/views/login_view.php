@@ -26,6 +26,10 @@ button {
   width: 100%;
 }
 
+.buttonradius {
+  border-radius: 8px;
+}
+
 button:hover {
   opacity: 0.8;
 }
@@ -70,12 +74,12 @@ span.psw {
 </head>
     <body>
         <form action="<?php echo site_url('Login/login_process'); ?>" method="post">
-            <div class="container">
+            <div class="container ">
                 <label for="uname"><b>รหัสพนักงานการยาสูบแห่งประเทศไทย</b></label>
-                <input type="text" placeholder="รหัสพนักงาน 6 หลัก" name="user" required>
+                <input type="text" placeholder="รหัสพนักงาน 6 หลัก" name="user" required class="buttonradius">
                 
                 <label for="psw"><b>รหัสผ่าน</b></label>
-                <input type="password" placeholder="กรอกรหัสผ่าน" name="pass" required>
+                <input type="password" placeholder="กรอกรหัสผ่าน" name="pass" required class="buttonradius">
         
                 <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
@@ -84,7 +88,7 @@ span.psw {
                 <input type="text" id="user_line_name" name="user_line_name" >
                 <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
 
-                <button type="submit" >เข้าสู่ระบบ</button>
+                <button type="submit" class="buttonradius" >เข้าสู่ระบบ</button>
 
                 <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button> -->
 

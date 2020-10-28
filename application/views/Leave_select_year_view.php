@@ -26,6 +26,10 @@ button {
   width: 100%;
 }
 
+.buttonradius {
+  border-radius: 8px;
+}
+
 button:hover {
   opacity: 0.8;
 }
@@ -50,6 +54,18 @@ img.avatar {
   padding: 16px;
 }
 
+.text_right {
+    text-align:right;
+}
+
+.right{
+    float:right;
+}
+
+.left{
+    float:left;
+}
+
 
 .selectbox {
   background-color: #D39D2B;
@@ -58,7 +74,7 @@ img.avatar {
   margin: 8px 0;
   border: none;
   cursor: pointer;
-  width: 100%;
+  /* width: 30%; */
 }
 
 span.psw {
@@ -77,19 +93,25 @@ span.psw {
   }
 }
 
+
 </style>
 
 </head>
     <body>
 
-    
-       
-        <form id="myform" action="<?php echo site_url('Leave/Leave_year_select'); ?>" method="post">
-     
+        <form id="myform" action="<?php echo site_url('Leave/Leave_select_year_detail'); ?>" method="post">
+            
+        
+
             <div class="container">
+
+                <label  id="user_ad_name"></label>   
+                <p></p>
                 <label for="psw"><b>ปีงบประมาณ</b></label>
+
                 <!-- <select onchange="SetData()|this.form.submit()" name="select_leave_year" id="select_leave_year" class="selectbox"> -->
-                <select onchange="SetData()" name="select_leave_year" id="select_leave_year" class="selectbox">
+                
+                <select onchange="SetData()" name="select_leave_year" id="select_leave_year" class="selectbox buttonradius">
 
                     <?PHP for ($i = 0; $i < sizeof($leave_year); $i++) {?> 
                             <option value=<?PHP echo $leave_year[$i]["Value"];?>> <?PHP echo $leave_year[$i]["Value"];?></option>
@@ -97,30 +119,40 @@ span.psw {
 
                 </select>
                 
-          
-                
-                <!-- <input type="hidden" id="user_line_uid" name="user_line_uid" >
+            ​
+                <input type="hidden" id="Leave_select_year_detail" name="Leave_select_year_detail" >
+                <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_ad_code" name="user_ad_code" >
-                <input type="hidden" id="leave_year_select" name="leave_year_select" > -->
+                <input type="hidden" id="leave_year_select" name="leave_year_select" >
 
+
+                <!-- <input type="text" id="data" name="data" >
                 <input type="text" id="user_line_uid" name="user_line_uid" >
                 <input type="text" id="user_ad_code" name="user_ad_code" >
-                <input type="text" id="leave_year_select" name="leave_year_select" >
+                <input type="text" id="leave_year_select" name="leave_year_select" > -->
 
+               
+                <p></p>
+                <label>จำนวนวันลาพักร้อนที่โอนมาจากปีที่แล้ว </label>
+                <label id="SumLeaveYear"></label>
+                <label>วัน</label>
+                <p></p>
 
-                <!-- <label for="psw"><b>โอน</b></label>
-                <input type="text" id="SumLeaveYear" name="SumLeaveYear" >
+                <label>จำนวนวันลาพักร้อนในปีนี้ </label>
+                <label id="TotalLeave"></label>
+                <label>วัน</label>
+                <p></p>
 
-                <label for="psw"><b>in year </b></label>
-                <input type="text" id="TotalLeave" name="TotalLeave" >
+                <label>จำนวนวันลาพักร้อนคงเหลือ</label>
+                <label id="TotalLeaveAvailable"></label>
+                <label>วัน</label>
+                <p></p>
 
-                <label for="psw"><b>Total</b></label>
-                <input type="text" id="TotalLeaveAvailable" name="TotalLeaveAvailable" > -->
+             
+               <!-- <button type="submit" >เข้าสู่ระบบ</button> -->
+                <button type="submit" id="btndetail" class="buttonradius" >ดูข้อมูลโดยรวม</button> 
+
           
-                <!-- <button type="submit" >เข้าสู่ระบบ</button>
-                <button id="btnLogOut" onclick="logOut()">Log Out line</button>  -->
-
-                <p id="demo"></p>
 
 
             </div>
@@ -129,39 +161,26 @@ span.psw {
             <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
             <script>
 
-                function logIn(){  liff.login({ redirectUri: window.location.href })  }
 
-                function logOut(){
-                    liff.logout() 
-                    // window.location.reload()
-                }
-              
-                async function closeWindow() {
-                  logOut()
-                  // liff.closeWindow()
-                  
-                } 
-                async function main() {
+                async function liff_logout() {
 
                     var liff_id="<?php echo $liff_id;?>";
-                    await liff.init({ liffId: liff_id })
-                    // await liff.init({ liffId: "1655109480-NdbD97GK" })
+                    await liff.init({ liffId: liff_id }) 
                       if(liff.isInClient()){
-                          closeWindow()
+                          liff.logout() 
                       }else{
 
                           if(liff.isLoggedIn()) {
-                              closeWindow()
-                          }else{
-                              // logIn()
+                              liff.logout() 
                           }
                       }
                 }
 
 
+
                 async function SetData() {
               
-                  
+                    const api_Leave_year = "<?php echo site_url('api/Api_Leave/Leave_year'); ?>";
                     const user_line_uid = "<?php echo $user_line_uid;?>";
                     const user_ad_code = "<?php echo $user_ad_code;?>";
                     const leave_year_select = document.getElementById("select_leave_year").value;
@@ -171,7 +190,7 @@ span.psw {
                     document.getElementById('leave_year_select').value = leave_year_select;
 
                     var http = new XMLHttpRequest();
-                    var url = 'https://webhook.toat.co.th/linebot/web/index.php/api/Api_Leave/Leave_year';
+                    var url = api_Leave_year;
                     var params = 'user_line_uid='+user_line_uid+'&user_ad_code='+user_ad_code+'&leave_year='+leave_year_select;
                     http.open('POST', url, true);
 
@@ -183,18 +202,23 @@ span.psw {
 
                             // var myArr = JSON.parse(this.responseText);
                             // document.getElementById("SumLeaveYear").innerHTML = myArr["status"];
-                            // response.json()
-                            document.getElementById("demo").innerHTML = this.responseText;
+                           
+                            document.getElementById("Leave_select_year_detail").value = this.responseText;
+                            
+                            var json = JSON.parse(this.responseText);           
+                            document.getElementById("user_ad_name").innerHTML = json.result.user.user_ad_name;
+
+                            document.getElementById("SumLeaveYear").innerHTML = json.result.leave_head.SumLeaveYear;
+                            document.getElementById("TotalLeave").innerHTML = json.result.leave_head.TotalLeave;
+                            document.getElementById("TotalLeaveAvailable").innerHTML = json.result.leave_head.TotalLeaveAvailable;
                   
                         }
                     }
                     http.send(params);
                    
-                   
                 } 
 
-
-                main()
+                liff_logout()      
                 SetData()
               
            

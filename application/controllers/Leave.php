@@ -3,21 +3,20 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
 class Leave extends CI_Controller {  
       
-    public function index()  
-    {       
-
+    public function index(){    
+        
         $data = array( 
             'site_url' => "Leave/Leave_select_year" ,
             'liff_id' => "1655109480-VOMzYnqm"
         );
         $this->load->view('login_check_view', $data); 
 
-  
     }  
+    
 
     public function Leave_select_year(){
         // $this->load->view('welcome_message'); 
-
+        
 
         $data['user_line_uid'] = $this->input->post('user_line_uid');
 
@@ -28,7 +27,7 @@ class Leave extends CI_Controller {
         if(sizeof($result) != 0){
             
             $user_ad_code = $result[0]["user_ad_code"]; 
-            //  $user_ad_code = "003259";
+            // $user_ad_code = "003259";
             // echo $user_ad_code; exit();
 
             $this->load->model('Model_Leave');
@@ -36,7 +35,7 @@ class Leave extends CI_Controller {
 
             $data = array(
                 'liff_id' => "1655109480-VOMzYnqm",
-                'text_status' => "login_false",
+                'text_status' => "login_true",
                 "user_line_uid" => $data['user_line_uid'],
                 'user_ad_code' => $user_ad_code,
                 'leave_year' => $leave_year,
@@ -47,13 +46,33 @@ class Leave extends CI_Controller {
         }else{
             // retrun postnotlogin
             $data = array( 
-                'site_url' => "Login/Check_login" ,
                 'liff_id' => "1655109480-VOMzYnqm",
                 'text_status' => "login_false"
             );
             $this->load->view('login_success_view',$data);
         }
          
+
+    }
+
+    public function Leave_select_year_detail(){
+
+
+        $data['Leave_select_year_detail'] = $this->input->post('Leave_select_year_detail');
+        $data['leave_year_select'] = $this->input->post('leave_year_select');
+
+        // echo  $data['Leave_select_year_detail']; exit();
+    
+
+        $data = array(
+            // 'liff_id' => "1655109480-VOMzYnqm",
+            // 'text_status' => "login_true",
+            'leave_year_select' =>  $data['leave_year_select'],
+            "Leave_select_year_detail" => $data['Leave_select_year_detail'] 
+        );
+
+        $this->load->view('Leave_select_year_detail_view',$data); 
+        // $this->load->view('welcome_message'); 
 
     }
 
