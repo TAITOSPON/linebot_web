@@ -35,6 +35,8 @@ class Leave extends CI_Controller {
             $leave_year = $this->Model_Leave->get_leave_year($user_ad_code);
 
             $data = array(
+                'liff_id' => "1655109480-VOMzYnqm",
+                'text_status' => "login_false",
                 "user_line_uid" => $data['user_line_uid'],
                 'user_ad_code' => $user_ad_code,
                 'leave_year' => $leave_year,
@@ -44,7 +46,11 @@ class Leave extends CI_Controller {
 
         }else{
             // retrun postnotlogin
-            $data = array('liff_id' => "1655109480-VOMzYnqm");
+            $data = array( 
+                'site_url' => "Login/Check_login" ,
+                'liff_id' => "1655109480-VOMzYnqm",
+                'text_status' => "login_false"
+            );
             $this->load->view('login_success_view',$data);
         }
          

@@ -5,14 +5,19 @@ class Login extends CI_Controller {
       
     public function index()  
     {       
-        $this->Goto_login_success_view('login_check_view');
+        $data = array( 
+            'site_url' => "Login/Check_login" ,
+            'liff_id' => "1655109480-NdbD97GK",
+        );
+        $this->load->view('login_check_view',$data);
 
     }  
 
     public function Goto_login_success_view($view){
         $data = array( 
             'site_url' => "Login/Check_login" ,
-            'liff_id' => "1655109480-NdbD97GK"
+            'liff_id' => "1655109480-NdbD97GK",
+            'text_status' => "login_true"
         );
         $this->load->view($view,$data);
     }

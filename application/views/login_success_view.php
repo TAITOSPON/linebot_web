@@ -72,7 +72,9 @@ span.psw {
 
         <div class="container">
           
-            <!-- <label for="psw"><b>เข้าสู่ระบบสำเร็จ</b></label> -->
+            <label idfor="text_status"><b><?php echo $text_status;?></b></label>
+           
+            
 
         </div>
       
@@ -81,7 +83,16 @@ span.psw {
 
           function logIn(){  liff.login({ redirectUri: window.location.href })  }
 
-          async function closeWindow() {liff.closeWindow() } 
+          function logOut(){
+                    liff.logout() 
+                    // window.location.reload()
+          }
+        
+          async function closeWindow() {
+            logOut()
+            liff.closeWindow()
+            
+          } 
           async function main() {
 
               var liff_id="<?php echo $liff_id;?>";
@@ -94,7 +105,7 @@ span.psw {
                     if(liff.isLoggedIn()) {
                         closeWindow()
                     }else{
-                        logIn()
+                        // logIn()
                     }
                 }
           }

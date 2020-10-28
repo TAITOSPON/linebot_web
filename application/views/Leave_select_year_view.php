@@ -99,13 +99,13 @@ span.psw {
                 
           
                 
-                <input type="hidden" id="user_line_uid" name="user_line_uid" >
+                <!-- <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_ad_code" name="user_ad_code" >
-                <input type="hidden" id="leave_year_select" name="leave_year_select" >
+                <input type="hidden" id="leave_year_select" name="leave_year_select" > -->
 
-                <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
+                <input type="text" id="user_line_uid" name="user_line_uid" >
                 <input type="text" id="user_ad_code" name="user_ad_code" >
-                <input type="text" id="leave_year_select" name="leave_year_select" > -->
+                <input type="text" id="leave_year_select" name="leave_year_select" >
 
 
                 <!-- <label for="psw"><b>โอน</b></label>
@@ -131,21 +131,36 @@ span.psw {
 
                 function logIn(){  liff.login({ redirectUri: window.location.href })  }
 
-
                 function logOut(){
                     liff.logout() 
-                    window.location.reload()
+                    // window.location.reload()
                 }
-        
+              
+                async function closeWindow() {
+                  logOut()
+                  // liff.closeWindow()
+                  
+                } 
+                async function main() {
 
-                function CloseWindow(){
-                    liff.closeWindow()
+                    var liff_id="<?php echo $liff_id;?>";
+                    await liff.init({ liffId: liff_id })
+                    // await liff.init({ liffId: "1655109480-NdbD97GK" })
+                      if(liff.isInClient()){
+                          closeWindow()
+                      }else{
+
+                          if(liff.isLoggedIn()) {
+                              closeWindow()
+                          }else{
+                              // logIn()
+                          }
+                      }
                 }
 
-           
 
                 async function SetData() {
-
+              
                   
                     const user_line_uid = "<?php echo $user_line_uid;?>";
                     const user_ad_code = "<?php echo $user_ad_code;?>";
@@ -168,10 +183,9 @@ span.psw {
 
                             // var myArr = JSON.parse(this.responseText);
                             // document.getElementById("SumLeaveYear").innerHTML = myArr["status"];
-
+                            // response.json()
                             document.getElementById("demo").innerHTML = this.responseText;
                   
-
                         }
                     }
                     http.send(params);
@@ -179,9 +193,11 @@ span.psw {
                    
                 } 
 
-                SetData()
-           
 
+                main()
+                SetData()
+              
+           
             </script>
         </form>
     </body>
