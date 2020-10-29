@@ -1,24 +1,36 @@
 <?php  
 defined('BASEPATH') OR exit('No direct script access allowed');  
+
+
   
 class Login extends CI_Controller {  
       
+
+    // var $liff_id = "1655109480-NdbD97GK"; 
+    var $liff_id = "1654967329-yQRPp5rQ"; // dev
+
     public function index()  
     {       
+
+   
         $data = array( 
             'site_url' => "Login/Check_login" ,
-            'liff_id' => "1655109480-NdbD97GK",
+            'liff_id' => $this->liff_id,
         );
+
+
         $this->load->view('login_check_view',$data);
 
     }  
 
     public function Goto_login_success_view($view){
+
         $data = array( 
             'site_url' => "Login/Check_login" ,
-            'liff_id' => "1655109480-NdbD97GK",
+            'liff_id' => $this->liff_id,
             'text_status' => "login_true"
         );
+
         $this->load->view($view,$data);
     }
 
@@ -38,8 +50,14 @@ class Login extends CI_Controller {
             $this->Goto_login_success_view('login_success_view');
 
         }else if($result["result"] == "check_login_false"){
-            
-            $this->load->view('login_view');  
+          
+            $data = array( 
+                'site_url' => "Login/Check_login" ,
+                'liff_id' => $this->liff_id,
+                'text_status' => "login_true"
+            );
+
+            $this->load->view('login_view',  $data);  
         
         }else{
             echo "db check login false";

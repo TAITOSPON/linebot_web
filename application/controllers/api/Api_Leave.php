@@ -17,18 +17,22 @@ class Api_Leave extends REST_Controller{
 
      // }
 
-     // public function Leave_year_select_post(){
-     //      $data = json_decode(file_get_contents('php://input'), true);
-     //      $this->load->model('Model_User');
-     //      $result = $this->Model_User->Get_user_ad_with_line_uid($data);  
+     public function Leave_year_select_post(){
+          
+          $data = json_decode(file_get_contents('php://input'), true);
+          $this->load->model('Model_User');
+          $result = $this->Model_User->Get_user_ad_with_line_uid($data);  
         
-     //      $user_ad_code = $result[0]["user_ad_code"]; 
+          $user_ad_code = $result[0]["user_ad_code"]; 
+          // $user_ad_code = "003259";
 
-     //      $this->load->model('Model_Leave');
-     //      $leave_year = $this->Model_Leave->get_leave_year($user_ad_code);
-     //      echo json_encode($leave_year,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+          $this->load->model('Model_Leave');
+          $leave_year = $this->Model_Leave->get_leave_year($user_ad_code);
+          echo json_encode($leave_year,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
-     // }
+     }
+
+    
      
      public function Leave_year_post(){
 
@@ -42,6 +46,7 @@ class Api_Leave extends REST_Controller{
           $result = $this->Model_User->Get_user_ad_with_line_uid($data);  
        
           $user_ad_code = $data['user_ad_code'];
+          //  $user_ad_code = "003259";
           $leave_year = $data["leave_year"];
           
           $this->load->model('Model_Leave');

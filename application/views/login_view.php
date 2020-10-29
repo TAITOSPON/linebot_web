@@ -129,7 +129,9 @@ span.psw {
 
 
                 async function main() {
-                    await liff.init({ liffId: "1655109480-NdbD97GK" })
+                    var liff_id="<?php echo $liff_id;?>";
+                    await liff.init({ liffId: liff_id })
+                    
                     if(liff.isInClient()){
 
                         getUserProfile()
