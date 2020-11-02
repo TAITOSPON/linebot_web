@@ -40,12 +40,15 @@ class Api_Leave extends REST_Controller{
 
           $data['user_line_uid'] = $this->input->post('user_line_uid');
           $data['leave_year'] = $this->input->post('leave_year');
-          $data['user_ad_code'] = $this->input->post('user_ad_code');
+          // $data['user_ad_code'] = $this->input->post('user_ad_code');
         
           $this->load->model('Model_User');
           $result = $this->Model_User->Get_user_ad_with_line_uid($data);  
+
+          // echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); exit();
        
-          $user_ad_code = $data['user_ad_code'];
+          $user_ad_code = $result[0]["user_ad_code"]; 
+
           //  $user_ad_code = "003259";
           $leave_year = $data["leave_year"];
           

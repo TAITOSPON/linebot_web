@@ -6,8 +6,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 class Login extends CI_Controller {  
       
 
-    // var $liff_id = "1655109480-NdbD97GK"; 
-    var $liff_id = "1654967329-yQRPp5rQ"; // dev
+    var $liff_id = "1655109480-NdbD97GK"; // toat
+    // var $liff_id = "1654967329-yQRPp5rQ"; // dev
 
     public function index()  
     {       
