@@ -51,5 +51,13 @@ class Api_User extends REST_Controller{
 
        }
 
+       public function User_test_post(){
+
+              $data = json_decode(file_get_contents('php://input'), true);
+    
+              echo json_encode($data,JSON_PRETTY_PRINT);
+ 
+       }
+
 
 }
