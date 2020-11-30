@@ -84,6 +84,7 @@ span.psw {
                 <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
                 <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
+
                 <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
                 <input type="text" id="user_line_name" name="user_line_name" >
                 <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
@@ -124,6 +125,20 @@ span.psw {
                         document.getElementById('user_line_name').value = name;
                         document.getElementById('user_line_pic_url').value = user_line_pic_url;
                     }
+              
+                  
+                    // liff.sendMessages([{
+                    //     type: 'text',
+                    //     text: "ลางาน"
+                    // }]).then(function () {
+                    //     // window.alert("Message sent");
+                    //     console.log('message sent');
+                    // }).catch(function (error) {
+                    //     // window.alert("Error sending message: " + error);
+                    //     console.log('error', err);
+                    // });
+                                  
+
                   // document.getElementById("pictureUrl").src = profile.pictureUrl           
                 } 
 

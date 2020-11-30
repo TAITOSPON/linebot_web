@@ -89,10 +89,36 @@ span.psw {
           }
         
           async function closeWindow() {
-            logOut()
-            liff.closeWindow()
-            
+              liff.closeWindow()  
+              SendMessage()
+              logOut()
+         
           } 
+
+
+          function SendMessage(){
+
+              var text_status="<?php echo $text_status;?>";
+
+              if(text_status == "login_true_first"){
+
+                  liff.sendMessages([{
+                      type : "text",
+                      text : "เข้าสู่ระบบ",
+                  }]
+
+                  ).then(function () {
+                      // window.alert("Message sent");
+                      console.log('message sent');
+                  }).catch(function (error) {
+                      // window.alert("Error sending message: " + error);
+                      console.log('error', err);
+                  });   
+
+              }
+              
+          }
+
           async function main() {
 
               var liff_id="<?php echo $liff_id;?>";

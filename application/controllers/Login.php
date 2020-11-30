@@ -23,12 +23,12 @@ class Login extends CI_Controller {
 
     }  
 
-    public function Goto_login_success_view($view){
+    public function Goto_login_success_view($view,$text_status){
 
         $data = array( 
             'site_url' => "Login/Check_login" ,
             'liff_id' => $this->liff_id,
-            'text_status' => "login_true"
+            'text_status' => $text_status
         );
 
         $this->load->view($view,$data);
@@ -47,7 +47,7 @@ class Login extends CI_Controller {
 
         if($result["result"] == "check_login_true"){
 
-            $this->Goto_login_success_view('login_success_view');
+            $this->Goto_login_success_view('login_success_view',"login_true");
 
         }else if($result["result"] == "check_login_false"){
           
@@ -106,10 +106,9 @@ class Login extends CI_Controller {
                 if($this->Model_User->Set_user_line_account($result)){
                     if($this->Model_User->Set_user_connect_login($result)){
 
+               
+                        $this->Goto_login_success_view('login_success_view',"login_true_first");
                      
-                        if($this->Postcallbacklogin($result)){    
-                            $this->Goto_login_success_view('login_success_view');
-                        }
 
                     }else {echo "db user_connect false";}
 
@@ -125,20 +124,20 @@ class Login extends CI_Controller {
 
     }
 
-    public function Postcallbacklogin($result){
+    // public function Postcallbacklogin($result){
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, 'https://webhook.toat.co.th/linebot/webhook/webhook');
-        curl_setopt($ch, CURLOPT_POST, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, array('User-Agent: login-true','Content-Type: application/json'));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($result));
-        $result = curl_exec($ch);
-        curl_close($ch);
+    //     $ch = curl_init();
+    //     curl_setopt($ch, CURLOPT_URL, 'https://webhook.toat.co.th/linebot/webhook/webhook');
+    //     curl_setopt($ch, CURLOPT_POST, true);
+    //     curl_setopt($ch, CURLOPT_HTTPHEADER, array('User-Agent: login-true','Content-Type: application/json'));
+    //     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    //     curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($result));
+    //     $result = curl_exec($ch);
+    //     curl_close($ch);
 
-        return true;
-    }
+    //     return true;
+    // }
 
 
 }  
