@@ -110,15 +110,25 @@ class Login extends CI_Controller {
                         $this->Goto_login_success_view('login_success_view',"login_true_first");
                      
 
-                    }else {echo "db user_connect false";}
+                    }else {
+                        // echo "db user_connect false";
+                        $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
+                    }
 
-                }else {echo "db user_line false";}
+                }else {
+                    // echo "db user_line false";
+                    $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
+                }
   
-            }else {echo "db user_ad false";}
+            }else {
+                // echo "db user_ad false";
+                $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
+            }
+
     
 
         }else{
-            echo "ad PERSON_CODE false";
+            $this->load->view('login_error_view',array( 'text_status' => "รหัสพนักงานไม่ถูกต้อง" ));
         }
    
 
