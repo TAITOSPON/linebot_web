@@ -69,13 +69,12 @@ span.psw {
 
 </head>
   <body>
-
+    <form>
         <div class="container">
-          
-            <label idfor="text_status"><b><?php echo $text_status;?></b></label>
-           
-            
-
+              <label for="loading"><b>loading</b></label>
+              <!-- <label idfor="text_status"><b><?php echo $text_status;?></b></label> -->
+            <!-- <input type="hidden" id="user_line_uid" name="user_line_uid" > -->
+      
         </div>
       
         <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
@@ -89,14 +88,11 @@ span.psw {
           }
         
           async function closeWindow() {
-              liff.closeWindow()  
-              SendMessage()
-              logOut()
-         
+              SendMessage()    
           } 
 
 
-          function SendMessage(){
+          async function SendMessage(){
 
               var text_status="<?php echo $text_status;?>";
 
@@ -110,11 +106,18 @@ span.psw {
                   ).then(function () {
                       // window.alert("Message sent");
                       console.log('message sent');
+                      liff.closeWindow()  
+                      logOut()
                   }).catch(function (error) {
                       // window.alert("Error sending message: " + error);
                       console.log('error', err);
+                      liff.closeWindow()  
+                      logOut()
                   });   
 
+              }else{
+                  liff.closeWindow()  
+                  logOut()
               }
               
           }
@@ -137,6 +140,6 @@ span.psw {
           }
           main()
         </script>
-
+    </form>
     </body>
 </html>

@@ -25,6 +25,16 @@ class Api_User extends REST_Controller{
  
        }
 
+       public function User_with_uid_post(){
+
+              $data = json_decode(file_get_contents('php://input'), true);
+              $this->load->model('Model_User');
+              $result = $this->Model_User->Get_user_ad_with_line_uid($data);  
+              echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+       }
+
+
        // public function User_tick_logout_get(){
        //        // $this->uri->segment('3');
        //        $this->load->model('Model_User');
