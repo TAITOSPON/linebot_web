@@ -73,6 +73,15 @@ span.psw {
     border-color: #fff transparent transparent transparent;
 }
 
+table {
+  border-collapse: collapse;
+  width: 100%; 
+}
+
+th, td {
+  text-align: left;
+  padding: 12px 20px;
+}
 
 
 /* Change styles for span and cancel button on extra small screens */
@@ -102,17 +111,41 @@ span.psw {
                 <input type="date" id="birthday" name="birthday" class="buttonradius">
                 <label for="uname"><b>ถึงวันที่*</b></label>
                 <input type="date" id="birthday" name="birthday" class="buttonradius">
-                <br><br>
-
-                <label>
-                <input type="checkbox" checked="checked" name="remember"> ลาเต็มวัน
-                </label>
-
-                <label>
-                <input type="checkbox" checked="checked" name="remember"> ลาครึ่งวัน
-                </label>
+    
+                <table>
+                  <tr>
+                    <th>
+                      <label>
+                        <input type="checkbox" name="radio"> ลาเต็มวัน
+                      </label>
+                    </th>
+                    <th>
+                      <label>
+                        <input type="checkbox"  name="radio" >ลาครึ่งวัน
+                      </label>
+                    </th>
+               
+                  </tr>
                 
-                <br><br>
+                </table>
+
+                <table>
+                  <tr>
+                    <th>
+                      <label>
+                        <input type="checkbox" name="radio"> ครึ่งเช้า
+                      </label>
+                    </th>
+                    <th>
+                      <label>
+                        <input type="checkbox"  name="radio" >ครึ่งบ่าย
+                      </label>
+                    </th>
+               
+                  </tr>
+                
+                </table>
+       
                 <label for="psw"><b>หมายเหตุ</b></label>
                 <input type="text" placeholder="หมายเหตุ" name="pass"  class="buttonradius">
                 
