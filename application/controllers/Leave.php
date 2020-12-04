@@ -6,7 +6,7 @@ class Leave extends CI_Controller {
     public function index(){    
         
         $data = array( 
-            'site_url' => "Leave/Leave_select_year" ,
+            'site_url' => "Leave/Leave_create" ,
             'liff_id' => "1655109480-VOMzYnqm"
         );
         $this->load->view('login_check_view', $data); 
@@ -74,6 +74,17 @@ class Leave extends CI_Controller {
         $this->load->view('Leave_select_year_detail_view',$data); 
         // $this->load->view('welcome_message'); 
 
+    }
+
+
+    public function Leave_create(){
+        
+        $data = array( 
+            'site_url' => "Leave/Leave_select_year" ,
+            'liff_id' => "1655109480-VOMzYnqm"
+        );
+
+        $this->load->view('Leave_create_view',$data); 
     }
 
 }

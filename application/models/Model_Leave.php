@@ -6,24 +6,22 @@ class Model_Leave extends CI_Model
     
     
     public function get_leave_year($user_ad_code){
-        // http://192.168.0.51/memberapi/api/yearrangeapi?id=003259
-        $file = "http://192.168.0.51/memberapi/api/yearrangeapi?id=".$user_ad_code;
+        $file = "https://memberapp.toat.co.th/memberapi/api/yearrangeapi?id=".$user_ad_code;
+     //    $file = "http://192.168.0.51/memberapi/api/yearrangeapi?id=".$user_ad_code;
         $data = json_decode(file_get_contents($file), true);
         return $data;
 
    }
 
    public function get_leave_head_year($user_ad_code,$leave_year){
-        // http://192.168.0.51/memberapi/api/leaveyearapi?id=003259&year=2562
-        $file = "http://192.168.0.51/memberapi/api/leaveyearapi?id=".$user_ad_code."&year=".$leave_year;
+        $file = "https://memberapp.toat.co.th/memberapi/api/leaveyearapi?id=".$user_ad_code."&year=".$leave_year;
         $data = json_decode(file_get_contents($file), true);
         return $data;
 
    }
 
    public function get_leave_detail_year($user_ad_code,$leave_year){
-        // http://192.168.0.51/memberapi/api/leaveyeardetailapi?id=003259&year=2562
-        $file = "http://192.168.0.51/memberapi/api/leaveyeardetailapi?id=".$user_ad_code."&year=".$leave_year;
+        $file = "https://memberapp.toat.co.th/memberapi/api/leaveyeardetailapi?id=".$user_ad_code."&year=".$leave_year;
         $data = json_decode(file_get_contents($file), true);  
      
         $leave_vacation = array();
