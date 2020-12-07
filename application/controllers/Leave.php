@@ -26,14 +26,23 @@ class Leave extends CI_Controller {
         $this->load->model('Model_User');
         $result = $this->Model_User->Get_user_ad_with_line_uid($result);  
         // echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); exit();
-        if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
-            
-            $data = array( 
-                'liff_id' =>  $this->liff_id,
-                'result_user' => $result[0]
-             );
-            $this->load->view('Leave_create_view',$data); 
 
+        if($result != null){
+            if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
+                $data = array( 
+                    'liff_id' =>  $this->liff_id,
+                    'result_user' => $result[0]
+                 );
+                $this->load->view('Leave_create_view',$data); 
+    
+            }else{
+                $data = array( 
+                    'liff_id' =>  $this->liff_id,
+                    'text_status' => ""
+                );
+                $this->load->view('login_success_view',$data);
+            }
+           
         }else{
             $data = array( 
                 'liff_id' =>  $this->liff_id,

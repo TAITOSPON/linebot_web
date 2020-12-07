@@ -182,12 +182,13 @@ class Model_User extends CI_Model
     public function Get_user_ad_with_line_uid($result){
 
         $user_line_uid = $result["user_line_uid"];
-        
-
-        // $query = $this->db->get_where('lb_user_connect', array('user_line_uid' => $user_line_uid))->result_array();
-        $query = $this->db->query("SELECT * FROM `lb_user_ad` INNER JOIN lb_user_connect ON lb_user_ad.user_ad_code=lb_user_connect.user_ad_code WHERE lb_user_connect.user_line_uid = '$user_line_uid'")->result_array();
-        return $query;
-        // return json_encode($query,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);  
+        if($user_line_uid!=null){
+            $query = $this->db->query("SELECT * FROM `lb_user_ad` INNER JOIN lb_user_connect ON lb_user_ad.user_ad_code=lb_user_connect.user_ad_code WHERE lb_user_connect.user_line_uid = '$user_line_uid'")->result_array();
+            return $query;
+        }else{
+            return null;
+        }
+      
     }
   
 } 

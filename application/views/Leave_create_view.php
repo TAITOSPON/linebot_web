@@ -30,8 +30,7 @@ button {
 .buttonradius {
     border-radius: 8px;
     width: 100%;
-    margin: 8px 0;
-    
+    margin: 8px 0; 
 }
 
 button:hover {
@@ -82,10 +81,16 @@ th, td {
   text-align: left;
   padding: 12px 20px;
 }
-h1 {
+p {
   text-align: center;
-  text-transform: uppercase;
-
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  background-color: #FFFFFF;
+  display: inline-block;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 8px;
 }
 
 /* Change styles for span and cancel button on extra small screens */
@@ -105,10 +110,7 @@ h1 {
         <!-- <form action="" method="post"> -->
         <form>
             <div class="container ">
-                <h1><?php echo $result_user["user_ad_name"]?></h1>
-                <br>
-                <p><?php echo $result_user["user_ad_dept_name"]?></p>
-                <br><br>
+                <p><?php echo $result_user["user_ad_name"]?><br><?php echo $result_user["user_ad_dept_name"]?></p>
                 <label for="uname"><b>ประเภทการลา</b></label>
                 <select name="leave_type" id="leave_type" class="selectbox selectfull">
                     <option value="xx">xx</option>
@@ -156,8 +158,8 @@ h1 {
                 </table>
        
                 <label for="psw"><b>หมายเหตุ</b></label>
-                <input type="text" placeholder="หมายเหตุ" name="pass"  id="leave_note" class="buttonradius">
-                
+                <input type="text" placeholder="หมายเหตุ" name="leave_note" id="leave_note" class="buttonradius">
+             
                 <label for="psw"><b>เบอร์ที่ติดต่อ*</b></label>
                 <input type="number" placeholder="เบอร์ที่ติดต่อ" name="pass"  id="leave_tel"  required class="buttonradius">
         
@@ -170,6 +172,8 @@ h1 {
                 <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
 
                 <button id="bt_submit"  onclick="send_data()" class="buttonradius" >บันทึกใบลา</button>
+                <button id="bt_cancel"  onclick="CloseWindow()" class="buttonradius" style="background-color: #ccc;  margin: 0px 0;">ยกเลิก</button>
+
 
                 <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button> -->
 
@@ -228,9 +232,9 @@ h1 {
                     liff.login({ redirectUri: window.location.href }) 
                 }
 
-                // function CloseWindow(){
-                //     liff.closeWindow()
-                // }
+                function CloseWindow(){
+                    liff.closeWindow()
+                }
 
                 async function getUserProfile() {
                     const profile = await liff.getProfile()
