@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Create Leave</title>
+<title>บันทึกใบลา</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -82,7 +82,11 @@ th, td {
   text-align: left;
   padding: 12px 20px;
 }
+h1 {
+  text-align: center;
+  text-transform: uppercase;
 
+}
 
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
@@ -98,30 +102,35 @@ th, td {
 
 </head>
     <body>
-        <form action="" method="post">
+        <!-- <form action="" method="post"> -->
+        <form>
             <div class="container ">
+                <h1><?php echo $result_user["user_ad_name"]?></h1>
+                <br>
+                <p><?php echo $result_user["user_ad_dept_name"]?></p>
+                <br><br>
                 <label for="uname"><b>ประเภทการลา</b></label>
-                <select name="cars" id="cars" class="selectbox selectfull">
-                    <option value="volvo">Volvo</option>
-                    <option value="saab">Saab</option>
-                    <option value="mercedes">Mercedes</option>
-                    <option value="audi">Audi</option>
+                <select name="leave_type" id="leave_type" class="selectbox selectfull">
+                    <option value="xx">xx</option>
+                    <option value="xx">xx</option>
+                    <option value="xx">xx</option>
+                    <option value="xx">xx</option>
                 </select>
                 <label for="uname"><b>ตั้งแต่วันที่*</b></label>
-                <input type="date" id="birthday" name="birthday" class="buttonradius">
+                <!-- <input type="date" id="leave_date_start" name="leave_date_start" required class="buttonradius"> -->
+                <input placeholder="ตั้งแต่วันที่" class="buttonradius" type="text" onfocus="(this.type='date')" required id="leave_date_start">
                 <label for="uname"><b>ถึงวันที่*</b></label>
-                <input type="date" id="birthday" name="birthday" class="buttonradius">
-    
+                <input placeholder="ถึงวันที่" class="buttonradius" type="text" onfocus="(this.type='date')" required id="leave_date_end">
                 <table>
                   <tr>
                     <th>
                       <label>
-                        <input type="checkbox" name="radio"> ลาเต็มวัน
+                        <input type="checkbox" name="leave_checkbox_allday" id="leave_checkbox_allday" onclick="OnCheck_allday()"> ลาเต็มวัน
                       </label>
                     </th>
                     <th>
                       <label>
-                        <input type="checkbox"  name="radio" >ลาครึ่งวัน
+                        <input type="checkbox"  name="leave_checkbox_haftday" id="leave_checkbox_haftday" onclick="OnCheck_haftday()">ลาครึ่งวัน
                       </label>
                     </th>
                
@@ -129,16 +138,16 @@ th, td {
                 
                 </table>
 
-                <table>
+                <table id="leave_table_content_haftday" style="display: none">
                   <tr>
                     <th>
                       <label>
-                        <input type="checkbox" name="radio"> ครึ่งเช้า
+                        <input type="checkbox" name="leave_checkbox_haftday_moring" id="leave_checkbox_haftday_moring" Checked = true onclick="OnCheck_haftday_moring()"> ครึ่งเช้า
                       </label>
                     </th>
                     <th>
                       <label>
-                        <input type="checkbox"  name="radio" >ครึ่งบ่าย
+                        <input type="checkbox"  name="leave_checkbox_haftday_afternon" id="leave_checkbox_haftday_afternoon" onclick="OnCheck_haftday_afternoon()">ครึ่งบ่าย
                       </label>
                     </th>
                
@@ -147,10 +156,10 @@ th, td {
                 </table>
        
                 <label for="psw"><b>หมายเหตุ</b></label>
-                <input type="text" placeholder="หมายเหตุ" name="pass"  class="buttonradius">
+                <input type="text" placeholder="หมายเหตุ" name="pass"  id="leave_note" class="buttonradius">
                 
                 <label for="psw"><b>เบอร์ที่ติดต่อ*</b></label>
-                <input type="number" placeholder="เบอร์ที่ติดต่อ" name="pass" required class="buttonradius">
+                <input type="number" placeholder="เบอร์ที่ติดต่อ" name="pass"  id="leave_tel"  required class="buttonradius">
         
                 <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
@@ -160,7 +169,7 @@ th, td {
                 <input type="text" id="user_line_name" name="user_line_name" >
                 <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
 
-                <button type="submit" class="buttonradius" >บันทึกใบลา</button>
+                <button id="bt_submit"  onclick="send_data()" class="buttonradius" >บันทึกใบลา</button>
 
                 <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button> -->
 
@@ -172,6 +181,44 @@ th, td {
           
             <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
             <script>
+
+
+                async function OnCheck_allday() {  
+                  if(document.getElementById("leave_checkbox_allday").checked = true){
+                    document.getElementById("leave_checkbox_haftday").checked = false;
+                    document.getElementById("leave_table_content_haftday").style.display = "none";
+                  } 
+                }
+
+                async function OnCheck_haftday() {  
+                  if(document.getElementById("leave_checkbox_haftday").checked = true){
+                    document.getElementById("leave_checkbox_allday").checked = false;
+                    document.getElementById("leave_table_content_haftday").style.display = ""; 
+                    OnCheck_haftday_moring();
+                  } 
+                }
+
+                async function OnCheck_haftday_moring() {  
+                    if(document.getElementById("leave_checkbox_haftday").checked = true){
+                      document.getElementById("leave_checkbox_haftday_moring").checked = true;
+                      document.getElementById("leave_checkbox_haftday_afternoon").checked = false;
+                    }
+                }
+
+                async function OnCheck_haftday_afternoon() {  
+                    if(document.getElementById("leave_checkbox_haftday").checked = true){
+                      document.getElementById("leave_checkbox_haftday_afternoon").checked = true;
+                      document.getElementById("leave_checkbox_haftday_moring").checked = false;
+                    }
+                }
+
+                
+                function send_data() {  
+                  window.alert("กำลังพัฒนา");
+                }
+
+
+
                 function logOut(){
                     liff.logout() 
                     window.location.reload()
@@ -184,6 +231,7 @@ th, td {
                 // function CloseWindow(){
                 //     liff.closeWindow()
                 // }
+
                 async function getUserProfile() {
                     const profile = await liff.getProfile()
                     
@@ -231,7 +279,7 @@ th, td {
                         }
                     }
                 }
-            //   main()
+              main()
             </script>
         </form>
     </body>

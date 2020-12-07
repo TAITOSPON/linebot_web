@@ -2,17 +2,49 @@
 defined('BASEPATH') OR exit('No direct script access allowed');  
   
 class Leave extends CI_Controller {  
-      
+    
+    var $liff_id = "1655109480-VOMzYnqm";
+
     public function index(){    
         
         $data = array( 
             'site_url' => "Leave/Leave_create" ,
-            'liff_id' => "1655109480-VOMzYnqm"
+            'liff_id' =>  $this->liff_id
         );
         $this->load->view('login_check_view', $data); 
 
     }  
     
+
+
+
+
+    public function Leave_create(){
+
+        $result['user_line_uid']   = $this->input->post('user_line_uid');
+
+        $this->load->model('Model_User');
+        $result = $this->Model_User->Get_user_ad_with_line_uid($result);  
+        // echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); exit();
+        if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
+            
+            $data = array( 
+                'liff_id' =>  $this->liff_id,
+                'result_user' => $result[0]
+             );
+            $this->load->view('Leave_create_view',$data); 
+
+        }else{
+            $data = array( 
+                'liff_id' =>  $this->liff_id,
+                'text_status' => ""
+            );
+            $this->load->view('login_success_view',$data);
+        }
+       
+      
+    }
+
 
     public function Leave_select_year(){
         // $this->load->view('welcome_message'); 
@@ -74,17 +106,6 @@ class Leave extends CI_Controller {
         $this->load->view('Leave_select_year_detail_view',$data); 
         // $this->load->view('welcome_message'); 
 
-    }
-
-
-    public function Leave_create(){
-        
-        $data = array( 
-            'site_url' => "Leave/Leave_select_year" ,
-            'liff_id' => "1655109480-VOMzYnqm"
-        );
-
-        $this->load->view('Leave_create_view',$data); 
     }
 
 }

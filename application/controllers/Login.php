@@ -23,15 +23,14 @@ class Login extends CI_Controller {
 
     }  
 
-    public function Goto_login_success_view($view,$text_status){
+    public function Goto_login_success_view($text_status){
 
         $data = array( 
-            'site_url' => "Login/Check_login" ,
             'liff_id' => $this->liff_id,
             'text_status' => $text_status
         );
 
-        $this->load->view($view,$data);
+        $this->load->view('login_success_view',$data);
     }
 
     public function Check_login(){
@@ -47,7 +46,7 @@ class Login extends CI_Controller {
 
         if($result["result"] == "check_login_true"){
 
-            $this->Goto_login_success_view('login_success_view',"login_true");
+            $this->Goto_login_success_view("login_true");
 
         }else if($result["result"] == "check_login_false"){
           
@@ -107,7 +106,7 @@ class Login extends CI_Controller {
                     if($this->Model_User->Set_user_connect_login($result)){
 
                
-                        $this->Goto_login_success_view('login_success_view',"login_true_first");
+                        $this->Goto_login_success_view("login_true_first");
                      
 
                     }else {
