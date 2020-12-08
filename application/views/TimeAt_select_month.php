@@ -71,16 +71,27 @@ span.psw {
     background-color: #D39D2B;
     border-color: #fff transparent transparent transparent;
 }
-
 table {
-  border-collapse: collapse;
-  width: 100%; 
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  width: 100%;
 }
 
-th, td {
-  text-align: left;
-  padding: 12px 20px;
+th {
+  text-align: center;
+  background-color: #D39D2B;  
+  color: white;
+  
 }
+
+td {
+  text-align: center;
+  padding: 2px;
+
+}
+
+tr:nth-child(even) {background-color: #f2f2f2;}
+
 p {
   text-align: center;
   width: 100%;
@@ -108,21 +119,75 @@ p {
 </head>
     <body>
         <!-- <form action="" method="post"> -->
-        <form action="">
+        <form>
             <div class="container ">
-                <label for="uname"><b>เลือกเดือน</b></label>
-                <!-- <input type="month" id="bdaymonth" name="bdaymonth" class="buttonradius"> -->
-                <input placeholder="เลือกเดือน" class="buttonradius" type="text" onfocus="(this.type='month')" required>
+                <p><?php echo $result_user["user_ad_name"]?></p>
 
-                <!-- <input type="hidden" id="user_line_uid" name="user_line_uid" >
+                <!-- <label for="uname"><b>*กรุณาระบุวันเริ่มต้น</b></label> -->
+                <label for="uname"><b> <?php 
+                      $month = "";
+                      $json = json_decode($result_detail_time_feed,true);
+                      foreach($json as $key => $val) {
+                       
+                        $month = $json[$key]["MONTH_NAME"];
+                      } 
+                      echo "เดือน "; print_r($month);
+                      ?>
+                      
+                      </b></label>
+                      <br><br>
+                <!-- <input  id="select_month" placeholder="เลือกเดือน" class="buttonradius" type="text" onfocus="(this.type='month')" value="<?=date('m-Y')?>" > -->
+  
+                <!-- <label for="uname"><b>*กรุณาระบุวันสิ้นสุด</b></label>
+                <input placeholder="เลือกเดือน" class="buttonradius" type="text" onfocus="(this.type='month')" required> -->
+              
+                <!-- <button id="bt_submit"  onclick="send_data()" class="buttonradius" >บันทึกใบลา</button> -->
+
+                <table id="table_detail">
+                  <tr>
+                    <th style="border-top-left-radius: 8px;">วัน-เดือน-ปี</th>
+                    <th>เวลาเข้างาน</th>
+                    <th style="border-top-right-radius: 8px;">เวลาออกงาน</th>
+                    <!-- <th>ชม.ทำงาน</th> -->
+                  </tr>
+
+               
+                <?php 
+                      $json = json_decode($result_detail_time_feed,true);
+                      foreach($json as $key => $val) { ?>
+                  <tr>
+                    <td>
+                    <?php echo "$key<br/>";   ?>
+                    </td>
+
+                    <td> 
+                    <?php print_r( $json[$key]["in_stamp"]);   echo "<br/>";  ?>
+                    </td>
+                    
+                    <td>
+                    <?php  print_r( $json[$key]["out_stamp"]);   echo "<br/>"; ?>
+                    </td>
+                    
+                    <!-- <td>
+                    <?php  print_r( $json[$key]["time_diff"]);   echo "<br/>"; ?>
+                    </td> -->
+                              
+                  </tr>   
+                <?php  } ?>
+
+                </table>
+
+
+
+                <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
-                <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" > -->
+                <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
 
-                <input type="text" id="user_line_uid" name="user_line_uid" >
+                <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
                 <input type="text" id="user_line_name" name="user_line_name" >
-                <input type="text" id="user_line_pic_url" name="user_line_pic_url" >
+                <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
                 
-                <button id="bt_submit"  onclick="send_data()" class="buttonradius" >ตกลง</button>
+                <!-- <button id="bt_submit"  onclick="send_data()" class="buttonradius" >ตกลง</button> -->
         
                     <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button> -->
 
@@ -135,7 +200,9 @@ p {
             <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
             <script>
                 function send_data() {  
-                  window.alert("กำลังพัฒนา");
+                  // window.alert("กำลังพัฒนา");
+                  var monthControl = document.getElementById('select_month').value;
+                  window.alert(monthControl);
                 }
 
 
