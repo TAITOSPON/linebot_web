@@ -77,6 +77,12 @@ table {
   width: 100%;
 }
 
+.table_hide {
+  border: 0px solid #FFFFFF;
+  border-radius: 8px;
+  width: 100%;
+}
+
 th {
   text-align: center;
   background-color: #D39D2B;  
@@ -118,91 +124,119 @@ p {
 
 </head>
     <body>
-        <!-- <form action="" method="post"> -->
-        <form>
+    
+        <form action="<?php echo site_url("TimeAt/time_at_select_month"); ?>" method="post">
             <div class="container ">
                 <p><?php echo $result_user["user_ad_name"]?></p>
+    
 
-                <!-- <label for="uname"><b>*กรุณาระบุวันเริ่มต้น</b></label> -->
-                <label for="uname"><b> <?php 
-                      $month = "";
-                      $json = json_decode($result_detail_time_feed,true);
-                      foreach($json as $key => $val) {
-                       
-                        $month = $json[$key]["MONTH_NAME"];
-                      } 
-                      echo "เดือน "; print_r($month);
-                      ?>
-                      
-                      </b></label>
-                      <br><br>
-                <!-- <input  id="select_month" placeholder="เลือกเดือน" class="buttonradius" type="text" onfocus="(this.type='month')" value="<?=date('m-Y')?>" > -->
-  
-                <!-- <label for="uname"><b>*กรุณาระบุวันสิ้นสุด</b></label>
-                <input placeholder="เลือกเดือน" class="buttonradius" type="text" onfocus="(this.type='month')" required> -->
-              
-                <!-- <button id="bt_submit"  onclick="send_data()" class="buttonradius" >บันทึกใบลา</button> -->
+                <input placeholder="<?php 
+                        $month;
+                        foreach($result_detail_time_feed as $key => $val) {
+                          $month["month"] = $key;
+
+                        } 
+                    
+                        $date = getDate(strtotime($month["month"]));  
+                        print_r ($date["month"]." ".$date["year"]);?>
+                        "id="select_month" class="buttonradius" type="month" required>
+
+
+                <button id="bt_" onclick="send_data()"  class="buttonradius" >ค้นหา</button>
+                        
+                <label for="month"><b><?php 
+                        $month;
+                        foreach($result_detail_time_feed as $key => $val) {
+                          $month["month"] = $key;
+
+                        } 
+                    
+                        $date = getDate(strtotime($month["month"]));  
+                        print_r ($date["month"]." ".$date["year"]);?></b>
+                </label>
+                
 
                 <table id="table_detail">
-                  <tr>
-                    <th style="border-top-left-radius: 8px;">วัน-เดือน-ปี</th>
-                    <th>เวลาเข้างาน</th>
-                    <th style="border-top-right-radius: 8px;">เวลาออกงาน</th>
-                    <!-- <th>ชม.ทำงาน</th> -->
-                  </tr>
+                    <tr>
+                        <th style="border-top-left-radius: 8px;">วัน-เดือน-ปี</th>
+                        <th>เวลาเข้างาน</th>
+                        <th style="border-top-right-radius: 8px;">เวลาออกงาน</th>
+                    </tr>
+
+             
 
                
-                <?php 
-                      $json = json_decode($result_detail_time_feed,true);
-                      foreach($json as $key => $val) { ?>
-                  <tr>
-                    <td>
-                    <?php echo "$key<br/>";   ?>
-                    </td>
+                <?php foreach($result_detail_time_feed as $key => $val) { 
+                        if($result_detail_time_feed[$key]["DAY_OF_WEEK_SDESC"] == "SAT" 
+                        || $result_detail_time_feed[$key]["DAY_OF_WEEK_SDESC"] == "SUN"){?>
 
-                    <td> 
-                    <?php print_r( $json[$key]["in_stamp"]);   echo "<br/>";  ?>
-                    </td>
+
+                    <tr style="background-color: #F9C4B8">
                     
-                    <td>
-                    <?php  print_r( $json[$key]["out_stamp"]);   echo "<br/>"; ?>
-                    </td>
+                        <td><?php echo $key;?></td>
+                        <td colspan="2" style='font-size:30%'> <?php print_r($result_detail_time_feed[$key]["DAY_NAME"]);?></td>
+
+                    </tr> 
+                  
                     
-                    <!-- <td>
-                    <?php  print_r( $json[$key]["time_diff"]);   echo "<br/>"; ?>
-                    </td> -->
-                              
-                  </tr>   
-                <?php  } ?>
+                <?php }else if($result_detail_time_feed[$key]["GBHL_HOL_NAME"] != ""){  ?>
+
+                    <tr style="background-color: #C1F57F">
+
+                        <td><?php echo $key;   ?></td>
+                        <td colspan="2" style='font-size:30%'><?php print_r($result_detail_time_feed[$key]["GBHL_HOL_NAME"]);?></td>
+                
+                    </tr> 
+
+
+
+                <?php }else{  ?>
+
+                    <tr>
+                            
+                        <td><?php echo $key;?></td>
+                        <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>
+                        <td><?php print_r( $result_detail_time_feed[$key]["out_stamp"]);?></td>
+                                
+                    </tr> 
+                
+                <?php  }
+                    }?>
 
                 </table>
+              
 
 
 
                 <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
                 <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
+                <input type="hidden" id="month_select" name="month_select" >
 
                 <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
                 <input type="text" id="user_line_name" name="user_line_name" >
-                <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
-                
-                <!-- <button id="bt_submit"  onclick="send_data()" class="buttonradius" >ตกลง</button> -->
-        
-                    <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button> -->
+                <input type="text" id="user_line_pic_url" name="user_line_pic_url" >
+                <input type="text" id="month_select" name="month_select" > -->
+                                
+                                    
+                <!-- <button id="btnLogOut" onclick="logOut()">Log Out line</button> -->
 
             </div>
           
-
-          <!-- <img id="pictureUrl"> -->
          
           
             <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
+            <script type="text/javascript"> 
+                function preventBack() {
+                  window.history.forward();
+                }  
+                setTimeout("preventBack()", 0);  
+                window.onunload = function () {null};
+            </script>
             <script>
                 function send_data() {  
-                  // window.alert("กำลังพัฒนา");
                   var monthControl = document.getElementById('select_month').value;
-                  window.alert(monthControl);
+                  document.getElementById('month_select').value = monthControl;
                 }
 
 
@@ -233,20 +267,6 @@ p {
                         document.getElementById('user_line_pic_url').value = user_line_pic_url;
                     }
               
-                  
-                    // liff.sendMessages([{
-                    //     type: 'text',
-                    //     text: "ลางาน"
-                    // }]).then(function () {
-                    //     // window.alert("Message sent");
-                    //     console.log('message sent');
-                    // }).catch(function (error) {
-                    //     // window.alert("Error sending message: " + error);
-                    //     console.log('error', err);
-                    // });
-                                  
-
-                  // document.getElementById("pictureUrl").src = profile.pictureUrl           
                 } 
 
 
@@ -269,6 +289,7 @@ p {
                     }
                 }
               main()
+              
             </script>
         </form>
     </body>
