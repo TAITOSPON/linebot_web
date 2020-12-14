@@ -125,37 +125,28 @@ p {
 </head>
     <body>
     
-        <form action="<?php echo site_url("TimeAt/time_at_select_month"); ?>" method="post">
+        <form id="myform" action="<?php echo site_url("TimeAt/time_at_select_month"); ?>" method="post">
             <div class="container ">
                 <p><?php echo $result_user["user_ad_name"]?></p>
-    
+               
+                <label for="month"><b>เลือกเดือน</b></label>
 
-                <input placeholder="<?php 
+                <input placeholder="
+                        <?php 
+
                         $month;
-                        foreach($result_detail_time_feed as $key => $val) {
-                          $month["month"] = $key;
-
-                        } 
-                    
+                        foreach($result_detail_time_feed as $key => $val) {  $month["month"] = $key; } 
                         $date = getDate(strtotime($month["month"]));  
-                        print_r ($date["month"]." ".$date["year"]);?>
-                        "id="select_month" class="buttonradius" type="month" required>
+                        print_r ($date["month"]." ".$date["year"]);
+                        ?>
+                        "
+                        id="select_month" class="buttonradius" type="month" onchange="send_data();" value ="<?php $month;
+                    foreach($result_detail_time_feed as $key => $val) { $month["month"] = $key; }
 
-
-                <button id="bt_" onclick="send_data()"  class="buttonradius" >ค้นหา</button>
-                        
-                <label for="month"><b><?php 
-                        $month;
-                        foreach($result_detail_time_feed as $key => $val) {
-                          $month["month"] = $key;
-
-                        } 
                     
-                        $date = getDate(strtotime($month["month"]));  
-                        print_r ($date["month"]." ".$date["year"]);?></b>
-                </label>
-                
+                    echo strval($result_detail_time_feed[$month["month"]]["YEAR_VALUE"]."-".$result_detail_time_feed[$month["month"]]["MONTH_VALUE"]); ?>">
 
+               
                 <table id="table_detail">
                     <tr>
                         <th style="border-top-left-radius: 8px;">วัน-เดือน-ปี</th>
@@ -183,7 +174,7 @@ p {
 
                     <tr style="background-color: #C1F57F">
 
-                        <td><?php echo $key;   ?></td>
+                        <td><?php echo $key; ?></td>
                         <td colspan="2" style='font-size:30%'><?php print_r($result_detail_time_feed[$key]["GBHL_HOL_NAME"]);?></td>
                 
                     </tr> 
@@ -204,10 +195,7 @@ p {
                     }?>
 
                 </table>
-              
-
-
-
+      
                 <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
                 <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
@@ -226,17 +214,20 @@ p {
          
           
             <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
-            <script type="text/javascript"> 
-                function preventBack() {
-                  window.history.forward();
-                }  
-                setTimeout("preventBack()", 0);  
-                window.onunload = function () {null};
-            </script>
+           
             <script>
+                // function preventBack() {
+                //   window.history.forward();
+                // }  
+                // setTimeout("preventBack()", 0);  
+                // window.onunload = function () {null};
+          
+          
+
                 function send_data() {  
                   var monthControl = document.getElementById('select_month').value;
                   document.getElementById('month_select').value = monthControl;
+                  document.getElementById("myform").submit();
                 }
 
 
@@ -255,6 +246,7 @@ p {
                 }
 
                 async function getUserProfile() {
+
                     const profile = await liff.getProfile()
                     
                     const user_id = profile.userId;
@@ -267,6 +259,8 @@ p {
                         document.getElementById('user_line_pic_url').value = user_line_pic_url;
                     }
               
+
+                     
                 } 
 
 

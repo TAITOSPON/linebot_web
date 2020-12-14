@@ -114,7 +114,25 @@ span.psw {
                       liff.closeWindow()  
                       logOut()
                   });   
+              }else if (text_status == "ProfileDetail_not_login"){
+                
+                liff.sendMessages([{
+                      type : "text",
+                      text : "ระบบสมาชิก",
+                  }]
 
+                  ).then(function () {
+                      // window.alert("Message sent");
+                      console.log('message sent');
+                      liff.closeWindow()  
+                      logOut()
+                  }).catch(function (error) {
+                      window.alert("Error sending message: " + error);
+                      console.log('error', err);
+                      liff.closeWindow()  
+                      logOut()
+                  });   
+             
               }else{
                   liff.closeWindow()  
                   logOut()

@@ -190,5 +190,70 @@ class Model_User extends CI_Model
         }
       
     }
+
+
+
+    // ===============================PROFILE====================================================
+
+    public function GetProfile($user_ad_code){
+
+        $data = array( 
+            'status' => false ,
+            'result' => "error"
+        );
+
+        try {
+
+            $personal = "https://memberapp.toat.co.th/memberapi/api/personalapi?id=".$user_ad_code;
+            $data["personal"] = json_decode(file_get_contents($personal));
+    
+            $education = "https://memberapp.toat.co.th/memberapi/api/educationapi?id=".$user_ad_code;
+            $data["education"] = json_decode(file_get_contents($education));
+    
+            $child = "https://memberapp.toat.co.th/memberapi/api/childapi?id=".$user_ad_code;
+            $data["child"] = json_decode(file_get_contents($child));
+    
+            $decoration = "https://memberapp.toat.co.th/memberapi/api/decorationapi?id=".$user_ad_code;
+            $data["decoration"] = json_decode(file_get_contents($decoration));
+    
+            $upgradeposition = "https://memberapp.toat.co.th/memberapi/api/upgradepositionapi?id=".$user_ad_code;
+            $data["upgradeposition"] = json_decode(file_get_contents($upgradeposition));
+    
+            $upgradesalary = "https://memberapp.toat.co.th/memberapi/api/upgradesalaryapi?id=".$user_ad_code;
+            $data["upgradesalary"] = json_decode(file_get_contents($upgradesalary));
+    
+            $upgradesalarydocid = "https://memberapp.toat.co.th/memberapi/api/upgradesalarydocidapi?id=".$user_ad_code;
+            $data["upgradesalarydocid"] = json_decode(file_get_contents($upgradesalarydocid));
+    
+    
+    
+            $result = array( 
+                'personal' => $data["personal"] ,
+                'education' =>  $data["education"][0],
+                'child' => $data["child"][0],
+                'decoration' => $data["decoration"],
+                'upgradeposition' => $data["upgradeposition"][0],
+                'upgradesalary' => $data["upgradesalary"][0],
+                'upgradesalarydocid' => $data["upgradesalarydocid"],
+    
+            );
+
+            $data = array( 
+                'status' => true ,
+                'result' => $result
+            );
+          
+        } catch (Error $err) {
+            $data = array( 
+                'status' => true ,
+                'result' => "error"
+            );
+        } 
+        
+    
+        return $data;
+   
+    }
+
   
 } 

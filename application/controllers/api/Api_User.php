@@ -21,7 +21,7 @@ class Api_User extends REST_Controller{
               $data = json_decode(file_get_contents('php://input'), true);
               $this->load->model('Model_User');
               $result = $this->Model_User->Get_user_login($data);  
-              echo json_encode($result,JSON_PRETTY_PRINT);
+              echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
  
        }
 
@@ -35,13 +35,21 @@ class Api_User extends REST_Controller{
        }
 
 
-       // public function User_tick_logout_get(){
-       //        // $this->uri->segment('3');
-       //        $this->load->model('Model_User');
-       //        $data = $this->Model_User->Get_log_login();
-       //        echo json_encode($data,JSON_PRETTY_PRINT);
+    // ===============================PROFILE====================================================
 
-       // }
+
+       public function User_Profile_Post(){
+    
+              $this->load->model('Model_User');
+              $data = json_decode(file_get_contents('php://input'), true);
+              $result = $this->Model_User->Get_user_ad_with_line_uid($data);  
+        
+              $user_ad_code = $result[0]["user_ad_code"]; 
+              
+              $result = $this->Model_User->GetProfile($user_ad_code);  
+              echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+       }
+
 
 
 
