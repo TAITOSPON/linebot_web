@@ -204,6 +204,9 @@ class Model_User extends CI_Model
 
         try {
 
+            $ImagePersonal = "https://memberapp.toat.co.th/memberttm_test/ImagePersonal.aspx?id=".$user_ad_code;
+            $data["ImagePersonal"] = $ImagePersonal;
+
             $personal = "https://memberapp.toat.co.th/memberapi/api/personalapi?id=".$user_ad_code;
             $data["personal"] = json_decode(file_get_contents($personal));
     
@@ -228,12 +231,13 @@ class Model_User extends CI_Model
     
     
             $result = array( 
+                'ImagePersonal' => $data["ImagePersonal"],
                 'personal' => $data["personal"] ,
-                'education' =>  $data["education"][0],
-                'child' => $data["child"][0],
+                'education' =>  $data["education"],
+                'child' => $data["child"],
                 'decoration' => $data["decoration"],
-                'upgradeposition' => $data["upgradeposition"][0],
-                'upgradesalary' => $data["upgradesalary"][0],
+                'upgradeposition' => $data["upgradeposition"],
+                'upgradesalary' => $data["upgradesalary"],
                 'upgradesalarydocid' => $data["upgradesalarydocid"],
     
             );
