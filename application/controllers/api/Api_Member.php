@@ -97,7 +97,4 @@ class Api_Member extends REST_Controller{
        }
 
 
-
-     
-
 }
