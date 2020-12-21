@@ -16,7 +16,12 @@ class Member extends CI_Controller {
     }
 
     public function index()   {       
-        $this->Login_Line("Member_TOAT");
+        $this->Login_Line("Member_TOAT_Profile");
+  
+    }
+
+    public function Leave()   {       
+        $this->Login_Line("Member_TOAT_Leave");
   
     }
 
@@ -38,8 +43,20 @@ class Member extends CI_Controller {
 
    
 
-    public function Member_TOAT(){
+    public function Member_TOAT_Profile(){
 
+        $this->Member_view("DetailProfile");
+
+    }
+
+    public function Member_TOAT_Leave(){
+
+        $this->Member_view("LeaveYear");
+
+    }
+
+
+    public function Member_view($page){
 
         $user_line_uid["user_line_uid"] = $this->input->post('user_line_uid');
   
@@ -47,7 +64,7 @@ class Member extends CI_Controller {
 
         if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
    
-            $site_url = $this->Model_Member->Get_Member_TOAT($result[0]["user_ad_code"]);
+            $site_url = $this->Model_Member->Get_Member_TOAT($result[0]["user_ad_code"],$page);
 
             $data = array( 
                 'site_url' => $site_url ,
@@ -63,33 +80,33 @@ class Member extends CI_Controller {
 
 
 
-    public function Member_Create_leave(){
+    // public function Member_Create_leave(){
 
 
-     // https://memberapp.toat.co.th/memberttm_test/saveleaveyear
+    //  // https://memberapp.toat.co.th/memberttm_test/saveleaveyear
 
-        $user_line_uid["user_line_uid"] = $this->input->post('user_line_uid');
+    //     $user_line_uid["user_line_uid"] = $this->input->post('user_line_uid');
 
-        $result = $this->Model_User->Get_user_ad_with_line_uid($user_line_uid);  
+    //     $result = $this->Model_User->Get_user_ad_with_line_uid($user_line_uid);  
 
-        if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
+    //     if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
    
-            // $site_url = $this->Model_Member->Get_Member_TOAT($result[0]["user_ad_code"]);
-            $site_url = 'https://memberapp.toat.co.th/memberttm_test/saveleaveyear';
+    //         // $site_url = $this->Model_Member->Get_Member_TOAT($result[0]["user_ad_code"]);
+    //         $site_url = 'https://memberapp.toat.co.th/memberttm_test/saveleaveyear';
 
-            $data = array( 
-                'site_url' => $site_url ,
-            );
+    //         $data = array( 
+    //             'site_url' => $site_url ,
+    //         );
 
-            $this->load->view('Member/Member_Iframe_view',$data); 
+    //         $this->load->view('Member/Member_Iframe_view',$data); 
     
-        }else{
-            $data = array( 'liff_id' => $this->liff_id, 'text_status' => "error_api" );
-            $this->load->view('login_success_view',$data);
-        }
+    //     }else{
+    //         $data = array( 'liff_id' => $this->liff_id, 'text_status' => "error_api" );
+    //         $this->load->view('login_success_view',$data);
+    //     }
 
 
-    }
+    // }
 
    
     // public function ProfileDetail(){

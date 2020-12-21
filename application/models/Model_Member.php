@@ -6,10 +6,12 @@ class Model_Member extends CI_Model
 {       
 
 
-    public function Get_Member_TOAT($user_ad_code){
+    public function Get_Member_TOAT($user_ad_code,$page){
 
         $key_token = "cUnmuaxBg9VPqp3QaQJFRdysyejLsyKu";
-        $membertoat = 'https://memberapp.toat.co.th/memberttm/invisiblelogin?id='.$user_ad_code.'&pin='.$key_token;
+
+        // https://memberapp.toat.co.th/memberttm_test/invisiblelogin?id=003599&pin=cUnmuaxBg9VPqp3QaQJFRdysyejLsyKu&gopage=$page
+        $membertoat = 'https://memberapp.toat.co.th/memberttm/invisiblelogin?id='.$user_ad_code.'&pin='.$key_token.'&gopage='.$page;
         return $membertoat ; 
 
     }

@@ -7,7 +7,7 @@
 body {font-family: Arial, Helvetica, sans-serif;}
 form {border: 3px solid #f1f1f1;}
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password] ,input[type=number] {
   width: 100%;
   padding: 12px 20px;
   margin: 8px 0;
@@ -76,7 +76,7 @@ span.psw {
         <form action="<?php echo site_url('Login/login_process'); ?>" method="post">
             <div class="container ">
                 <label for="uname"><b>รหัสพนักงานการยาสูบแห่งประเทศไทย</b></label>
-                <input type="text" placeholder="รหัสพนักงาน 6 หลัก" name="user" required class="buttonradius">
+                <input type="number" placeholder="รหัสพนักงาน 6 หลัก" name="user" required class="buttonradius">
                 
                 <label for="psw"><b>รหัสผ่าน</b></label>
                 <input type="password" placeholder="กรอกรหัสผ่าน" name="pass" required class="buttonradius">
