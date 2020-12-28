@@ -23,6 +23,18 @@ class Api_Member extends REST_Controller{
               echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
        }
 
+       public function Member_User_Profile_withAD_Post(){
+    
+       
+              $data = json_decode(file_get_contents('php://input'), true);
+              $user_ad_code = $data["user_ad_code"]; 
+
+              $this->load->model('Model_Member');
+              $result = $this->Model_Member->GetProfile($user_ad_code);  
+              echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+       }
+
+
 
        public function Member_Training_by_year_Post(){
 

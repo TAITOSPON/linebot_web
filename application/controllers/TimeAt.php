@@ -29,7 +29,7 @@ class TimeAt extends CI_Controller {
  
         $this->load->model('Model_User');
         $result_user = $this->Model_User->Get_user_ad_with_line_uid($user_line_uid);  
-        // echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); exit();
+        // echo json_encode($result_user,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); exit();
 
         if($result_user != null){
             if(json_encode($result_user,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
@@ -63,12 +63,12 @@ class TimeAt extends CI_Controller {
                
     
             }else{
-                $data = array( 'liff_id' =>  $this->liff_id );
+                $data = array( 'liff_id' =>  $this->liff_id, 'text_status' => "" );
                 $this->load->view('login_success_view',$data);
             }
            
         }else{
-            $data = array(  'liff_id' =>  $this->liff_id );
+            $data = array(  'liff_id' =>  $this->liff_id,'text_status' => "" );
             $this->load->view('login_success_view',$data);
         }
 

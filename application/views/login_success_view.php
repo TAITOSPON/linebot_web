@@ -127,8 +127,8 @@ span.psw {
                       liff.closeWindow()  
                       logOut()
                   }).catch(function (error) {
-                      window.alert("Error sending message: " + error);
-                      console.log('error', err);
+                      // window.alert("Error sending message: " + error);
+                      // console.log('error', err);
                       liff.closeWindow()  
                       logOut()
                   });   

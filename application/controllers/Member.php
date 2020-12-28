@@ -3,7 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
   
 class Member extends CI_Controller {  
     
-    var $liff_id = "1655109480-wLRoWZpg";
+    var $liff_id_member_profile = "1655109480-wLRoWZpg";
+    var $liff_id_member_leave = "1655109480-lKekYNJK";
     
     public function __construct()
     {
@@ -15,24 +16,24 @@ class Member extends CI_Controller {
 
     }
 
-    public function index()   {       
-        $this->Login_Line("Member_TOAT_Profile");
+    public function Profile()   {       
+        $this->Login_Line("Member_TOAT_Profile",$this->liff_id_member_profile);
   
     }
 
     public function Leave()   {       
-        $this->Login_Line("Member_TOAT_Leave");
+        $this->Login_Line("Member_TOAT_Leave",$this->liff_id_member_leave);
   
     }
 
 
-    public function Login_Line($page){
+    public function Login_Line($page,$liff_id){
 
         $template = $this->Model_Member->template_gen();
 
         $data = array( 
             'site_url' => "Member/".$page ,
-            'liff_id' => $this->liff_id,
+            'liff_id' => $liff_id,
             'template'=> $template,
         );
 
@@ -45,22 +46,25 @@ class Member extends CI_Controller {
 
     public function Member_TOAT_Profile(){
 
-        $this->Member_view("DetailProfile");
+        $this->Member_view("DetailProfile",$this->liff_id_member_profile);
 
     }
 
     public function Member_TOAT_Leave(){
 
-        $this->Member_view("LeaveYear");
+        $this->Member_view("LeaveYear",$this->liff_id_member_leave);
 
     }
 
 
-    public function Member_view($page){
+    public function Member_view($page,$liff_id){   
+       
 
         $user_line_uid["user_line_uid"] = $this->input->post('user_line_uid');
   
         $result = $this->Model_User->Get_user_ad_with_line_uid($user_line_uid);  
+ 
+        // echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); exit();
 
         if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
    
@@ -73,8 +77,15 @@ class Member extends CI_Controller {
             $this->load->view('Member/Member_Iframe_view',$data); 
     
         }else{
-            $data = array( 'liff_id' => $this->liff_id, 'text_status' => "ProfileDetail_not_login" );
-            $this->load->view('login_success_view',$data);
+
+            if($liff_id == $this->liff_id_member_profile){
+                $data = array( 'liff_id' => $liff_id, 'text_status' => "ProfileDetail_not_login" );
+                $this->load->view('login_success_view',$data);
+            }else{
+                $data = array( 'liff_id' => $liff_id, 'text_status' => "" );
+                $this->load->view('login_success_view',$data);
+            }
+          
         }
     }
 
