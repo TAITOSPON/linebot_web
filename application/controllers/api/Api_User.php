@@ -35,6 +35,15 @@ class Api_User extends REST_Controller{
        }
 
 
+       public function User_uid_with_ad_post(){
+
+              $data = json_decode(file_get_contents('php://input'), true);
+              $this->load->model('Model_User');
+              $result = $this->Model_User->Get_line_uid_with_user_ad($data);  
+              echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+       }
+
+
 
      
 

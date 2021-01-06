@@ -191,6 +191,21 @@ class Model_User extends CI_Model
       
     }
 
+    public function Get_line_uid_with_user_ad($result){
+
+        $user_ad_code = $result["user_ad_code"];
+        if($user_ad_code!=null){
+            $query = $this->db
+            ->where('user_ad_code',$user_ad_code)
+            ->get('lb_user_connect')
+            ->result_array();
+            return array('status' => true, 'result' => $query);
+        }else{
+            return array('status' => false, 'result' => "");
+        }
+      
+    }
+
 
 
 
