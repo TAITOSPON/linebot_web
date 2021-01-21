@@ -151,7 +151,43 @@ span.psw {
                       liff.closeWindow()  
                       logOut()
                   });   
-             
+              }else if(text_status == "Covid19_not_login"){
+
+                liff.sendMessages([{
+                      type : "text",
+                      text : "ประเมินความเสี่ยงโควิด19",
+                  }]
+
+                  ).then(function () {
+                      // window.alert("Message sent");
+                      console.log('message sent');
+                      liff.closeWindow()  
+                      logOut()
+                  }).catch(function (error) {
+                      // window.alert("Error sending message: " + error);
+                      // console.log('error', err);
+                      liff.closeWindow()  
+                      logOut()
+                  });   
+                  
+                }else if(text_status == "Covid19_boss_confirm_not_login"){
+
+                  liff.sendMessages([{
+                        type : "text",
+                        text : "ยืนยันพนักงานประเมินความเสี่ยง",
+                    }]
+
+                    ).then(function () {
+                        // window.alert("Message sent");
+                        console.log('message sent');
+                        liff.closeWindow()  
+                        logOut()
+                    }).catch(function (error) {
+                        // window.alert("Error sending message: " + error);
+                        // console.log('error', err);
+                        liff.closeWindow()  
+                        logOut()
+                    });   
               }else{
                   liff.closeWindow()  
                   logOut()
@@ -167,7 +203,7 @@ span.psw {
                 if(liff.isInClient()){
                     closeWindow()
                 }else{
-
+                    window.close(); 
                     if(liff.isLoggedIn()) {
                         closeWindow()
                     }else{

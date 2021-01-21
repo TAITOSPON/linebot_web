@@ -189,7 +189,7 @@ class Model_Member extends CI_Model
 
         try {
 
-            $ImagePersonal = "https://memberapp.toat.co.th/memberttm_test/ImagePersonal.aspx?id=".$user_ad_code;
+            $ImagePersonal = "https://memberapp.toat.co.th/memberttm/ImagePersonal.aspx?id=".$user_ad_code;
             $data["ImagePersonal"] = $ImagePersonal;
 
             $personal = "https://memberapp.toat.co.th/memberapi/api/personalapi?id=".$user_ad_code;

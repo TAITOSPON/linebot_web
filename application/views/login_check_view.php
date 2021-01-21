@@ -129,17 +129,36 @@ span.psw {
 
                 async function main() {
                     var liff_id="<?php echo $liff_id;?>";
+                    var site_url="<?php echo $site_url;?>";
+
                     await liff.init({ liffId: liff_id })
 
                         if(liff.isInClient()){
                             getUserProfile()
                         }else{
-
-                            if(liff.isLoggedIn()) {
-                                getUserProfile()
+                            if(site_url == "TimeAt/time_at_select_month" ){
+                                window.open("https://change.toat.co.th/timeatt/","_blank");
+                                window.close(); 
+                            }else if(site_url == "Logout/Confirm_logout"){
+                                window.alert("กรุณาออกจากระบบผ่าน Line mobile เท่านั้น");
+                                window.close(); 
+                            }else if(site_url == "Login/Check_login"){
+                                window.alert("กรุณาเข้าสู่ระบบผ่าน Line mobile เท่านั้น");
+                                window.close(); 
+                            }else if(site_url == "Map_test/TimeStamp"){
+                                window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");
+                                window.close(); 
+                            }else if(site_url == "Covid19/Covid19_emp_form" ||site_url == "Covid19/Covid19_boss_form" ){
+                                window.open("https://change.toat.co.th/covid19/index.php/","_blank");
+                                window.close(); 
                             }else{
-                                logIn()
+                                if(liff.isLoggedIn()) {
+                                    getUserProfile()
+                                }else{
+                                    logIn()
+                                }
                             }
+                            
                         }
                 }
                 main()
