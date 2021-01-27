@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>login linebot system</title>
+<title>linebot time stamp system</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -126,10 +126,10 @@ p {
   border: 1px solid #ccc;
   box-sizing: border-box;
   border-radius: 8px;
-  font-size: 56px;
+  font-size: 50px;
   text-align: center;
-  padding-top: 40px;
-  padding-bottom: 40px;
+  padding-top: 30px;
+  padding-bottom: 30px;
 }
 
 </style>
@@ -154,11 +154,13 @@ p {
         
         <div id="map"></div>
         <br>
-        <p><?php echo $ip ?></p> 
+        <!-- <p><?php echo $status_time_stamp['ip'] ?></p>  -->
+
         <div id="clock"></div>
+        <p>ตามเวลาประเทศไทย ระบบเซอร์เวอร์ของ<br>การยาสูบแห่งประเทศไทย</p> 
         <p><?php echo $result_user["user_ad_name"] ?></p> 
    
-        <button class="buttonradius" onclick="logOut()">ลงเวลาเข้างานด้วยตำแหน่งของคุณ</button>
+        <button  id="togglee" class="buttonradius" onclick="logOut()">ลงเวลาเข้างานด้วยตำแหน่งของคุณ</button>
       </div> 
 
       <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
@@ -227,9 +229,22 @@ p {
 
         currentTime(); 
 
+        async function CheckStatusTimeStamp() {
+          var status = "<?php  echo $status_time_stamp['status'];?>";
+          // window.alert(status);
+          if(status == "true"){
+            document.getElementById('togglee').style.visibility = 'visible';
+          }else{
+            document.getElementById('togglee').style.visibility = 'hidden';
+            window.alert("please stay in wifi TOAT area");
+          
+          }
+         
 
-       
+         
+        }
 
+        CheckStatusTimeStamp();
        
         function logIn(){  liff.login({ redirectUri: window.location.href })  }
 

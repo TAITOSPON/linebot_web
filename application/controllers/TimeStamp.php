@@ -3,7 +3,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 
   
-class Map_test extends CI_Controller {  
+class TimeStamp extends CI_Controller {  
       
 
     var $liff_id = "1655109480-MXKb06wG";
@@ -11,30 +11,32 @@ class Map_test extends CI_Controller {
     public function __construct(){
 
         parent::__construct();
-        // $this->load->model('Model_User');
+        $this->load->model('Model_User');
     }
 
     public function index()  
     {       
-        // $data = array( 
-        //     'site_url' => "Map_test/TimeStamp" ,
-        //     'liff_id' => $this->liff_id,
-        // );
+        $data = array( 
+            'site_url' => "TimeStamp/TimeStamp" ,
+            'liff_id' => $this->liff_id,
+        );
    
      
-        // $this->load->view('login_check_view', $data); 
+        $this->load->view('login_check_view', $data); 
      
+   
+    }  
 
+    public function get_data_detail(){
 
-       
         $ip_address=file_get_contents('http://checkip.dyndns.com/');
         echo $ip_address ;
         echo "<br>";
         echo "<br>";
-        echo $this->get_client_ip();
+        echo $this->GetClientIP();
         echo "<br>";
         echo "<br>";
-        echo  $this->isLocalIPAddress($this->get_client_ip());
+        echo  $this->CheckisLocalIPAddress($this->GetClientIP());
         echo "<br>";
         echo "<br>";
         echo $_SERVER['PHP_SELF'];
@@ -43,21 +45,18 @@ class Map_test extends CI_Controller {
         echo "<br>";
         echo $_SERVER['HTTP_HOST'];
         echo "<br>";
-   
         echo $_SERVER['HTTP_USER_AGENT'];
         echo "<br>";
         echo $_SERVER['SCRIPT_NAME'];
 
-      
-   
-    }  
+    }
 
  
-    public function get_client_ip() {
+    public function GetClientIP() {
+
         $ipaddress = '';
         if (getenv('HTTP_CLIENT_IP'))
             $ipaddress = "HTTP_CLIENT_IP : ".getenv('HTTP_CLIENT_IP');
-
         else if(getenv('HTTP_X_FORWARDED_FOR'))
             $ipaddress = "HTTP_X_FORWARDED_FOR : ".getenv('HTTP_X_FORWARDED_FOR');
 
@@ -71,37 +70,30 @@ class Map_test extends CI_Controller {
            $ipaddress = "HTTP_FORWARDED : ".getenv('HTTP_FORWARDED');
 
         else if(getenv('REMOTE_ADDR'))
-            $ipaddress = "REMOTE_ADDR : ".getenv('REMOTE_ADDR');
+            $ipaddress = getenv('REMOTE_ADDR');
         else
             $ipaddress = 'UNKNOWN';
         return $ipaddress;
 
-
-
-        // if (!empty($_SERVER['HTTP_CLIENT_IP'])){
-
-        //     $ip_address = $_SERVER['HTTP_CLIENT_IP'];
-
-        // }elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-
-        //     $ip_address = $_SERVER['HTTP_X_FORWARDED_FOR'];
-
-        // }else {
-
-        //   $ip_address = $_SERVER['REMOTE_ADDR'];
-        // }
-        // return $ip_address;
     }
 
 
-    public function isLocalIPAddress($IPAddress){
-        if($IPAddress == '127.0.0.1'){
-            // return true;
-            return "nononono";
-        }else{
-            return ( !filter_var($IPAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) );
+    public function CheckisLocalIPAddress($IPAddress){
 
-        } 
+        $wifi_toat =  "172.16.";
+
+        $ip = substr((string)$IPAddress, 0, 7);
+
+        if($ip == $wifi_toat){
+            return "true";
+        }else{
+            return "false";
+        }
+           
+        
+        //     return ( !filter_var($IPAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) );
+
+
        
     }
 
@@ -121,9 +113,9 @@ class Map_test extends CI_Controller {
                 $data = array(  
                     'result_user' => $result_user[0],
                     'liff_id' => $this->liff_id,
-                    'ip' => $this->get_client_ip()
+                    'status_time_stamp' => array('ip'=> $this->GetClientIP() , 'status' => $this->CheckisLocalIPAddress($this->GetClientIP()))
                 );
-                $this->load->view('map_test_view', $data);
+                $this->load->view('time_stamp_view', $data);
            
            
            
@@ -139,4 +131,5 @@ class Map_test extends CI_Controller {
     }
 
 }  
+
 ?>  
