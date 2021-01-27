@@ -82,7 +82,7 @@ class Member extends CI_Controller {
                 $data = array( 'liff_id' => $liff_id, 'text_status' => "ProfileDetail_not_login" );
                 $this->load->view('login_success_view',$data);
             }else{
-                $data = array( 'liff_id' => $liff_id, 'text_status' => "" );
+                $data = array( 'liff_id' => $liff_id, 'text_status' => "Leave_Detail_not_login" );
                 $this->load->view('login_success_view',$data);
             }
           

@@ -23,6 +23,18 @@ class Model_LineMessage extends CI_Model
 
         $UserAgent ="User-Agent:".$result['header'][0]['User-Agent'];
         $body = $result['body'];
+
+
+        // LOG PUSH MESSAGE //
+        $data = array(
+            'push_message_log_id' => NULL,
+            'push_message_log_result' => json_encode($result),
+            'push_message_log_detetime' => date("Y-m-d h:i:s")
+        );
+
+        $this->db->insert('lb_push_message_log', $data);
+     
+
         
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, 'https://webhook.toat.co.th/linebot/webhook/webhook');

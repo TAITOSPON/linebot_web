@@ -11,40 +11,42 @@ class Map_test extends CI_Controller {
     public function __construct(){
 
         parent::__construct();
-        $this->load->model('Model_User');
+        // $this->load->model('Model_User');
     }
 
     public function index()  
     {       
-        $data = array( 
-            'site_url' => "Map_test/TimeStamp" ,
-            'liff_id' => $this->liff_id,
-        );
+        // $data = array( 
+        //     'site_url' => "Map_test/TimeStamp" ,
+        //     'liff_id' => $this->liff_id,
+        // );
    
      
-        $this->load->view('login_check_view', $data); 
+        // $this->load->view('login_check_view', $data); 
      
 
 
-        // echo $_SERVER['REMOTE_ADDR']; 
-        // $ip_address=file_get_contents('http://checkip.dyndns.com/');
-        // echo '<br><br>';
-        // $ip_address = str_replace("Current IP Address: ","",$ip_address);
-        // echo $ip_address ;
        
-        // echo  $this->isLocalIPAddress($this->get_client_ip());
-        // echo "<br>";
-        // echo "<br>";
-        // echo $_SERVER['PHP_SELF'];
-        // echo "<br>";
-        // echo $_SERVER['SERVER_NAME'];
-        // echo "<br>";
-        // echo $_SERVER['HTTP_HOST'];
-        // echo "<br>";
+        $ip_address=file_get_contents('http://checkip.dyndns.com/');
+        echo $ip_address ;
+        echo "<br>";
+        echo "<br>";
+        echo $this->get_client_ip();
+        echo "<br>";
+        echo "<br>";
+        echo  $this->isLocalIPAddress($this->get_client_ip());
+        echo "<br>";
+        echo "<br>";
+        echo $_SERVER['PHP_SELF'];
+        echo "<br>";
+        echo $_SERVER['SERVER_NAME'];
+        echo "<br>";
+        echo $_SERVER['HTTP_HOST'];
+        echo "<br>";
    
-        // echo $_SERVER['HTTP_USER_AGENT'];
-        // echo "<br>";
-        // echo $_SERVER['SCRIPT_NAME'];
+        echo $_SERVER['HTTP_USER_AGENT'];
+        echo "<br>";
+        echo $_SERVER['SCRIPT_NAME'];
 
       
    
