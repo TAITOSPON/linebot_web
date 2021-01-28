@@ -145,7 +145,7 @@ span.psw {
                             }else if(site_url == "Login/Check_login"){
                                 window.alert("กรุณาเข้าสู่ระบบผ่าน Line mobile เท่านั้น");
                                 window.close(); 
-                            }else if(site_url == "Map_test/TimeStamp"){
+                            }else if(site_url == "TimeStamp/TimeStamp"){
                                 window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");
                                 window.close(); 
                             }else if(site_url == "Covid19/Covid19_emp_form" ||site_url == "Covid19/Covid19_boss_form" ){

@@ -12,6 +12,7 @@ class TimeStamp extends CI_Controller {
 
         parent::__construct();
         $this->load->model('Model_User');
+        $this->load->model('Model_TimeStamp');
     }
 
     public function index()  
@@ -79,21 +80,60 @@ class TimeStamp extends CI_Controller {
 
 
     public function CheckisLocalIPAddress($IPAddress){
+     
+        $status_wfh = "false";
 
-        $wifi_toat =  "172.16.";
-
-        $ip = substr((string)$IPAddress, 0, 7);
-
-        if($ip == $wifi_toat){
-            return "true";
-        }else{
-            return "false";
-        }
-           
+        if($status_wfh == "false"){
+            //172.16 // KT 0
+            //172.31 // rot 1
+            //172.18. // wan 2
         
+            // "LINE_KT" , LINE_ROJANA , LINE_WAN , LINE_WFH
+
+            $wifi_toat =  array("172.16." , "172.31." , "172.18.");
+
+            $ip = substr((string)$IPAddress, 0, 7);
+
+            $statuscheck_wifi = "false";
+            $staus_location = "";
+            $location = "";
+
+            for($index=0; $index< sizeof($wifi_toat); $index++){
+                if($ip == $wifi_toat[$index]){
+                    $statuscheck_wifi = "true";
+                    $staus_location = (string)$index;
+                }
+            }
+
+
+            if($staus_location == 0){
+
+                $location = "LINE_KT";
+
+            }else if($staus_location == 1){
+
+                $location = "LINE_ROJANA";
+
+            }else if($staus_location == 2){
+
+                $location = "LINE_WAN";
+
+            }
+            
+        }else{
+
+            $location = "LINE_WFH";
+        }
+        
+
+        $StatusCheck = array(
+            'statuscheck_wifi' => $statuscheck_wifi,
+            'category' => $location
+        );
+
+        return $StatusCheck;
+    
         //     return ( !filter_var($IPAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) );
-
-
        
     }
 
@@ -111,11 +151,12 @@ class TimeStamp extends CI_Controller {
             if(json_encode($result_user,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
               
                 $data = array(  
+                    'site_url' => "TimeStamp/PostTimestamp",
                     'result_user' => $result_user[0],
                     'liff_id' => $this->liff_id,
                     'status_time_stamp' => array('ip'=> $this->GetClientIP() , 'status' => $this->CheckisLocalIPAddress($this->GetClientIP()))
                 );
-                $this->load->view('time_stamp_view', $data);
+                $this->load->view('Time_stamp_view', $data);
            
            
            
@@ -128,6 +169,19 @@ class TimeStamp extends CI_Controller {
             $data = array(  'liff_id' =>  $this->liff_id,'text_status' => "" );
             $this->load->view('login_success_view',$data);
         }
+    }
+
+    public function PostTimestamp(){
+       
+        $result['user_ad_code']  = $this->input->post('user_ad_code');
+        $result['category']  = $this->input->post('category');
+        $result['timestamp']  = $this->input->post('timestamp');
+        
+       
+        $PostTimeStamp_result = $this->Model_TimeStamp->PostTimeStamp($result);  
+
+        print_r($PostTimeStamp_result);
+
     }
 
 }  

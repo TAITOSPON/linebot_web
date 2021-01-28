@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>linebot time stamp system</title>
+<title>LINEBOT TIMESTAMP SYSTEM</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -110,6 +110,8 @@ p {
   border-radius: 8px;
 }
 
+
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
@@ -132,13 +134,33 @@ p {
   padding-bottom: 30px;
 }
 
+#date {
+  border: 0px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 20px;
+  text-align: center;
+  padding-top: 4px;
+  padding-bottom: 10px;
+}
+
+#p_ {
+  border: 0px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 10px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
 </style>
 
 
 <style type="text/css">
   /* Set the size of the div element that contains the map */
   #map {
-    height: 400px;
+    height: 300px;
     /* The height is 400 pixels */
     width: 100%;
     /* The width is the width of the web page */
@@ -149,22 +171,31 @@ p {
   </head>
   <body>
     <!-- <form action="" method="post"> -->
-
+    <form action="<?php echo site_url($site_url); ?>" method="post">
       <div class="container ">
-        
-        <div id="map"></div>
+        <!-- <p>ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของการยาสูบแห่งประเทศไทย</p>  -->
+        <div id="date"></div>
+ 
+        <p><?php echo $result_user["user_ad_name"] ?></p> 
+        <!-- <div id="map"></div> -->
         <br>
         <!-- <p><?php echo $status_time_stamp['ip'] ?></p>  -->
-
+      
         <div id="clock"></div>
-        <p>ตามเวลาประเทศไทย ระบบเซอร์เวอร์ของ<br>การยาสูบแห่งประเทศไทย</p> 
-        <p><?php echo $result_user["user_ad_name"] ?></p> 
-   
-        <button  id="togglee" class="buttonradius" onclick="logOut()">ลงเวลาเข้างานด้วยตำแหน่งของคุณ</button>
+        <div id="p_"></div>
+        
+     
+        <!-- <p>ตามเวลาประเทศไทย ระบบเซอร์เวอร์ของ<br>การยาสูบแห่งประเทศไทย</p>  -->
+
+        <button type="submit" id="togglee" class="buttonradius" >บันทึกเวลา</button>
+
       </div> 
 
-      <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
-      <input type="text" id="user_line_name" name="user_line_name" >
+      <input type="hidden" id="category" name="category" >
+      <input type="hidden" id="user_ad_code" name="user_ad_code" >
+      <input type="hidden" id="timestamp" name="timestamp" >
+
+      <!-- <input type="text" id="user_line_name" name="user_line_name" >
       <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
                 
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMJt2oRKYCBQ7ZO-_kI-EVXV18ko8Dzu0&callback=initMap&libraries=&v=weekly" defer ></script>
@@ -214,8 +245,22 @@ p {
           hour = updateTime(hour);
           min = updateTime(min);
           sec = updateTime(sec);
+          
+          var datestamp = date.toLocaleDateString('th-TH', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })
+
           document.getElementById("clock").innerText = hour + " : " + min + " : " + sec; /* adding time to the div */
+          document.getElementById("date").innerText = datestamp;
+          document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
+
+          var Ymd = "<?php echo date("Y-m-d");?>";
+          document.getElementById('timestamp').value = Ymd+" "+ hour + ":" + min + ":" + sec; 
             var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
+
+      
         }
 
         function updateTime(k) {
@@ -230,14 +275,20 @@ p {
         currentTime(); 
 
         async function CheckStatusTimeStamp() {
-          var status = "<?php  echo $status_time_stamp['status'];?>";
+          var status = "<?php  echo $status_time_stamp['status']['statuscheck_wifi'];?>";
+          var category = "<?php  echo $status_time_stamp['status']['category'];?>";
+          var user_ad_code = "<?php echo $result_user["user_ad_code"]; ?>"
+
+          document.getElementById('category').value = category;
+          document.getElementById('user_ad_code').value = user_ad_code;
+
           // window.alert(status);
           if(status == "true"){
             document.getElementById('togglee').style.visibility = 'visible';
           }else{
             document.getElementById('togglee').style.visibility = 'hidden';
             window.alert("please stay in wifi TOAT area");
-          
+            // window.alert(status);
           }
          
 
@@ -292,9 +343,9 @@ p {
         }
 
         main()
-        getLocation()
+        // getLocation()
 
       </script>
-    <!-- </form> -->
+    </form>
   </body>
 </html>
