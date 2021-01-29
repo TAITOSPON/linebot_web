@@ -179,7 +179,14 @@ p {
                 
                     </tr> 
 
+                <?php }else if($result_detail_time_feed[$key]["PNLT_NAME"] != ""){  ?>
 
+                  <tr style="background-color: #f0c98d">
+
+                      <td><?php echo $key; ?></td>
+                      <td colspan="2" style='font-size:30%'><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]);?></td>
+
+                  </tr> 
 
                 <?php }else{  ?>
 
@@ -191,8 +198,7 @@ p {
                                 
                     </tr> 
                 
-                <?php  }
-                    }?>
+                <?php  }   }?>
 
                 </table>
       

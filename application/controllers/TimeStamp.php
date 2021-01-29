@@ -13,6 +13,8 @@ class TimeStamp extends CI_Controller {
         parent::__construct();
         $this->load->model('Model_User');
         $this->load->model('Model_TimeStamp');
+        $this->load->model('Model_TimeAt');
+        
     }
 
     public function index()  
@@ -79,9 +81,43 @@ class TimeStamp extends CI_Controller {
     }
 
 
-    public function CheckisLocalIPAddress($IPAddress){
+    public function CheckisLocalIPAddress($IPAddress,$user_ad_code){
      
         $status_wfh = "false";
+        $feed_time = "";
+
+        $result_CheckUserWFH =  array(json_decode($this->Model_TimeStamp->CheckUserWFH($user_ad_code), true));
+
+        $result_get_time_feed =  array(json_decode($this->Model_TimeAt->get_time_feed($user_ad_code), true)); 
+
+
+        if(sizeof($result_get_time_feed) != 0){
+
+            if(date("h:i:s") < date("12:i:s")){
+                $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_get_time_feed[0][0]["in_CHK"]." ด้วย : ".$result_get_time_feed[0][0]["in_channel"]."<br> สถานที่ : ".$result_get_time_feed[0][0]["in_location_name"];
+            }else{
+                if($result_get_time_feed[0][0]["out_CHK"] != ""){
+                    $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_get_time_feed[0][0]["out_CHK"]." ด้วย : ".$result_get_time_feed[0][0]["out_channel"]."<br> สถานที่ : ".$result_get_time_feed[0][0]["out_location_name"];
+                }
+            }
+
+            
+        }
+
+        if(sizeof($result_CheckUserWFH) != 0){
+
+            if(is_array($result_CheckUserWFH[0]['msg'])){
+                if(sizeof($result_CheckUserWFH[0]['msg']) != 0){
+                    $WFH_ID = $result_CheckUserWFH[0]['msg'][0]['WFH_ID'];
+                    if($WFH_ID =="1"){
+                        $status_wfh ="true";
+                    }
+                }
+            
+            }
+
+        }
+    
 
         if($status_wfh == "false"){
             //172.16 // KT 0
@@ -105,7 +141,6 @@ class TimeStamp extends CI_Controller {
                 }
             }
 
-
             if($staus_location == 0){
 
                 $location = "LINE_KT";
@@ -121,13 +156,14 @@ class TimeStamp extends CI_Controller {
             }
             
         }else{
-
+            $statuscheck_wifi = "true";
             $location = "LINE_WFH";
         }
         
 
         $StatusCheck = array(
             'statuscheck_wifi' => $statuscheck_wifi,
+            'feed_time' => $feed_time,
             'category' => $location
         );
 
@@ -154,7 +190,7 @@ class TimeStamp extends CI_Controller {
                     'site_url' => "TimeStamp/PostTimestamp",
                     'result_user' => $result_user[0],
                     'liff_id' => $this->liff_id,
-                    'status_time_stamp' => array('ip'=> $this->GetClientIP() , 'status' => $this->CheckisLocalIPAddress($this->GetClientIP()))
+                    'status_time_stamp' => array('ip'=> $this->GetClientIP() , 'status' => $this->CheckisLocalIPAddress($this->GetClientIP(),$result_user[0]['user_ad_code']))
                 );
                 $this->load->view('Time_stamp_view', $data);
            
@@ -166,10 +202,11 @@ class TimeStamp extends CI_Controller {
             }
            
         }else{
-            $data = array(  'liff_id' =>  $this->liff_id,'text_status' => "" );
+            $data = array(  'liff_id' =>  $this->liff_id,'text_status' => "Time_Stamp_True" );
             $this->load->view('login_success_view',$data);
         }
     }
+
 
     public function PostTimestamp(){
        
@@ -177,11 +214,19 @@ class TimeStamp extends CI_Controller {
         $result['category']  = $this->input->post('category');
         $result['timestamp']  = $this->input->post('timestamp');
         
-       
-        $PostTimeStamp_result = $this->Model_TimeStamp->PostTimeStamp($result);  
+      
+        $PostTimeStamp_result =  array(json_decode($this->Model_TimeStamp->PostTimeStamp($result), true)); 
+     
 
-        print_r($PostTimeStamp_result);
-
+        if( $PostTimeStamp_result[0]["status_old"] == 200 &&  $PostTimeStamp_result[0]["status_new"] == 200){
+           
+            $data = array( 
+                'liff_id' => $this->liff_id,
+                'text_status' => "Time_Stamp_True"
+            );
+    
+            $this->load->view('login_success_view',$data);
+        }
     }
 
 }  

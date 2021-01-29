@@ -154,6 +154,18 @@ p {
   padding-bottom: 10px;
 }
 
+
+#feed_time {
+  border: 0px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 10px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
 </style>
 
 
@@ -183,12 +195,13 @@ p {
       
         <div id="clock"></div>
         <div id="p_"></div>
+       
         
      
         <!-- <p>ตามเวลาประเทศไทย ระบบเซอร์เวอร์ของ<br>การยาสูบแห่งประเทศไทย</p>  -->
 
-        <button type="submit" id="togglee" class="buttonradius" >บันทึกเวลา</button>
-
+        <button type="submit" id="togglee" class="buttonradius" >บันทึกเวลาเข้างาน</button>
+        <div id="feed_time"></div>
       </div> 
 
       <input type="hidden" id="category" name="category" >
@@ -278,24 +291,31 @@ p {
           var status = "<?php  echo $status_time_stamp['status']['statuscheck_wifi'];?>";
           var category = "<?php  echo $status_time_stamp['status']['category'];?>";
           var user_ad_code = "<?php echo $result_user["user_ad_code"]; ?>"
+          var feed_time = "<?php echo $status_time_stamp['status']['feed_time'];?>";
 
           document.getElementById('category').value = category;
           document.getElementById('user_ad_code').value = user_ad_code;
+          document.getElementById("feed_time").innerHTML = feed_time;
 
           // window.alert(status);
           if(status == "true"){
             document.getElementById('togglee').style.visibility = 'visible';
+            if(category == "LINE_WFH"){
+                document.getElementById('togglee').innerText = 'บันทึกเวลาเข้างาน (WFH)';
+            }
+       
           }else{
             document.getElementById('togglee').style.visibility = 'hidden';
-            window.alert("please stay in wifi TOAT area");
+            window.alert("กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย");
             // window.alert(status);
+            liff.closeWindow()
           }
          
 
          
         }
 
-        CheckStatusTimeStamp();
+       
        
         function logIn(){  liff.login({ redirectUri: window.location.href })  }
 
@@ -328,7 +348,8 @@ p {
             await liff.init({ liffId: liff_id })
 
                 if(liff.isInClient()){
-                    getUserProfile()
+                    // getUserProfile()
+                      CheckStatusTimeStamp();
                 }else{
                     window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");
                     window.close(); 
@@ -343,6 +364,7 @@ p {
         }
 
         main()
+        // CheckStatusTimeStamp();
         // getLocation()
 
       </script>

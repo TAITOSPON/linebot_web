@@ -23,20 +23,51 @@ class Model_TimeStamp extends CI_Model
             'category' => $result['category']
         );
 
-        return json_encode($data) ;
+        // return json_encode($data) ;
 
-        // $ch = curl_init();
-        // curl_setopt($ch, CURLOPT_URL, '192.168.0.20/lineOfficial/api/TimestampByType');
-        // curl_setopt($ch, CURLOPT_POST, true);
-        // curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        // curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        // curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-        // curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-        // $result = curl_exec($ch);
-        // curl_close($ch);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'http://192.168.0.20/lineOfficial/api/TimestampByType');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        $result = curl_exec($ch);
+        curl_close($ch);
 
-        // return array(  'status' => "true" , 'result' => $result );
+
+        // $result ='
+        // {
+        //     "status_old": 200,
+        //     "status_new": 200
+        // }';
+
+
+        return $result;
     
+    }
+
+    public function CheckUserWFH($user_ad_code){
+
+        // https://change.toat.co.th/timeatt/index.php/api/chk_inout/chkUserWFH
+
+
+        $data = array(
+            'user_id' => $user_ad_code, 
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://change.toat.co.th/timeatt/index.php/api/chk_inout/chkUserWFH');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return $result;
+
     }
 
 
