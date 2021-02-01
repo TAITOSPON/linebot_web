@@ -165,7 +165,7 @@ p {
                     <tr style="background-color: #F9C4B8">
                     
                         <td><?php echo $key;?></td>
-                        <td colspan="2" style='font-size:30%'> <?php print_r($result_detail_time_feed[$key]["DAY_NAME"]);?></td>
+                        <td colspan="2" > <?php print_r($result_detail_time_feed[$key]["DAY_NAME"]);?></td>
 
                     </tr> 
                   
@@ -175,7 +175,7 @@ p {
                     <tr style="background-color: #C1F57F">
 
                         <td><?php echo $key; ?></td>
-                        <td colspan="2" style='font-size:30%'><?php print_r($result_detail_time_feed[$key]["GBHL_HOL_NAME"]);?></td>
+                        <td colspan="2"><?php print_r($result_detail_time_feed[$key]["GBHL_HOL_NAME"]);?></td>
                 
                     </tr> 
 
@@ -183,54 +183,72 @@ p {
 
                       <?php if($result_detail_time_feed[$key]["LEAVE_DAY_TYPE"] == "F"){?>
                       <tr style="background-color: #f0c98d">
-                      <?php }else{?>
+
+                      <?php }else if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H'){?>
+
+                      <tr style="background-color: #f0c98d">
+
+                      <?php }else{ ?>
                       <tr>
                       <?php } ?>
-                   
                           <td><?php echo $key; ?></td>
 
                           <?php if($result_detail_time_feed[$key]["LEAVE_DAY_TYPE"] == "F"){?>
                           
-                            <td colspan="2" style='font-size:30%'><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]);?></td>
+                            <td colspan="2" ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]);?></td>
 
 
-                          <?php }else{
+                          <?php }else{ ?>
+
+
+                         
+                                <?php 
                                 
-                                    if($result_detail_time_feed[$key]['inStatus'] != ""){
-                                        if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'M'){  ?>
+                                if($result_detail_time_feed[$key]['inStatus'] != ""){
+                                    if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed[$key]['LEAVE_HALF_TYPE'] == 'M'){ ?>
+                                      <td style="background-color: #f0c98d"  ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."เช้า");?></td>  <?php 
+                                    }else{ ?>
+                                      <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>  <?php 
+                                    }
+                                }else{
+                                    if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed[$key]['LEAVE_HALF_TYPE'] == 'M'){ ?>
+                                       <td style="background-color: #f0c98d"  ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."เช้า");?></td>  <?php 
+                                    }else{ ?>
+                                      <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>  <?php 
+                                
+                                    }
+                               }
+                
 
-                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
-
-                                <?php   }
-                                    }else{
-                                      if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'M'){ ?>
-    
-                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
-                                <?php }else{ ?>
-                                      <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?> </td>
-                                    
-                                <?php }
-                                   }
+                              ?>
+                          
+  
+                                <?php 
                       
                         
-                                    if($result_detail_time_feed[$key]['outStatus'] != ""){
-                                        if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'A'){ ?>
-                                        
-                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
-                                <?php }
-                                    }else{
-                                        if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'A'){ ?>
-                                      
-                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
-                                 <?php }else{ ?>
-                                      
-                                          <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?> </td>                       
-                                  <?php  }
+                                  if($result_detail_time_feed[$key]['outStatus'] != ""){
+                                      if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed[$key]['LEAVE_HALF_TYPE'] == 'A'){   ?>
 
-                                    }
+                                        <td style="background-color: #f0c98d"  ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."บ่าย");?></td>  <?php 
+                                      }else{    ?>
+                                      
+                                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>  <?php 
+
+                                      }
+                                  }else{
+                                      if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed[$key]['LEAVE_HALF_TYPE'] == 'A'){ ?>
+                                        <td style="background-color: #f0c98d" ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."บ่าย");?></td>  <?php 
+                                      }else{
+                                       
+                                        print_r($result_detail_time_feed[$key]["out_stamp"]);  ?>
+                                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>  <?php 
+                      
+                                          
+                                      }
+                                  }
 
                                 ?>
-                         
+                          
 
                         <?php } ?>
                       
