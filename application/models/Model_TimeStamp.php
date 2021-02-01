@@ -70,6 +70,40 @@ class Model_TimeStamp extends CI_Model
 
     }
 
+    public function Get_TimeAt_feed_with_ad($user_ad_code){
+
+        $data = array(
+            'user_ad_code' => $user_ad_code, 
+        );
+
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://webhook.toat.co.th/linebot/web/index.php/api/Api_TimeAt/TimeAt_feed_with_ad');
+        curl_setopt($ch, CURLOPT_POST, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return $result;
+    }
+
+
+    public function Insert_Log_Time_Stamp($result){
+        
+        $data = array(
+            'time_stamp_log_id' => NULL,
+            'time_stamp_log_datetime' => date("Y-m-d h:i:s"),
+            'time_stamp_log_result' => json_encode($result['time_stamp_log_result']),
+            'user_ad_code' => $result['user_ad_code'], 
+            'user_line_uid' => $result['user_line_uid']
+        );
+    
+        $this->db->insert('lb_time_stamp_log', $data);
+
+        
+    }
 
 
 

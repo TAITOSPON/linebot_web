@@ -113,6 +113,7 @@ p {
                 <input type="hidden" id="user_line_uid" name="user_line_uid" >
                 <input type="hidden" id="user_line_name" name="user_line_name" >
                 <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
+                <input type="hidden" id="user_ad_code" name="user_ad_code" >
 
                 <!-- <input type="text" id="user_line_uid" name="user_line_uid" >
                 <input type="text" id="user_line_name" name="user_line_name" >
@@ -151,10 +152,13 @@ p {
                     const name = profile.displayName;
                     const user_line_pic_url = profile.pictureUrl;
 
+                    var user_ad_code = "<?php echo $user_ad_code;?>";
+
                     if(user_id!=null && name != null){
                         document.getElementById('user_line_uid').value = user_id;
                         document.getElementById('user_line_name').value = name;
                         document.getElementById('user_line_pic_url').value = user_line_pic_url;
+                        document.getElementById('user_ad_code').value = user_ad_code;
                     }
               
                   

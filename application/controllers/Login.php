@@ -92,6 +92,7 @@ class Login extends CI_Controller {
         $result['user_line_uid'] = $user_line_uid;
         $result['user_line_name'] = $user_line_name;
         $result['user_line_pic_url'] = $user_line_pic_url;
+        $result['user_ad_code'] = $user_ad;
         
         // echo $result['user_line_uid'], $result['user_line_name'], $result['user_line_pic_url']; exit();
 
@@ -107,7 +108,7 @@ class Login extends CI_Controller {
 
                
                         $this->Goto_login_success_view("login_true_first");
-                     
+                        $this->Insert_log_login($result);
 
                     }else {
                         // echo "db user_connect false";
@@ -131,6 +132,13 @@ class Login extends CI_Controller {
         }
    
 
+    }
+
+    public function Insert_log_login($result){
+
+        $result['login_type'] = 'Login';
+        $this->load->model('Model_User');
+        $this->Model_User->Insert_Log_Login($result);
     }
 
     // public function Postcallbacklogin($result){

@@ -82,26 +82,34 @@ class TimeStamp extends CI_Controller {
 
 
     public function CheckisLocalIPAddress($IPAddress,$user_ad_code){
-     
+    
         $status_wfh = "false";
         $feed_time = "";
 
         $result_CheckUserWFH =  array(json_decode($this->Model_TimeStamp->CheckUserWFH($user_ad_code), true));
 
-        $result_get_time_feed =  array(json_decode($this->Model_TimeAt->get_time_feed($user_ad_code), true)); 
+        $result_get_time_feed = array(json_decode($this->Model_TimeStamp->Get_TimeAt_feed_with_ad($user_ad_code), true)); 
 
+ 
+        if(json_encode($result_get_time_feed,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
+     
+            $result_time_at = $result_get_time_feed[0]['result']['result_time_at'];
+            if(sizeof($result_time_at) != 0){
+                // print_r  ( $result_time_at[0]);
 
-        if(sizeof($result_get_time_feed) != 0){
-
-            if(date("h:i:s") < date("12:i:s")){
-                $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_get_time_feed[0][0]["in_CHK"]." ด้วย : ".$result_get_time_feed[0][0]["in_channel"]."<br> สถานที่ : ".$result_get_time_feed[0][0]["in_location_name"];
-            }else{
-                if($result_get_time_feed[0][0]["out_CHK"] != ""){
-                    $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_get_time_feed[0][0]["out_CHK"]." ด้วย : ".$result_get_time_feed[0][0]["out_channel"]."<br> สถานที่ : ".$result_get_time_feed[0][0]["out_location_name"];
+                if(date("H:i:s") < date("12:i:s")){
+                    $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["in_CHK"]." ด้วย : ".$result_time_at[0]["in_channel"]."<br> สถานที่ : ".$result_time_at[0]["in_location_name"];
+                }else{
+                    // $index = sizeof($result_time_at)-1;
+                    // if($result_time_at[$index ]["out_CHK"] != ""){
+                    //     $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["out_CHK"]." ด้วย : ".$result_time_at[$index]["out_channel"]."<br> สถานที่ : ".$result_time_at[$index]["out_location_name"];
+                    // }
+                    if($result_time_at[0]["out_CHK"] != ""){
+                        $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["out_CHK"]." ด้วย : ".$result_time_at[0]["out_channel"]."<br> สถานที่ : ".$result_time_at[0]["out_location_name"];
+                    }
                 }
+     
             }
-
-            
         }
 
         if(sizeof($result_CheckUserWFH) != 0){
@@ -173,10 +181,7 @@ class TimeStamp extends CI_Controller {
        
     }
 
-
-
-
-
+ 
     public function TimeStamp(){
 
         $user_line_uid['user_line_uid'] = $this->input->post('user_line_uid');
@@ -213,20 +218,35 @@ class TimeStamp extends CI_Controller {
         $result['user_ad_code']  = $this->input->post('user_ad_code');
         $result['category']  = $this->input->post('category');
         $result['timestamp']  = $this->input->post('timestamp');
-        
-      
-        $PostTimeStamp_result =  array(json_decode($this->Model_TimeStamp->PostTimeStamp($result), true)); 
-     
+        $result['user_line_uid'] = $this->input->post('user_line_uid');
 
-        if( $PostTimeStamp_result[0]["status_old"] == 200 &&  $PostTimeStamp_result[0]["status_new"] == 200){
+
+        $status_time_stamp = $this->CheckisLocalIPAddress($this->GetClientIP(),$result['user_ad_code']);
+
+        if($status_time_stamp['statuscheck_wifi'] == "true"){
            
-            $data = array( 
-                'liff_id' => $this->liff_id,
-                'text_status' => "Time_Stamp_True"
-            );
+            $PostTimeStamp_result =  array(json_decode($this->Model_TimeStamp->PostTimeStamp($result), true)); 
+            $result['time_stamp_log_result'] = $PostTimeStamp_result;
+     
+            if( $PostTimeStamp_result[0]["status_old"] == 200 &&  $PostTimeStamp_result[0]["status_new"] == 200){
     
-            $this->load->view('login_success_view',$data);
+               $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "time_stamp_true" ,'msg' => "บันทึกเวลาสำเร็จ"));
+    
+            }else{
+                $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
+            }
+
+
+            $this->Model_TimeStamp->Insert_Log_Time_Stamp($result);
+           
+
+        }else{
+
+            $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "statuscheck_wifi_false" ,'msg' => "กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย"));
+        
         }
+
+    
     }
 
 }  

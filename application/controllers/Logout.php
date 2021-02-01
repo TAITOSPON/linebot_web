@@ -35,9 +35,11 @@ class Logout extends CI_Controller {
             if($result["result"] == "check_login_true"){
                 $data = array( 
                     'site_url' => "Logout/Logout_procress" ,
+                    'user_ad_code' => $result["data"][0]["user_ad_code"],
                     'liff_id' => $this->liff_id,
                 );
                 $this->load->view('Logout_view',$data);
+              
             }else{
                 $data = array( 'liff_id' => $this->liff_id, 'text_status' => "not_login" );
                 $this->load->view('login_success_view',$data);
@@ -61,8 +63,15 @@ class Logout extends CI_Controller {
 
         if($result["status"] == true){
             if($result["result"] == "logout_update_true"){
+
                 $data = array( 'liff_id' => $this->liff_id, 'text_status' => "logout_update_true" );
                 $this->load->view('login_success_view',$data);
+
+                $result['user_line_uid'] = $this->input->post('user_line_uid');
+                $result['user_ad_code'] = $this->input->post('user_ad_code');
+                $this->Insert_log_login($result);
+
+
             }else{
                 $data = array( 'liff_id' => $this->liff_id, 'text_status' => "not_login" );
                 $this->load->view('login_success_view',$data);
@@ -73,6 +82,13 @@ class Logout extends CI_Controller {
             $this->load->view('login_success_view',$data);
         }
 
+    }
+
+    public function Insert_log_login($result){
+
+        $result['login_type'] = 'Logout';
+        $this->load->model('Model_User');
+        $this->Model_User->Insert_Log_Login($result);
     }
 
     

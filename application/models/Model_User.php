@@ -206,6 +206,19 @@ class Model_User extends CI_Model
       
     }
 
+    public function Insert_Log_Login($result){
+
+        $data = array(
+            'login_id' => NULL,
+            'login_date' => date("Y-m-d h:i:s"),
+            'user_ad_code' => $result['user_ad_code'], 
+            'user_line_uid' => $result['user_line_uid'],
+            'login_type' =>  $result['login_type']
+        );
+    
+        $this->db->insert('lb_login_log', $data);
+    }
+
 
 
 

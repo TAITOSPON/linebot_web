@@ -200,7 +200,7 @@ p {
      
         <!-- <p>ตามเวลาประเทศไทย ระบบเซอร์เวอร์ของ<br>การยาสูบแห่งประเทศไทย</p>  -->
 
-        <button type="submit" id="togglee" class="buttonradius" >บันทึกเวลาเข้างาน</button>
+        <button type="submit" id="togglee" class="buttonradius" >บันทึกเวลา</button>
         <div id="feed_time"></div>
       </div> 
 
@@ -208,8 +208,9 @@ p {
       <input type="hidden" id="user_ad_code" name="user_ad_code" >
       <input type="hidden" id="timestamp" name="timestamp" >
 
-      <!-- <input type="text" id="user_line_name" name="user_line_name" >
-      <input type="text" id="user_line_pic_url" name="user_line_pic_url" > -->
+      <input type="hidden" id="user_line_uid" name="user_line_uid" >
+      <input type="hidden" id="user_line_name" name="user_line_name" >
+      <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
                 
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMJt2oRKYCBQ7ZO-_kI-EVXV18ko8Dzu0&callback=initMap&libraries=&v=weekly" defer ></script>
       <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
@@ -297,17 +298,15 @@ p {
           document.getElementById('user_ad_code').value = user_ad_code;
           document.getElementById("feed_time").innerHTML = feed_time;
 
-          // window.alert(status);
           if(status == "true"){
             document.getElementById('togglee').style.visibility = 'visible';
             if(category == "LINE_WFH"){
-                document.getElementById('togglee').innerText = 'บันทึกเวลาเข้างาน (WFH)';
+                document.getElementById('togglee').innerText = 'บันทึกเวลา (WFH)';
             }
        
           }else{
             document.getElementById('togglee').style.visibility = 'hidden';
             window.alert("กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย");
-            // window.alert(status);
             liff.closeWindow()
           }
          
@@ -348,7 +347,7 @@ p {
             await liff.init({ liffId: liff_id })
 
                 if(liff.isInClient()){
-                    // getUserProfile()
+                      getUserProfile()
                       CheckStatusTimeStamp();
                 }else{
                     window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");

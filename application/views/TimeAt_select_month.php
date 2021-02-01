@@ -181,12 +181,61 @@ p {
 
                 <?php }else if($result_detail_time_feed[$key]["PNLT_NAME"] != ""){  ?>
 
-                  <tr style="background-color: #f0c98d">
+                      <?php if($result_detail_time_feed[$key]["LEAVE_DAY_TYPE"] == "F"){?>
+                      <tr style="background-color: #f0c98d">
+                      <?php }else{?>
+                      <tr>
+                      <?php } ?>
+                   
+                          <td><?php echo $key; ?></td>
 
-                      <td><?php echo $key; ?></td>
-                      <td colspan="2" style='font-size:30%'><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]);?></td>
+                          <?php if($result_detail_time_feed[$key]["LEAVE_DAY_TYPE"] == "F"){?>
+                          
+                            <td colspan="2" style='font-size:30%'><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]);?></td>
 
-                  </tr> 
+
+                          <?php }else{
+                                
+                                    if($result_detail_time_feed[$key]['inStatus'] != ""){
+                                        if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'M'){  ?>
+
+                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
+
+                                <?php   }
+                                    }else{
+                                      if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'M'){ ?>
+    
+                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
+                                <?php }else{ ?>
+                                      <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?> </td>
+                                    
+                                <?php }
+                                   }
+                      
+                        
+                                    if($result_detail_time_feed[$key]['outStatus'] != ""){
+                                        if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'A'){ ?>
+                                        
+                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
+                                <?php }
+                                    }else{
+                                        if($result_detail_time_feed['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed['LEAVE_HALF_TYPE'] == 'A'){ ?>
+                                      
+                                          <td style="background-color: #f0c98d"> <?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]); ?></td>
+                                 <?php }else{ ?>
+                                      
+                                          <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?> </td>                       
+                                  <?php  }
+
+                                    }
+
+                                ?>
+                         
+
+                        <?php } ?>
+                      
+
+                      </tr> 
 
                 <?php }else{  ?>
 
@@ -194,7 +243,7 @@ p {
                             
                         <td><?php echo $key;?></td>
                         <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>
-                        <td><?php print_r( $result_detail_time_feed[$key]["out_stamp"]);?></td>
+                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>
                                 
                     </tr> 
                 
