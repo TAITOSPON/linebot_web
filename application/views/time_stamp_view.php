@@ -159,7 +159,7 @@ p {
   border: 0px solid #ccc;
   box-sizing: border-box;
   border-radius: 8px;
-  font-size: 10px;
+  font-size: 15px;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -189,6 +189,15 @@ p {
         <div id="date"></div>
  
         <p><?php echo $result_user["user_ad_name"] ?></p> 
+
+        <input type="hidden" id="timestamp" name="timestamp" >
+        <input type="hidden" id="category" name="category" value="<?php echo $status_time_stamp['status']['category'] ?>" >
+        <input type="hidden" id="user_ad_code" name="user_ad_code"  value="<?php echo $result_user["user_ad_code"] ?>" >
+
+        <input type="hidden" id="user_line_uid" name="user_line_uid" >
+        <input type="hidden" id="user_line_name" name="user_line_name" >
+        <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
+
         <!-- <div id="map"></div> -->
         <br>
         <!-- <p><?php echo $status_time_stamp['ip'] ?></p>  -->
@@ -204,13 +213,9 @@ p {
         <div id="feed_time"></div>
       </div> 
 
-      <input type="hidden" id="category" name="category" >
-      <input type="hidden" id="user_ad_code" name="user_ad_code" >
-      <input type="hidden" id="timestamp" name="timestamp" >
+    
 
-      <input type="hidden" id="user_line_uid" name="user_line_uid" >
-      <input type="hidden" id="user_line_name" name="user_line_name" >
-      <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
+     
                 
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMJt2oRKYCBQ7ZO-_kI-EVXV18ko8Dzu0&callback=initMap&libraries=&v=weekly" defer ></script>
       <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
@@ -289,13 +294,10 @@ p {
         currentTime(); 
 
         async function CheckStatusTimeStamp() {
-          var status = "<?php  echo $status_time_stamp['status']['statuscheck_wifi'];?>";
-          var category = "<?php  echo $status_time_stamp['status']['category'];?>";
-          var user_ad_code = "<?php echo $result_user["user_ad_code"]; ?>"
-          var feed_time = "<?php echo $status_time_stamp['status']['feed_time'];?>";
+          var status = "<?php  echo $status_time_stamp['status']['statuscheck_wifi']?>";
+          var feed_time = "<?php echo $status_time_stamp['status']['feed_time'] ?>";
+          var category = "<?php echo $status_time_stamp['status']['category'] ?>";
 
-          document.getElementById('category').value = category;
-          document.getElementById('user_ad_code').value = user_ad_code;
           document.getElementById("feed_time").innerHTML = feed_time;
 
           if(status == "true"){
@@ -331,6 +333,8 @@ p {
             const user_id = profile.userId;
             const name = profile.displayName;
             const user_line_pic_url = profile.pictureUrl;
+
+
 
             if(user_id!=null && name != null){
                 document.getElementById('user_line_uid').value = user_id;

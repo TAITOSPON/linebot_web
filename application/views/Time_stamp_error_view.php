@@ -82,7 +82,7 @@ span.psw {
 </style>
 </head>
     <body>
-      <form >
+      <!-- <form > -->
           <div class="container">
                 <p><?php echo $msg ?></p> 
                 <button type="submit" class="buttonradius" onclick="SendMessage()" id="togglee">ตรวจสอบเวลา</button>
@@ -165,6 +165,6 @@ span.psw {
             }
             main()
           </script>
-        </form>
+        <!-- </form> -->
     </body>
 </html>

@@ -59,23 +59,23 @@ class TimeStamp extends CI_Controller {
 
         $ipaddress = '';
         if (getenv('HTTP_CLIENT_IP'))
-            $ipaddress = "HTTP_CLIENT_IP : ".getenv('HTTP_CLIENT_IP');
+            $ipaddress = getenv('HTTP_CLIENT_IP');
         else if(getenv('HTTP_X_FORWARDED_FOR'))
-            $ipaddress = "HTTP_X_FORWARDED_FOR : ".getenv('HTTP_X_FORWARDED_FOR');
+            $ipaddress = getenv('HTTP_X_FORWARDED_FOR');
 
         else if(getenv('HTTP_X_FORWARDED'))
-            $ipaddress = "HTTP_X_FORWARDED : ".getenv('HTTP_X_FORWARDED');
+            $ipaddress = getenv('HTTP_X_FORWARDED');
 
         else if(getenv('HTTP_FORWARDED_FOR'))
-            $ipaddress = "HTTP_FORWARDED_FOR : ".getenv('HTTP_FORWARDED_FOR');
+            $ipaddress = getenv('HTTP_FORWARDED_FOR');
 
         else if(getenv('HTTP_FORWARDED'))
-           $ipaddress = "HTTP_FORWARDED : ".getenv('HTTP_FORWARDED');
+           $ipaddress = getenv('HTTP_FORWARDED');
 
         else if(getenv('REMOTE_ADDR'))
             $ipaddress = getenv('REMOTE_ADDR');
         else
-            $ipaddress = 'UNKNOWN';
+            $ipaddress = '';
         return $ipaddress;
 
     }
@@ -100,13 +100,18 @@ class TimeStamp extends CI_Controller {
                 if(date("H:i:s") < date("12:i:s")){
                     $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["in_CHK"]." ด้วย : ".$result_time_at[0]["in_channel"]."<br> สถานที่ : ".$result_time_at[0]["in_location_name"];
                 }else{
-                    // $index = sizeof($result_time_at)-1;
-                    // if($result_time_at[$index ]["out_CHK"] != ""){
-                    //     $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["out_CHK"]." ด้วย : ".$result_time_at[$index]["out_channel"]."<br> สถานที่ : ".$result_time_at[$index]["out_location_name"];
-                    // }
-                    if($result_time_at[0]["out_CHK"] != ""){
-                        $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["out_CHK"]." ด้วย : ".$result_time_at[0]["out_channel"]."<br> สถานที่ : ".$result_time_at[0]["out_location_name"];
+                    $index = sizeof($result_time_at)-1;
+                    if($result_time_at[$index]["out_CHK"] != ""){
+                        if( date($result_time_at[0]["out_CHK"]) > date($result_time_at[$index]["out_CHK"])){
+                           
+                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["out_CHK"]." ด้วย : ".$result_time_at[0]["out_channel"]."<br> สถานที่ : ".$result_time_at[0]["out_location_name"];
+                       
+                        }else{
+
+                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["out_CHK"]." ด้วย : ".$result_time_at[$index]["out_channel"]."<br> สถานที่ : ".$result_time_at[$index]["out_location_name"];
+                        }
                     }
+  
                 }
      
             }
@@ -116,8 +121,8 @@ class TimeStamp extends CI_Controller {
 
             if(is_array($result_CheckUserWFH[0]['msg'])){
                 if(sizeof($result_CheckUserWFH[0]['msg']) != 0){
-                    $WFH_ID = $result_CheckUserWFH[0]['msg'][0]['WFH_ID'];
-                    if($WFH_ID =="1"){
+                    $WFH_ID = $result_CheckUserWFH[0]['stat'];
+                    if($WFH_ID == 1){
                         $status_wfh ="true";
                     }
                 }
@@ -126,7 +131,7 @@ class TimeStamp extends CI_Controller {
 
         }
     
-
+        
         if($status_wfh == "false"){
             //172.16 // KT 0
             //172.31 // rot 1
@@ -149,23 +154,51 @@ class TimeStamp extends CI_Controller {
                 }
             }
 
-            if($staus_location == 0){
+            if($staus_location == "0"){
 
                 $location = "LINE_KT";
 
-            }else if($staus_location == 1){
+            }else if($staus_location == "1"){
 
                 $location = "LINE_ROJANA";
 
-            }else if($staus_location == 2){
+            }else if($staus_location == "2"){
 
                 $location = "LINE_WAN";
 
             }
             
         }else{
+
+            $wifi_toat =  array("172.16." , "172.31." , "172.18.");
+
+            $ip = substr((string)$IPAddress, 0, 7);
+
             $statuscheck_wifi = "true";
             $location = "LINE_WFH";
+            $staus_location = "";
+
+            for($index=0; $index< sizeof($wifi_toat); $index++){
+                if($ip == $wifi_toat[$index]){
+                    $staus_location = (string)$index;
+                }
+            }
+
+            if($staus_location == "0"){
+
+                $location = "LINE_KT";
+
+            }else if($staus_location == "1"){
+
+                $location = "LINE_ROJANA";
+
+            }else if($staus_location == "2"){
+
+                $location = "LINE_WAN";
+
+            }
+           
+         
         }
         
 
@@ -220,30 +253,46 @@ class TimeStamp extends CI_Controller {
         $result['timestamp']  = $this->input->post('timestamp');
         $result['user_line_uid'] = $this->input->post('user_line_uid');
 
+        if($result['user_ad_code'] != NULL){
 
-        $status_time_stamp = $this->CheckisLocalIPAddress($this->GetClientIP(),$result['user_ad_code']);
+            $status_time_stamp = $this->CheckisLocalIPAddress($this->GetClientIP(),$result['user_ad_code']);
 
-        if($status_time_stamp['statuscheck_wifi'] == "true"){
-           
-            $PostTimeStamp_result =  array(json_decode($this->Model_TimeStamp->PostTimeStamp($result), true)); 
-            $result['time_stamp_log_result'] = $PostTimeStamp_result;
-     
-            if( $PostTimeStamp_result[0]["status_old"] == 200 &&  $PostTimeStamp_result[0]["status_new"] == 200){
-    
-               $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "time_stamp_true" ,'msg' => "บันทึกเวลาสำเร็จ"));
-    
-            }else{
-                $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
-            }
+            if($status_time_stamp['statuscheck_wifi'] == "true"){
 
-
-            $this->Model_TimeStamp->Insert_Log_Time_Stamp($result);
-           
-
-        }else{
-
-            $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "statuscheck_wifi_false" ,'msg' => "กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย"));
+                $result['time_stamp_log_status_wifi'] = $status_time_stamp;
         
+                $PostTimeStamp_result =  array(json_decode($this->Model_TimeStamp->PostTimeStamp($result), true)); 
+                $result['time_stamp_log_result'] = $PostTimeStamp_result;
+        
+
+                if(sizeof($PostTimeStamp_result) != 0){
+
+
+                    if( $PostTimeStamp_result[0]["status_old"] == 200 &&  $PostTimeStamp_result[0]["status_new"] == 200){
+            
+                        $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "time_stamp_true" ,'msg' => "บันทึกเวลาสำเร็จ"));
+            
+                    }else{
+                        $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
+                    }
+                    
+             
+                
+
+                    // echo $result['user_ad_code'];
+                    // echo "<br>";
+                    // echo  $result['user_line_uid'];
+                    $this->Model_TimeStamp->Insert_Log_Time_Stamp($result);
+                }
+                
+
+            }else{
+
+                $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "statuscheck_wifi_false" ,'msg' => "กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย"));
+            
+            }
+        }else{
+            $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
         }
 
     
