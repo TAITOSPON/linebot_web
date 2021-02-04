@@ -98,7 +98,18 @@ class TimeStamp extends CI_Controller {
                 // print_r  ( $result_time_at[0]);
 
                 if(date("H:i:s") < date("12:i:s")){
-                    $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["in_CHK"]." ด้วย : ".$result_time_at[0]["in_channel"]."<br> สถานที่ : ".$result_time_at[0]["in_location_name"];
+                    $index = sizeof($result_time_at)-1;
+                    if($result_time_at[$index]["in_CHK"] != ""){
+                        if( date($result_time_at[0]["in_CHK"]) < date($result_time_at[$index]["in_CHK"])){
+                           
+                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["in_CHK"]." ด้วย : ".$result_time_at[0]["in_channel"]."<br> สถานที่ : ".$result_time_at[0]["in_location_name"];
+                       
+                        }else{
+
+                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["in_CHK"]." ด้วย : ".$result_time_at[$index]["in_channel"]."<br> สถานที่ : ".$result_time_at[$index]["in_location_name"];
+                        }
+                    }
+                   
                 }else{
                     $index = sizeof($result_time_at)-1;
                     if($result_time_at[$index]["out_CHK"] != ""){
@@ -133,87 +144,167 @@ class TimeStamp extends CI_Controller {
     
         
         if($status_wfh == "false"){
-            //172.16 // KT 0
-            //172.31 // rot 1
-            //172.18. // wan 2
-        
-            // "LINE_KT" , LINE_ROJANA , LINE_WAN , LINE_WFH
-
-            $wifi_toat =  array("172.16." , "172.31." , "172.18.");
-
-            $ip = substr((string)$IPAddress, 0, 7);
-
+           
             $statuscheck_wifi = "false";
             $staus_location = "";
-            $location = "";
+            $category = "";
+           
+            if($this->CheckwifiLocalIP($IPAddress) == ''){
+                
+                if($this->CheckwifiRealIP($IPAddress) == ''){
 
-            for($index=0; $index< sizeof($wifi_toat); $index++){
-                if($ip == $wifi_toat[$index]){
+                    $statuscheck_wifi = "false";
+                    $category = "";
+
+                }else{
                     $statuscheck_wifi = "true";
-                    $staus_location = (string)$index;
+                    $category = $this->CheckwifiRealIP($IPAddress);
                 }
-            }
-
-            if($staus_location == "0"){
-
-                $location = "LINE_KT";
-
-            }else if($staus_location == "1"){
-
-                $location = "LINE_ROJANA";
-
-            }else if($staus_location == "2"){
-
-                $location = "LINE_WAN";
-
+              
+            }else{
+                $statuscheck_wifi = "true";
+                $category = $this->CheckwifiLocalIP($IPAddress);
             }
             
         }else{
 
-            $wifi_toat =  array("172.16." , "172.31." , "172.18.");
-
-            $ip = substr((string)$IPAddress, 0, 7);
-
-            $statuscheck_wifi = "true";
-            $location = "LINE_WFH";
-            $staus_location = "";
-
-            for($index=0; $index< sizeof($wifi_toat); $index++){
-                if($ip == $wifi_toat[$index]){
-                    $staus_location = (string)$index;
-                }
-            }
-
-            if($staus_location == "0"){
-
-                $location = "LINE_KT";
-
-            }else if($staus_location == "1"){
-
-                $location = "LINE_ROJANA";
-
-            }else if($staus_location == "2"){
-
-                $location = "LINE_WAN";
-
-            }
            
-         
+            $statuscheck_wifi = "true";
+            $category = "LINE_WFH";
+          
+
+            if($this->CheckwifiLocalIP($IPAddress) == ''){
+                
+                if($this->CheckwifiRealIP($IPAddress) == ''){
+
+                    $statuscheck_wifi = "true";
+                    $category = "LINE_WFH";
+
+                }else{
+                    $statuscheck_wifi = "true";
+                    $category = $this->CheckwifiRealIP($IPAddress);
+                }
+              
+
+
+            }else{
+                $statuscheck_wifi = "true";
+                $category = $this->CheckwifiLocalIP($IPAddress);
+            }
+
         }
         
 
         $StatusCheck = array(
             'statuscheck_wifi' => $statuscheck_wifi,
             'feed_time' => $feed_time,
-            'category' => $location
+            'category' => $category,
+            'ip' => $IPAddress
+
         );
 
         return $StatusCheck;
-    
-        //     return ( !filter_var($IPAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE ) );
+  
        
     }
 
+    public function CheckwifiLocalIP($IPAddress){
+
+         //172.16 // KT 0
+         //172.31 // rot 1
+        //172.18. // wan 2
+
+        // "LINE_KT" , LINE_ROJANA , LINE_WAN , LINE_WFH
+
+        $category = "";
+        $staus_location = "";
+
+        $wifi_toat_local =  array(
+            "172.16." , 
+            "172.31." , 
+            "172.18."
+        );
+
+        $ip = substr((string)$IPAddress, 0, 7);
+
+        for($index=0; $index< sizeof($wifi_toat_local); $index++){
+            if($ip == $wifi_toat_local[$index]){
+                $staus_location = (string)$index;
+            }
+        }
+
+        if($staus_location == "0"){
+
+            $category = "LINE_KT";
+
+        }else if($staus_location == "1"){
+
+            $category = "LINE_ROJANA";
+
+        }else if($staus_location == "2"){
+
+            $category = "LINE_WAN";
+
+        }
+        
+
+        return $category;
+
+    }
+
+    public function CheckwifiRealIP($IPAddress){
+
+        $category = "";
+        $staus_location = "";
+
+        $wifi_toat =  array(
+            "103.144.44.222",
+            "103.144.44.190",
+
+            "58.137.230.176",
+            "203.146.190.32", 
+            "58.137.230.179",
+            "58.137.230.178"
+
+        );
+
+        $ip = $IPAddress;
+
+        for($index=0; $index< sizeof($wifi_toat); $index++){
+            if($ip == $wifi_toat[$index]){
+                $staus_location = (string)$index;
+            }
+        }
+     
+        if($staus_location == "0"){
+
+            $category = "LINE_ROJANA";
+
+        }else if($staus_location == "1"){
+
+            $category = "LINE_ROJANA";
+
+        }else if($staus_location == "2"){
+
+            $category = "LINE_KT";
+            
+        }else if($staus_location == "3"){
+
+            $category = "LINE_KT";
+
+        }else if($staus_location == "4"){
+
+            $category = "LINE_KT";
+
+        }else if($staus_location == "5"){
+
+            $category = "LINE_KT";
+        }
+        
+
+        return $category;
+
+    }
  
     public function TimeStamp(){
 
@@ -252,6 +343,8 @@ class TimeStamp extends CI_Controller {
         $result['category']  = $this->input->post('category');
         $result['timestamp']  = $this->input->post('timestamp');
         $result['user_line_uid'] = $this->input->post('user_line_uid');
+        $result['ip'] = $this->input->post('ip');
+        
 
         if($result['user_ad_code'] != NULL){
 
@@ -262,7 +355,7 @@ class TimeStamp extends CI_Controller {
                 $result['time_stamp_log_status_wifi'] = $status_time_stamp;
         
                 $PostTimeStamp_result =  array(json_decode($this->Model_TimeStamp->PostTimeStamp($result), true)); 
-                $result['time_stamp_log_result'] = $PostTimeStamp_result;
+            
         
 
                 if(sizeof($PostTimeStamp_result) != 0){
@@ -275,13 +368,12 @@ class TimeStamp extends CI_Controller {
                     }else{
                         $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
                     }
-                    
-             
                 
+                    $result['time_stamp_log_result'] = $PostTimeStamp_result;
+                    $this->Model_TimeStamp->Insert_Log_Time_Stamp($result);
+                }else{
 
-                    // echo $result['user_ad_code'];
-                    // echo "<br>";
-                    // echo  $result['user_line_uid'];
+                    $result['time_stamp_log_result'] = array('message' => "Api_PostTimeStamp_result_error");
                     $this->Model_TimeStamp->Insert_Log_Time_Stamp($result);
                 }
                 

@@ -155,6 +155,17 @@ p {
 }
 
 
+#latlon {
+  border: 0px solid #ccc;
+  box-sizing: border-box;
+  border-radius: 8px;
+  font-size: 10px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+
 #feed_time {
   border: 0px solid #ccc;
   box-sizing: border-box;
@@ -193,6 +204,7 @@ p {
         <input type="hidden" id="timestamp" name="timestamp" >
         <input type="hidden" id="category" name="category" value="<?php echo $status_time_stamp['status']['category'] ?>" >
         <input type="hidden" id="user_ad_code" name="user_ad_code"  value="<?php echo $result_user["user_ad_code"] ?>" >
+        <input type="hidden" id="ip" name="ip"  value="<?php echo$status_time_stamp['status']['ip'] ?>" >
 
         <input type="hidden" id="user_line_uid" name="user_line_uid" >
         <input type="hidden" id="user_line_name" name="user_line_name" >
@@ -204,13 +216,10 @@ p {
       
         <div id="clock"></div>
         <div id="p_"></div>
-       
-        
-     
-        <!-- <p>ตามเวลาประเทศไทย ระบบเซอร์เวอร์ของ<br>การยาสูบแห่งประเทศไทย</p>  -->
-
+        <div id="latlon"></div>
         <button type="submit" id="togglee" class="buttonradius" >บันทึกเวลา</button>
         <div id="feed_time"></div>
+       
       </div> 
 
     
@@ -237,19 +246,24 @@ p {
             position: latlng,
             map: map,
           });
+          
+        
+
         }
 
-    
+      
         async function getLocation() {
-          if (navigator.geolocation) {
+            if (navigator.geolocation) {
               navigator.geolocation.getCurrentPosition(showPosition);
             } else { 
               // getLocation()
-              x.innerHTML = "Geolocation is not supported by this browser.";
+              // x.innerHTML = "Geolocation is not supported by this browser.";
             }
         }
 
         function showPosition(position) {
+          document.getElementById('latlon').innerText = "latlng : "+position.coords.latitude+" , "+position.coords.longitude;;
+
           initMap(position.coords.latitude,position.coords.longitude)
         }
 
@@ -257,10 +271,20 @@ p {
 
 
         async function currentTime() {
-          var date = new Date(); /* creating object of Date class */
-          var hour = date.getHours();
-          var min = date.getMinutes();
-          var sec = date.getSeconds();
+
+          var offset = +7;
+          var date_thai =  new Date(new Date().getTime() + offset * 3600 * 1000 )
+
+          var hour = date_thai.getUTCHours();
+          var min = date_thai.getUTCMinutes();
+          var sec = date_thai.getUTCSeconds();
+
+          var date = new Date(); 
+          // var hour = date.getHours();
+          // var min = date.getMinutes();
+          // var sec = date.getSeconds();
+
+
           hour = updateTime(hour);
           min = updateTime(min);
           sec = updateTime(sec);
