@@ -206,6 +206,8 @@ p {
         <input type="hidden" id="user_ad_code" name="user_ad_code"  value="<?php echo $result_user["user_ad_code"] ?>" >
         <input type="hidden" id="ip" name="ip"  value="<?php echo$status_time_stamp['status']['ip'] ?>" >
 
+        <input type="hidden" id="latlong" name="latlong" >
+
         <input type="hidden" id="user_line_uid" name="user_line_uid" >
         <input type="hidden" id="user_line_name" name="user_line_name" >
         <input type="hidden" id="user_line_pic_url" name="user_line_pic_url" >
@@ -254,18 +256,35 @@ p {
       
         async function getLocation() {
             if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(showPosition);
+              // navigator.geolocation.getCurrentPosition(showPosition);
+
+              navigator.geolocation.getCurrentPosition(showPosition, error, options);
             } else { 
               // getLocation()
-              // x.innerHTML = "Geolocation is not supported by this browser.";
+              x.innerHTML = "Geolocation is not supported by this browser.";
             }
         }
 
         function showPosition(position) {
-          document.getElementById('latlon').innerText = "latlng : "+position.coords.latitude+" , "+position.coords.longitude;;
+          
+          document.getElementById('latlon').innerText = "latlng : "+position.coords.latitude+" , "+position.coords.longitude;
+          document.getElementById('latlong').value = position.coords.latitude+","+position.coords.longitude; 
+  
 
           initMap(position.coords.latitude,position.coords.longitude)
         }
+
+        function error(err) {
+          console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+
+        var options = {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        };
+
+        
 
        
 
@@ -392,7 +411,7 @@ p {
 
         main()
         // CheckStatusTimeStamp();
-        // getLocation()
+        getLocation()
 
       </script>
     </form>

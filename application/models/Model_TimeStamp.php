@@ -99,6 +99,7 @@ class Model_TimeStamp extends CI_Model
             'time_stamp_log_result' => json_encode($result['time_stamp_log_result']),
             'time_stamp_log' => $result['timestamp'],
             'time_stamp_log_ip' => $result['ip'],
+            'time_stamp_log_lat_lon' => $result['latlon'],
             'user_ad_code' => $result['user_ad_code'], 
             'user_line_uid' => $result['user_line_uid']
         );
