@@ -207,6 +207,7 @@ p {
         <input type="hidden" id="ip" name="ip"  value="<?php echo$status_time_stamp['status']['ip'] ?>" >
 
         <input type="hidden" id="latlong" name="latlong" >
+        <input type="hidden" id="os" name="os" >
 
         <input type="hidden" id="user_line_uid" name="user_line_uid" >
         <input type="hidden" id="user_line_name" name="user_line_name" >
@@ -377,9 +378,10 @@ p {
             const name = profile.displayName;
             const user_line_pic_url = profile.pictureUrl;
 
-
+            const os = liff.getOS()
 
             if(user_id!=null && name != null){
+                document.getElementById('os').value = os;
                 document.getElementById('user_line_uid').value = user_id;
                 document.getElementById('user_line_name').value = name;
                 document.getElementById('user_line_pic_url').value = user_line_pic_url;

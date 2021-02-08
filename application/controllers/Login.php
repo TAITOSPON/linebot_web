@@ -72,16 +72,17 @@ class Login extends CI_Controller {
         $user_line_uid = $this->input->post('user_line_uid');
         $user_line_name = $this->input->post('user_line_name');
         $user_line_pic_url = $this->input->post('user_line_pic_url');
+        $user_os = $this->input->post('os');
 
         // echo $user_ad." ".$user_ad_pass." ".$user_line_uid." ".$user_line_name; exit();
 
-        $this->GetLogin_AD($user_ad,$user_ad_pass,$user_line_uid, $user_line_name,$user_line_pic_url);
+        $this->GetLogin_AD($user_ad,$user_ad_pass,$user_line_uid, $user_line_name,$user_line_pic_url,$user_os);
      
 
     }  
 
 
-    public function GetLogin_AD($user_ad,$user_ad_pass,$user_line_uid,$user_line_name,$user_line_pic_url){
+    public function GetLogin_AD($user_ad,$user_ad_pass,$user_line_uid,$user_line_name,$user_line_pic_url,$user_os){
         // [{"PERSON_CODE":"003599","PERSON_NAME":"ทศพล โพชะเรือง","PERSON_DEPT_CODE":"19010300","PERSON_DEPT_NAME":"สำนักเทคโนโลยีสารสนเทศ ก.พัฒนาระบบสารสนเทศ"}]
         $file = "http://172.20.55.9/ADAuthenAPI/api/ADUser?pnc=".$user_ad."&pnp=".$user_ad_pass;
         $data = file_get_contents($file);
@@ -93,6 +94,7 @@ class Login extends CI_Controller {
         $result['user_line_name'] = $user_line_name;
         $result['user_line_pic_url'] = $user_line_pic_url;
         $result['user_ad_code'] = $user_ad;
+        $result['user_os'] = $user_os;
         
         // echo $result['user_line_uid'], $result['user_line_name'], $result['user_line_pic_url']; exit();
 

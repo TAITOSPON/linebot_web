@@ -57,18 +57,21 @@ class Logout extends CI_Controller {
     public function Logout_procress(){
 
         $result['user_line_uid'] = $this->input->post('user_line_uid');
+        $result['user_ad_code'] = $this->input->post('user_ad_code');
+        $result['user_os'] = $this->input->post('os');
 
         $this->load->model('Model_User');
-        $result = $this->Model_User->Set_user_logout($result);  
+        $result_logout = $this->Model_User->Set_user_logout($result);  
 
-        if($result["status"] == true){
-            if($result["result"] == "logout_update_true"){
+        if($result_logout["status"] == true){
+            if($result_logout["result"] == "logout_update_true"){
 
                 $data = array( 'liff_id' => $this->liff_id, 'text_status' => "logout_update_true" );
                 $this->load->view('login_success_view',$data);
 
-                $result['user_line_uid'] = $this->input->post('user_line_uid');
-                $result['user_ad_code'] = $this->input->post('user_ad_code');
+                // $result['user_line_uid'] = $this->input->post('user_line_uid');
+                // $result['user_ad_code'] = $this->input->post('user_ad_code');
+                // $result['user_os'] = $this->input->post('os');
                 $this->Insert_log_login($result);
 
 

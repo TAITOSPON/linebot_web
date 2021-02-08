@@ -345,6 +345,7 @@ class TimeStamp extends CI_Controller {
         $result['user_line_uid'] = $this->input->post('user_line_uid');
         $result['ip'] = $this->input->post('ip');
         $result['latlon'] = $this->input->post('latlong');
+        $result['os'] = $this->input->post('os');
 
         if($result['user_ad_code'] != NULL){
 

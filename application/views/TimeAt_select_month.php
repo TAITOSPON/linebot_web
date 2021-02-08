@@ -159,25 +159,58 @@ p {
                
                 <?php foreach($result_detail_time_feed as $key => $val) { 
                         if($result_detail_time_feed[$key]["DAY_OF_WEEK_SDESC"] == "SAT" 
-                        || $result_detail_time_feed[$key]["DAY_OF_WEEK_SDESC"] == "SUN"){?>
+                        || $result_detail_time_feed[$key]["DAY_OF_WEEK_SDESC"] == "SUN"){
+
+                            if($result_detail_time_feed[$key]["Stamp_Date"] == ""){?>
+
+                                <tr style="background-color: #F9C4B8">
+                                      
+                                      <td><?php echo $key;?></td>
+                                      <td colspan="2" > <?php print_r($result_detail_time_feed[$key]["DAY_NAME"]);?></td>
+
+                                </tr> 
+
+                          <?php }else { ?>
 
 
-                    <tr style="background-color: #F9C4B8">
-                    
-                        <td><?php echo $key;?></td>
-                        <td colspan="2" > <?php print_r($result_detail_time_feed[$key]["DAY_NAME"]);?></td>
+                      
+                                <tr style="background-color: #F9C4B8">
+                                
+                                    <td><?php echo $key;?></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>
+                                        
+                                </tr> 
 
-                    </tr> 
+                          <?php } ?>
+                        
                   
                     
-                <?php }else if($result_detail_time_feed[$key]["GBHL_HOL_NAME"] != ""){  ?>
+                <?php }else if($result_detail_time_feed[$key]["GBHL_HOL_NAME"] != ""){  
 
-                    <tr style="background-color: #C1F57F">
+            
+                       if($result_detail_time_feed[$key]["Stamp_Date"] == ""){?>
 
-                        <td><?php echo $key; ?></td>
-                        <td colspan="2"><?php print_r($result_detail_time_feed[$key]["GBHL_HOL_NAME"]);?></td>
-                
-                    </tr> 
+                              <tr style="background-color: #C1F57F">
+
+                                  <td><?php echo $key; ?></td>
+                                  <td colspan="2"><?php print_r($result_detail_time_feed[$key]["GBHL_HOL_NAME"]);?></td>
+                          
+                              </tr> 
+
+                          <?php }else { ?>
+
+
+                      
+                                <tr style="background-color: #C1F57F">
+                                
+                                    <td><?php echo $key;?></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>
+                                        
+                                </tr> 
+
+                          <?php } ?>
 
                 <?php }else if($result_detail_time_feed[$key]["PNLT_NAME"] != ""){  ?>
 

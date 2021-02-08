@@ -213,7 +213,8 @@ class Model_User extends CI_Model
             'login_date' => date("Y-m-d h:i:s"),
             'user_ad_code' => $result['user_ad_code'], 
             'user_line_uid' => $result['user_line_uid'],
-            'login_type' =>  $result['login_type']
+            'login_type' =>  $result['login_type'],
+            'login_os' => $result['user_os']
         );
     
         $this->db->insert('lb_login_log', $data);
