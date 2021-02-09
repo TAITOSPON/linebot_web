@@ -94,7 +94,7 @@ class Model_TimeStamp extends CI_Model
         
         $data = array(
             'time_stamp_log_id' => NULL,
-            'time_stamp_log_datetime' => date("Y-m-d h:i:s"),
+            'time_stamp_log_datetime' => date("Y-m-d H:i:s"),
             'time_stamp_log_status_wifi' => json_encode($result['time_stamp_log_status_wifi']),
             'time_stamp_log_result' => json_encode($result['time_stamp_log_result']),
             'time_stamp_log' => $result['timestamp'],
