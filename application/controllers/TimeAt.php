@@ -56,10 +56,18 @@ class TimeAt extends CI_Controller {
                 // echo($result_detail_time_feed); exit();
 
                 $json = json_decode($result_detail_time_feed,true);
+              
+                if(isset($json["msg"])){
 
-                $data = array(  'liff_id' => $this->liff_id,'result_user' => $result_user[0],'result_detail_time_feed' => $json["msg"] );
-           
-                $this->load->view('TimeAt_select_month',$data); 
+                    $data = array(  'liff_id' => $this->liff_id,'result_user' => $result_user[0],'result_detail_time_feed' => $json["msg"] );
+    
+                    $this->load->view('TimeAt_select_month',$data); 
+
+                }else{
+                    
+                    $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
+                }
+             
                
     
             }else{
