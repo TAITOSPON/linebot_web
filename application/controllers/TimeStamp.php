@@ -264,7 +264,9 @@ class TimeStamp extends CI_Controller {
             "58.137.230.176",
             "203.146.190.32", 
             "58.137.230.179",
-            "58.137.230.178"
+            "58.137.230.178",
+
+            "1.4.158.35" // LUMPANG
 
         );
 
@@ -299,6 +301,10 @@ class TimeStamp extends CI_Controller {
         }else if($staus_location == "5"){
 
             $category = "LINE_KT";
+
+        }else if($staus_location == "6"){
+
+            $category = "LINE_NTM_LAMPANG";
         }
         
 

@@ -226,8 +226,6 @@ p {
       </div> 
 
     
-
-     
                 
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMJt2oRKYCBQ7ZO-_kI-EVXV18ko8Dzu0&callback=initMap&libraries=&v=weekly" defer ></script>
       <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
@@ -268,7 +266,7 @@ p {
 
         function showPosition(position) {
           
-          document.getElementById('latlon').innerText = "latlng : "+position.coords.latitude+" , "+position.coords.longitude;
+          // document.getElementById('latlon').innerText = "latlng : "+position.coords.latitude+" , "+position.coords.longitude;
           document.getElementById('latlong').value = position.coords.latitude+","+position.coords.longitude; 
   
 
@@ -285,58 +283,72 @@ p {
           maximumAge: 0
         };
 
-        
-
-       
-
-
-        async function currentTime() {
-
-          var offset = +7;
-          var date_thai =  new Date(new Date().getTime() + offset * 3600 * 1000 )
-
-          var hour = date_thai.getUTCHours();
-          var min = date_thai.getUTCMinutes();
-          var sec = date_thai.getUTCSeconds();
-
-          var date = new Date(); 
-          // var hour = date.getHours();
-          // var min = date.getMinutes();
-          // var sec = date.getSeconds();
-
-
-          hour = updateTime(hour);
-          min = updateTime(min);
-          sec = updateTime(sec);
-          
-          var datestamp = date.toLocaleDateString('th-TH', {
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-          })
-
-          document.getElementById("clock").innerText = hour + " : " + min + " : " + sec; /* adding time to the div */
-          document.getElementById("date").innerText = datestamp;
-          document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
-
-          var Ymd = "<?php echo date("Y-m-d");?>";
-          document.getElementById('timestamp').value = Ymd+" "+ hour + ":" + min + ":" + sec; 
-            var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
-
-      
+        async function httpGet(){
+            if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
+                xmlhttp=new XMLHttpRequest();
+            } else {// code for IE6, IE5
+                xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+            }
+            xmlhttp.onreadystatechange=function(){
+                if (xmlhttp.readyState==4 && xmlhttp.status==200){
+                    
+                    var date = xmlhttp.responseText.split( ":" );
+                    var Hour = date[0];
+                    var Min = date[1];
+                    var Sec = date[2];
+                    var Ymd = date[3];
+                    var date = date[4];
+                  
+                    RunTime(Hour,Min,Sec,Ymd,date);
+                 
+                    
+                }
+            }
+            xmlhttp.open("GET", "https://webhook.toat.co.th/linebot/webhook/datenow", false );
+            xmlhttp.send();    
         }
 
-        function updateTime(k) {
-          if (k < 10) {
-            return "0" + k;
-          }
-          else {
-            return k;
-          }
+        function RunTime(Hour,Min,Sec,Ymd,date){
+     
+
+            Sec = parseInt(Sec) + 1;
+            if(parseInt(Sec) == 60){
+                Sec = 0;
+                Min = parseInt(Min) + 1;
+                if(parseInt(Min) == 60){
+                    Min  = 0;
+                    Hour = parseInt(Hour) + 1;
+                    if(parseInt(Hour) == 24){
+                        Hour = 0;
+                        Min  = 0;
+                        Sec  = 0;
+                       
+                    }
+                }
+            }
+
+            Hour = updateTime(Hour);
+            Min = updateTime(Min);
+            Sec = updateTime(Sec);
+
+
+            document.getElementById('clock').innerText = Hour.toString() + " : " + Min.toString() + " : " + Sec.toString() ;
+            document.getElementById("date").innerText = date;
+            document.getElementById('timestamp').value = Ymd+" "+ Hour.toString() + ":" + Min.toString() + ":" + Sec.toString(); 
+            
+            document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
+            
+            setTimeout(function() {RunTime(Hour,Min,Sec,Ymd,date) }, 1000);
+
         }
 
-        currentTime(); 
 
+        function updateTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+        }
+
+    
         async function CheckStatusTimeStamp() {
           var status = "<?php  echo $status_time_stamp['status']['statuscheck_wifi']?>";
           var feed_time = "<?php echo $status_time_stamp['status']['feed_time'] ?>";
@@ -360,17 +372,14 @@ p {
          
         }
 
-       
-       
+        
         function logIn(){  liff.login({ redirectUri: window.location.href })  }
-
 
         function logOut(){
            liff.closeWindow()
            liff.logout() 
         }
       
-
         async function getUserProfile() {
             const profile = await liff.getProfile()
             
@@ -389,6 +398,7 @@ p {
             }
 
         } 
+
         async function main() {
   
             var liff_id="<?php echo $liff_id;?>";
@@ -412,7 +422,7 @@ p {
         }
 
         main()
-        // CheckStatusTimeStamp();
+        httpGet()
         getLocation()
 
       </script>
