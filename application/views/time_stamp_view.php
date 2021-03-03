@@ -310,7 +310,8 @@ p {
 
         function RunTime(Hour,Min,Sec,Ymd,date){
      
-
+        
+            
             Sec = parseInt(Sec) + 1;
             if(parseInt(Sec) == 60){
                 Sec = 0;
@@ -327,9 +328,9 @@ p {
                 }
             }
 
-            Hour = updateTime(Hour);
-            Min = updateTime(Min);
-            Sec = updateTime(Sec);
+            Hour = updateTime(parseInt(Hour));
+            Min = updateTime(parseInt(Min));
+            Sec = updateTime(parseInt(Sec));
 
 
             document.getElementById('clock').innerText = Hour.toString() + " : " + Min.toString() + " : " + Sec.toString() ;
@@ -405,18 +406,17 @@ p {
 
             await liff.init({ liffId: liff_id })
 
+
+                  // getUserProfile()
+                  // CheckStatusTimeStamp();
+
+
                 if(liff.isInClient()){
                       getUserProfile()
                       CheckStatusTimeStamp();
                 }else{
                     window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");
-                    window.close(); 
-                    // if(liff.isLoggedIn()) {
-                    //     getUserProfile()
-                    // }else{
-                    //     logIn()
-                    // }
-                    
+                    window.close();           
                     
                 }
         }
