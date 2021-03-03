@@ -196,7 +196,7 @@ p {
     <!-- <form action="" method="post"> -->
     <form action="<?php echo site_url($site_url); ?>" method="post">
       <div class="container ">
-        <!-- <p>ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของการยาสูบแห่งประเทศไทย</p>  -->
+
         <div id="date"></div>
  
         <p><?php echo $result_user["user_ad_name"] ?></p> 

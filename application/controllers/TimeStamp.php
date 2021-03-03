@@ -13,7 +13,7 @@ class TimeStamp extends CI_Controller {
         parent::__construct();
         $this->load->model('Model_User');
         $this->load->model('Model_TimeStamp');
-        $this->load->model('Model_TimeAt');
+        // $this->load->model('Model_TimeAt');
         
     }
 
@@ -88,45 +88,45 @@ class TimeStamp extends CI_Controller {
 
         $result_CheckUserWFH =  array(json_decode($this->Model_TimeStamp->CheckUserWFH($user_ad_code), true));
 
-        $result_get_time_feed = array(json_decode($this->Model_TimeStamp->Get_TimeAt_feed_with_ad($user_ad_code), true)); 
+        // $result_get_time_feed = array(json_decode($this->Model_TimeStamp->Get_TimeAt_feed_with_ad($user_ad_code), true)); 
 
  
-        if(json_encode($result_get_time_feed,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
+        // if(json_encode($result_get_time_feed,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
      
-            $result_time_at = $result_get_time_feed[0]['result']['result_time_at'];
-            if(sizeof($result_time_at) != 0){
-                // print_r  ( $result_time_at[0]);
+        //     $result_time_at = $result_get_time_feed[0]['result']['result_time_at'];
+        //     if(sizeof($result_time_at) != 0){
+        //         // print_r  ( $result_time_at[0]);
 
-                if(date("H:i:s") < date("12:i:s")){
-                    $index = sizeof($result_time_at)-1;
-                    if($result_time_at[$index]["in_CHK"] != ""){
-                        if( date($result_time_at[0]["in_CHK"]) < date($result_time_at[$index]["in_CHK"])){
+        //         if(date("H:i:s") < date("12:i:s")){
+        //             $index = sizeof($result_time_at)-1;
+        //             if($result_time_at[$index]["in_CHK"] != ""){
+        //                 if( date($result_time_at[0]["in_CHK"]) < date($result_time_at[$index]["in_CHK"])){
                            
-                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["in_CHK"]." ด้วย : ".$result_time_at[0]["in_channel"]."<br> สถานที่ : ".$result_time_at[0]["in_location_name"];
+        //                     $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["in_CHK"]." ด้วย : ".$result_time_at[0]["in_channel"]."<br> สถานที่ : ".$result_time_at[0]["in_location_name"];
                        
-                        }else{
+        //                 }else{
 
-                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["in_CHK"]." ด้วย : ".$result_time_at[$index]["in_channel"]."<br> สถานที่ : ".$result_time_at[$index]["in_location_name"];
-                        }
-                    }
+        //                     $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["in_CHK"]." ด้วย : ".$result_time_at[$index]["in_channel"]."<br> สถานที่ : ".$result_time_at[$index]["in_location_name"];
+        //                 }
+        //             }
                    
-                }else{
-                    $index = sizeof($result_time_at)-1;
-                    if($result_time_at[$index]["out_CHK"] != ""){
-                        if( date($result_time_at[0]["out_CHK"]) > date($result_time_at[$index]["out_CHK"])){
+        //         }else{
+        //             $index = sizeof($result_time_at)-1;
+        //             if($result_time_at[$index]["out_CHK"] != ""){
+        //                 if( date($result_time_at[0]["out_CHK"]) > date($result_time_at[$index]["out_CHK"])){
                            
-                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["out_CHK"]." ด้วย : ".$result_time_at[0]["out_channel"]."<br> สถานที่ : ".$result_time_at[0]["out_location_name"];
+        //                     $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[0]["out_CHK"]." ด้วย : ".$result_time_at[0]["out_channel"]."<br> สถานที่ : ".$result_time_at[0]["out_location_name"];
                        
-                        }else{
+        //                 }else{
 
-                            $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["out_CHK"]." ด้วย : ".$result_time_at[$index]["out_channel"]."<br> สถานที่ : ".$result_time_at[$index]["out_location_name"];
-                        }
-                    }
+        //                     $feed_time = "บันทึกเวลาล่าสุดเมื่อ : ".$result_time_at[$index]["out_CHK"]." ด้วย : ".$result_time_at[$index]["out_channel"]."<br> สถานที่ : ".$result_time_at[$index]["out_location_name"];
+        //                 }
+        //             }
   
-                }
+        //         }
      
-            }
-        }
+        //     }
+        // }
 
         if(sizeof($result_CheckUserWFH) != 0){
 
