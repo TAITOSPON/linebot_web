@@ -304,8 +304,36 @@ p {
                     
                 }
             }
-            xmlhttp.open("GET", "https://webhook.toat.co.th/linebot/webhook/datenow", false );
+            xmlhttp.open("GET", "https://webhook.toat.co.th/linebot/web/index.php/api/Api_TimeStamp/TimeStamp_DataNow", false );
             xmlhttp.send();    
+        }
+
+        async function currentTime() {
+          var offset = +7;
+          var date_thai =  new Date(new Date().getTime() + offset * 3600 * 1000 )
+          var Hour = date_thai.getUTCHours();          
+          var Min = date_thai.getUTCMinutes(); 
+          var Sec = date_thai.getUTCSeconds();
+
+            Hour = updateTime(parseInt(Hour));
+            Min = updateTime(parseInt(Min));
+            Sec = updateTime(parseInt(Sec));
+           
+            var date = new Date(); 
+            var datestamp = date.toLocaleDateString('th-TH', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+            })
+
+            var Ymd = "<?php echo date("Y-m-d");?>";
+            document.getElementById('clock').innerText = Hour.toString() + " : " + Min.toString() + " : " + Sec.toString() ;
+            document.getElementById("date").innerText = datestamp;
+            document.getElementById('timestamp').value = Ymd+" "+ Hour.toString() + ":" + Min.toString() + ":" + Sec.toString(); 
+            
+            document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
+            var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
+
         }
 
         function RunTime(Hour,Min,Sec,Ymd,date){
@@ -423,7 +451,8 @@ p {
 
         main()
         httpGet()
-        getLocation()
+        // currentTime()
+        // getLocation()
 
       </script>
     </form>
