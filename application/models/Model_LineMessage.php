@@ -21,6 +21,25 @@ class Model_LineMessage extends CI_Model
         //     "detail": "sdfgsdfgsdfgsdfgsdfgsdfg"
         // }
 
+        // {
+        //     "header" : [
+        //         {
+        //             "User-Agent" : "back_end_Covid"
+        //         }
+        //     ],
+        //     "body" : [
+        //         {
+        //             "user_ad_id_recrive" : "003599",
+        //             "text" : "สวัสดี Nueng"
+        //         }
+        //     ]
+        // }
+        
+        // {
+        //     "status": "true",
+        //     "result": "THIS LINEBOT WEBHOOK SERVER!"
+        // }
+
         $UserAgent ="User-Agent:".$result['header'][0]['User-Agent'];
         $body = $result['body'];
 

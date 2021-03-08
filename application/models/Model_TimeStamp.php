@@ -111,6 +111,27 @@ class Model_TimeStamp extends CI_Model
         
     }
 
+    public function Insert_Log_Time_Stamp_error($result){
+        
+        $data = array(
+            'time_stamp_log_id' => NULL,
+            'time_stamp_log_datetime' => date("Y-m-d H:i:s"),
+            'time_stamp_log_status_wifi' => json_encode($result['time_stamp_log_status_wifi']),
+            'time_stamp_log_result' => json_encode($result['time_stamp_log_result']),
+            'time_stamp_log' => $result['timestamp'],
+            'time_stamp_log_ip' => $result['ip'],
+            'time_stamp_log_lat_lon' => $result['latlon'],
+            'time_stamp_log_os' => $result['os'],
+            'user_ad_code' => $result['user_ad_code'], 
+            'user_line_uid' => $result['user_line_uid']
+        );
+    
+ 
+        $this->db->insert('lb_time_stamp_log_error', $data);
+
+        
+    }
+
 
 
 
