@@ -356,6 +356,18 @@ p {
                     }
                 }
             }
+            var date_ = date.split( "-" );
+            var y = date_[0];
+            var m = date_[1];
+            var d = date_[2];
+
+            var date_th = new Date(y,m-1,d); 
+            var datestamp = date_th.toLocaleDateString('th-TH', {
+              year: 'numeric',
+              month: 'long',
+              day: 'numeric',
+              weekday: 'long',
+            })
 
             Hour = updateTime(parseInt(Hour));
             Min = updateTime(parseInt(Min));
@@ -363,7 +375,7 @@ p {
 
 
             document.getElementById('clock').innerText = Hour.toString() + " : " + Min.toString() + " : " + Sec.toString() ;
-            document.getElementById("date").innerText = date;
+            document.getElementById("date").innerText = datestamp;
             document.getElementById('timestamp').value = Ymd+" "+ Hour.toString() + ":" + Min.toString() + ":" + Sec.toString(); 
             
             document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
