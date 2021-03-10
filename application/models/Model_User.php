@@ -113,6 +113,7 @@ class Model_User extends CI_Model
                 'user_connect_id' =>  NULL, 
                 'user_ad_code' => $result['PERSON_CODE'],
                 'user_line_uid' => $result['user_line_uid'],
+                'user_connect_os' => $result['user_os'],
                 'user_connect_status' => "true"
             );
 
@@ -124,6 +125,7 @@ class Model_User extends CI_Model
             $data = array(
                 'user_ad_code' => $result['PERSON_CODE'],
                 'user_line_uid' => $result['user_line_uid'],
+                'user_connect_os' => $result['user_os'],
                 'user_connect_status' => "true"
             );
             $this->db->trans_begin();
