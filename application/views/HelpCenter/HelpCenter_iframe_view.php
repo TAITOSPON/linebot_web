@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Member</title>
+<title>Help center</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
@@ -23,8 +23,11 @@
 
 
 <div class="container"> 
-  <iframe class="responsive-iframe" src="<?php echo $site_url; ?>"></iframe>
+    <iframe  src="<?php echo $site_url; ?>" style="border: none;" width="100%" height="780"></iframe>
 </div>
 
 </body>
 </html>
+
+
+

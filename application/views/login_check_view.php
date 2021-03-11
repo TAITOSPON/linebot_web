@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>linebot system</title>
+<title>Line TOAT</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -146,6 +146,9 @@ span.psw {
                                 window.alert("กรุณาเข้าสู่ระบบผ่าน Line mobile เท่านั้น");
                                 window.close(); 
                             }else if(site_url == "TimeStamp/TimeStamp"){
+                                window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");
+                                window.close(); 
+                            }else if(site_url == "HelpCenter/Help"){
                                 window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");
                                 window.close(); 
                             }else if(site_url == "Covid19/Covid19_emp_form" ||site_url == "Covid19/Covid19_boss_form" ){

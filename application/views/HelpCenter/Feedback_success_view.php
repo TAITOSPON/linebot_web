@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Timestamp</title>
+<title>Feedback</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}
@@ -58,7 +58,7 @@ p {
   border: 0px solid #ccc;
   box-sizing: border-box;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 16px;
   text-align: center;
   padding-top: 10px;
   padding-bottom: 10px;
@@ -85,7 +85,7 @@ span.psw {
       <!-- <form > -->
           <div class="container">
                 <p><?php echo $msg ?></p> 
-                <button type="submit" class="buttonradius" onclick="SendMessage()" id="togglee">ตรวจสอบเวลา</button>
+
                 <button type="submit" class="buttonradius" onclick="closeWindow()">ปิด</button>
           </div>
 
@@ -105,38 +105,7 @@ span.psw {
               logOut()
             } 
 
-            async function SendMessage(){
-
-                var text_status="<?php echo $text_status;?>";
-
-                if(text_status == "time_stamp_true"){
-
-                    liff.sendMessages([{
-                        type : "text",
-                        text : "ตรวจสอบเวลาเข้างาน",
-                    }]
-
-                    ).then(function () {
-                        // window.alert("Message sent");
-                        console.log('message sent');
-                        liff.closeWindow()  
-                        logOut()
-                    }).catch(function (error) {
-                        // window.alert("Error sending message: " + error);
-                        console.log('error', err);
-                        liff.closeWindow()  
-                        logOut()
-                    });   
-                
-                }else{
-                    liff.closeWindow()  
-                    logOut()
-                }
-                
-            }
-
-
-
+         
             async function main() {
 
                 var liff_id="<?php echo $liff_id;?>";
@@ -146,21 +115,7 @@ span.psw {
                       // closeWindow()
                   }else{
                       window.close(); 
-                  }
-
-
-                  var text_status="<?php echo $text_status;?>";
-
-
-                  if(text_status == "error"  ){
-                      document.getElementById('togglee').style.visibility = 'hidden';
-                    
-                  }else if(text_status == "statuscheck_wifi_false"){
-                      document.getElementById('togglee').style.visibility = 'hidden';
-                      window.alert("<?php echo $msg ?>");
-                      closeWindow()
-               
-                  }
+                  } 
           
             }
             main()
