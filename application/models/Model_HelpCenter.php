@@ -27,6 +27,13 @@ class Model_HelpCenter extends CI_Model
 
     }
 
+    public function GetFeedback(){
+        
+        $query = $this->db->query(" SELECT * FROM lb_feedback_log")->result_array();
+        return $query;
+
+    }
+
 
 
 } 
