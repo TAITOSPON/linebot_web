@@ -1,197 +1,218 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Timestamp</title>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+  <title>Timestamp</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {font-family: Arial, Helvetica, sans-serif;}
+    form {border: 3px solid #f1f1f1;}
 
-input[type=text], input[type=password],input[type=number],input[type=date] ,input[type=month] {
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  background-color: #FFFFFF;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-}
+    input[type=text], input[type=password],input[type=number],input[type=date] ,input[type=month] {
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      background-color: #FFFFFF;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+    }
 
-button {
-  background-color: #D39D2B;
-  color: white;
-  padding: 14px 20px;
-  margin: 8px 0;
-  border: none;
-  cursor: pointer;
-  width: 100%;
-}
+    button {
+      color: white;
+      padding: 14px 20px;
+      margin: 8px 0;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      font-size: 18px;
+    }
 
-.buttonradius {
-    border-radius: 8px;
-    width: 100%;
-    margin: 8px 0; 
-}
+    .buttonradius {
+        background-color: #D39D2B;
+        border-radius: 8px;
+        width: 100%;
+        margin: 8px 0; 
+    }
 
-button:hover {
-  opacity: 0.8;
-}
+    .buttonradius_wfh {
+        background-color: #2C62D4;
+        border-radius: 8px;
+        width: 100%;
+        margin: 8px 0; 
+    }
 
-.cancelbtn {
-  width: auto;
-  padding: 10px 18px;
-  background-color: #D39D2B;
-}
+    button:hover {
+      opacity: 0.8;
+    }
 
-.imgcontainer {
-  text-align: center;
-  margin: 24px 0 12px 0;
-}
+    .cancelbtn {
+      width: auto;
+      padding: 10px 18px;
+      background-color: #D39D2B;
+    }
 
-img.avatar {
-  width: 40%;
-  border-radius: 50%;
-}
+    .imgcontainer {
+      text-align: center;
+      margin: 24px 0 12px 0;
+    }
 
-.container {
-  padding: 16px;
-}
+    img.avatar {
+      width: 40%;
+      border-radius: 50%;
+    }
 
-span.psw {
-  float: right;
-  padding-top: 16px;
-}
+    .container {
+      padding: 16px;
+    }
 
-.selectfull {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    border-radius: 8px;
-    color: #FFFFFF;
-    background-color: #D39D2B;
-    border-color: #fff transparent transparent transparent;
-}
-table {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  width: 100%;
-}
+    span.psw {
+      float: right;
+      padding-top: 16px;
+    }
 
-.table_hide {
-  border: 0px solid #FFFFFF;
-  border-radius: 8px;
-  width: 100%;
-}
+    .selectfull {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0;
+        border-radius: 8px;
+        color: #FFFFFF;
+        background-color: #D39D2B;
+        border-color: #fff transparent transparent transparent;
+    }
+    table {
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      width: 100%;
+    }
 
-th {
-  text-align: center;
-  background-color: #D39D2B;  
-  color: white;
-  
-}
+    .table_hide {
+      border: 0px solid #FFFFFF;
+      border-radius: 8px;
+      width: 100%;
+    }
 
-td {
-  text-align: center;
-  padding: 2px;
+    th {
+      text-align: center;
+      background-color: #D39D2B;  
+      color: white;
+      
+    }
 
-}
+    td {
+      text-align: center;
+      padding: 2px;
 
-tr:nth-child(even) {background-color: #f2f2f2;}
+    }
 
-p {
-  text-align: center;
-  width: 100%;
-  padding: 12px 20px;
-  margin: 8px 0;
-  background-color: #FFFFFF;
-  display: inline-block;
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  border-radius: 8px;
-}
+    tr:nth-child(even) {background-color: #f2f2f2;}
 
-
-
-/* Change styles for span and cancel button on extra small screens */
-@media screen and (max-width: 300px) {
-  span.psw {
-     display: block;
-     float: none;
-  }
-  .cancelbtn {
-     width: 100%;
-  }
-}
+    p {
+      text-align: center;
+      width: 100%;
+      padding: 12px 20px;
+      margin: 8px 0;
+      background-color: #FFFFFF;
+      display: inline-block;
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 8px;
+    }
 
 
-#clock {
-  border: 1px solid #ccc;
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 50px;
-  text-align: center;
-  padding-top: 30px;
-  padding-bottom: 30px;
-}
 
-#date {
-  border: 0px solid #ccc;
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 20px;
-  text-align: center;
-  padding-top: 4px;
-  padding-bottom: 10px;
-}
-
-#p_ {
-  border: 0px solid #ccc;
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 10px;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+    /* Change styles for span and cancel button on extra small screens */
+    @media screen and (max-width: 300px) {
+      span.psw {
+        display: block;
+        float: none;
+      }
+      .cancelbtn {
+        width: 100%;
+      }
+    }
 
 
-#latlon {
-  border: 0px solid #ccc;
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 10px;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+    #clock {
+      border: 1px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 8px;
+      font-size: 50px;
+      text-align: center;
+      padding-top: 30px;
+      padding-bottom: 30px;
+    }
+
+    #date {
+      border: 0px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 8px;
+      font-size: 20px;
+      text-align: center;
+      padding-top: 4px;
+      padding-bottom: 10px;
+    }
+
+    #p_ {
+      border: 0px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 8px;
+      font-size: 10px;
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    #p_alert {
+      border: 0px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 8px;
+      color: red;
+      font-size: 15px;
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+      
+    }
 
 
-#feed_time {
-  border: 0px solid #ccc;
-  box-sizing: border-box;
-  border-radius: 8px;
-  font-size: 15px;
-  text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
-}
+
+    #latlon {
+      border: 0px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 8px;
+      font-size: 10px;
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
 
 
-</style>
+    #feed_time {
+      border: 0px solid #ccc;
+      box-sizing: border-box;
+      border-radius: 8px;
+      font-size: 15px;
+      text-align: center;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
 
 
-<style type="text/css">
-  /* Set the size of the div element that contains the map */
-  #map {
-    height: 300px;
-    /* The height is 400 pixels */
-    width: 100%;
-    /* The width is the width of the web page */
-  }
-</style>
+  </style>
 
 
-  </head>
+  <style type="text/css">
+    /* Set the size of the div element that contains the map */
+    #map {
+      height: 300px;
+      /* The height is 400 pixels */
+      width: 100%;
+      /* The width is the width of the web page */
+    }
+  </style>
+
+
+</head>
   <body>
     <!-- <form action="" method="post"> -->
     <form action="<?php echo site_url($site_url); ?>" method="post">
@@ -202,7 +223,7 @@ p {
         <p><?php echo $result_user["user_ad_name"] ?></p> 
 
         <input type="hidden" id="timestamp" name="timestamp" >
-        <input type="hidden" id="category" name="category" value="<?php echo $status_time_stamp['status']['category'] ?>" >
+        <input type="hidden" id="category" name="category"  >
         <input type="hidden" id="user_ad_code" name="user_ad_code"  value="<?php echo $result_user["user_ad_code"] ?>" >
         <input type="hidden" id="ip" name="ip"  value="<?php echo$status_time_stamp['status']['ip'] ?>" >
         <input type="hidden" id="status_wfh" name="status_wfh"  value="<?php echo $status_time_stamp['status']['status_wfh'] ?>" >
@@ -221,17 +242,19 @@ p {
         <div id="clock"></div>
         <div id="p_"></div>
         <div id="latlon"></div>
-        <button type="submit" id="togglee" class="buttonradius" >บันทึกเวลา</button>
+        <button type="submit" id="togglee" class="buttonradius" hidden >บันทึกเวลา</button>
+        <div id="p_alert"></div>
         <div id="feed_time"></div>
        
       </div> 
 
-    
-                
+           
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMJt2oRKYCBQ7ZO-_kI-EVXV18ko8Dzu0&callback=initMap&libraries=&v=weekly" defer ></script>
+      <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAfOvtvlozbKZ7bzhbRv6Kqj5o9IlzdpUk&callback=initMap&libraries=&v=weekly" defer ></script> -->
+
       <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>
       <script>
-        // Initialize and add the map
+
         function initMap(lat,lng) {
           // The location of latlng
 
@@ -253,7 +276,6 @@ p {
 
         }
 
-      
         async function getLocation() {
             if (navigator.geolocation) {
               // navigator.geolocation.getCurrentPosition(showPosition);
@@ -411,21 +433,42 @@ p {
 
           document.getElementById("feed_time").innerHTML = feed_time;
 
+
           if(status == "true"){
-            document.getElementById('togglee').style.visibility = 'visible';
+
+            document.getElementById("category").value = category;
+            document.getElementById('togglee').hidden = false;
+
             if(category == "LINE_WFH"){
-                document.getElementById('togglee').innerText = 'บันทึกเวลา (WFH)';
+                WFH();
             }
        
+            
+
           }else{
-            document.getElementById('togglee').style.visibility = 'hidden';
-            window.alert("กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย");
-            liff.closeWindow()
+            
+            WFH();
+            // document.getElementById('togglee').hidden = true;
+            // window.alert("กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย");
+            // liff.closeWindow()
+         
+
           }
          
 
          
         }
+
+        function WFH(){
+            document.getElementById("category").value = "LINE_WFH";
+      
+            document.getElementById('togglee').hidden = false;     
+            document.getElementById("p_alert").innerText = "คุณไม่ได้เชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย \nระบบจะบันทึกเวลาด้วย Work from home ";
+            document.getElementById("togglee").className = "buttonradius_wfh";
+            document.getElementById('togglee').innerText = 'บันทึกเวลา (WFH)';
+        }
+
+
 
         
         function logIn(){  liff.login({ redirectUri: window.location.href })  }
@@ -478,7 +521,7 @@ p {
         main()
         httpGet()
         // currentTime()
-        // getLocation()
+        getLocation()
 
       </script>
     </form>

@@ -296,6 +296,9 @@ class TimeStamp extends CI_Controller {
         return $category;
 
     }
+
+
+
  
     public function TimeStamp(){
 
@@ -310,7 +313,10 @@ class TimeStamp extends CI_Controller {
                     'site_url' => "TimeStamp/PostTimestamp",
                     'result_user' => $result_user[0],
                     'liff_id' => $this->liff_id,
-                    'status_time_stamp' => array('ip'=> $this->GetClientIP() , 'status' => $this->CheckisLocalIPAddress($this->GetClientIP() , $result_user[0]['user_ad_code'] , ""))
+                    'status_time_stamp' => array(
+                                                'ip'=> $this->GetClientIP() , 
+                                                'status' => $this->CheckisLocalIPAddress($this->GetClientIP() , $result_user[0]['user_ad_code'] , "")
+                                                )
                 );
                 $this->load->view('Time_stamp_view', $data);
            
@@ -345,7 +351,7 @@ class TimeStamp extends CI_Controller {
 
             $status_time_stamp = $this->CheckisLocalIPAddress($this->GetClientIP() , $result['user_ad_code'] , $result['status_wfh']);
 
-            if($status_time_stamp['statuscheck_wifi'] == "true"){
+            // if($status_time_stamp['statuscheck_wifi'] == "true"){
 
                 $result['time_stamp_log_status_wifi'] = $status_time_stamp;
         
@@ -380,11 +386,12 @@ class TimeStamp extends CI_Controller {
                 }
                 
 
-            }else{
+            // }else{
 
-                $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "statuscheck_wifi_false" ,'msg' => "กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย"));
+            //     $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "statuscheck_wifi_false" ,'msg' => "กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย"));
             
-            }
+            // }
+            
         }else{
             $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
         }
