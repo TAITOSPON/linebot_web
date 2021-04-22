@@ -5,6 +5,8 @@ class Member extends CI_Controller {
     
     var $liff_id_member_profile = "1655109480-wLRoWZpg";
     var $liff_id_member_leave = "1655109480-lKekYNJK";
+    var $liff_id_member_Financial = "1655109480-VOMzYnqm";
+    var $liff_id_membe_cooperativesaving = "1655109480-dmpv7DXK";
     
     public function __construct()
     {
@@ -23,6 +25,15 @@ class Member extends CI_Controller {
 
     public function Leave()   {       
         $this->Login_Line("Member_TOAT_Leave",$this->liff_id_member_leave);
+  
+    }
+
+    public function Financial()   {       
+        $this->Login_Line("Member_TOAT_Financial",$this->liff_id_member_Financial);
+  
+    }
+    public function Cooperativesaving ()   {       
+        $this->Login_Line("Member_TOAT_Cooperativesaving",$this->liff_id_membe_cooperativesaving);
   
     }
 
@@ -55,6 +66,21 @@ class Member extends CI_Controller {
         $this->Member_view("LeaveYear",$this->liff_id_member_leave);
 
     }
+
+    public function Member_TOAT_Financial(){
+
+        $this->Member_view("Financial",$this->liff_id_member_Financial);
+
+    }
+    
+    public function Member_TOAT_Cooperativesaving(){
+
+        $this->Member_view("Cooperativesaving",$this->liff_id_membe_cooperativesaving);
+
+    }
+
+
+    
 
 
     public function Member_view($page,$liff_id){   

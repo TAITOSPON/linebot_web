@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Linebot Covid-19 TOAT</title>
+<title>Covid-19 TOAT</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 
