@@ -3,6 +3,7 @@
 <head>
   <title>Timestamp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
     body {font-family: Arial, Helvetica, sans-serif;}
     form {border: 3px solid #f1f1f1;}
@@ -166,7 +167,7 @@
       border: 0px solid #ccc;
       box-sizing: border-box;
       border-radius: 8px;
-      color: red;
+      /* color: red; */
       font-size: 15px;
       text-align: center;
       padding-top: 10px;
@@ -243,6 +244,7 @@
         <div id="p_"></div>
         <div id="latlon"></div>
         <button type="submit" id="togglee" class="buttonradius" hidden >บันทึกเวลา</button>
+        <!-- <p>คุณกำลังเชื่อมต่อ Wifi <i class="fa fa-wifi" style="font-size:24px;color:green;"></i> ของการยาสูบแห่งประเทศไทย</p> -->
         <div id="p_alert"></div>
         <div id="feed_time"></div>
        
@@ -438,6 +440,7 @@
 
             document.getElementById("category").value = category;
             document.getElementById('togglee').hidden = false;
+            document.getElementById("p_alert").innerHTML = "<i class='fa fa-wifi' style='font-size:24px;color:#88E742;'></i> คุณกำลังเชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย ";
 
             if(category == "LINE_WFH"){
                 WFH();
@@ -463,7 +466,7 @@
             document.getElementById("category").value = "LINE_WFH";
       
             document.getElementById('togglee').hidden = false;     
-            document.getElementById("p_alert").innerText = "คุณไม่ได้เชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย \nระบบจะบันทึกเวลาด้วย Work from home ";
+            document.getElementById("p_alert").innerHTML = "<i class='fa fa-wifi' style='font-size:24px;color:red;'></i> คุณไม่ได้เชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย \nระบบจะบันทึกเวลาด้วย Work from home ";
             document.getElementById("togglee").className = "buttonradius_wfh";
             document.getElementById('togglee').innerText = 'บันทึกเวลา (WFH)';
         }
