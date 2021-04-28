@@ -34,6 +34,14 @@ class Model_HelpCenter extends CI_Model
 
     }
 
+    public function GetData_Issue(){
+        
+        $query = $this->db->query(" SELECT * FROM `lb_time_stamp_log` WHERE user_ad_code = 002693  
+        ORDER BY `lb_time_stamp_log`.`time_stamp_log_id`  DESC")->result_array();
+        return $query;
+
+    }
+
 
 
 } 
