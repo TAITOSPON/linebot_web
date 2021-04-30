@@ -104,13 +104,10 @@ class Member extends CI_Controller {
     
         }else{
 
-            if($liff_id == $this->liff_id_member_profile){
-                $data = array( 'liff_id' => $liff_id, 'text_status' => "ProfileDetail_not_login" );
-                $this->load->view('login_success_view',$data);
-            }else{
-                $data = array( 'liff_id' => $liff_id, 'text_status' => "Leave_Detail_not_login" );
-                $this->load->view('login_success_view',$data);
-            }
+    
+            $data = array( 'liff_id' => $liff_id, 'text_status' => "ProfileDetail_not_login" );
+            $this->load->view('login_success_view',$data);
+       
           
         }
     }

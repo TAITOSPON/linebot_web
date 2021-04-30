@@ -34,12 +34,29 @@ class Model_HelpCenter extends CI_Model
 
     }
 
+    public function GeAllUserStampWFH(){
+        
+
+        $WFH = '%"category":"LINE_WFH"%' ;
+
+        $query = $this->db->query("SELECT * FROM `lb_time_stamp_log` 
+        WHERE `time_stamp_log_status_wifi` LIKE '$WFH'
+        ORDER BY `time_stamp_log_id`  DESC")->result_array();
+        return $query;
+    }
+
     public function GetData_Issue(){
         
-        $query = $this->db->query(" SELECT * FROM `lb_time_stamp_log` WHERE user_ad_code = 002693  
-        ORDER BY `lb_time_stamp_log`.`time_stamp_log_id`  DESC")->result_array();
-        return $query;
+        // $query = $this->db->query(" SELECT * FROM `lb_time_stamp_log` WHERE user_ad_code = 002693  
+        // ORDER BY `lb_time_stamp_log`.`time_stamp_log_id`  DESC")->result_array();
+        // return $query;
 
+        $WFH = '%"category":"LINE_WFH"%' ;
+
+        $query = $this->db->query("SELECT * FROM `lb_time_stamp_log` 
+        WHERE `time_stamp_log_status_wifi` LIKE '$WFH'
+        ORDER BY `time_stamp_log_id`  DESC")->result_array();
+        return $query;
     }
 
 

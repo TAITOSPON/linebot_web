@@ -36,6 +36,19 @@ class Api_Linebot extends REST_Controller{
         echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     }
+    public function GeAllUserStampWFH_get(){
+       
+        $result = $this->Model_HelpCenter->GeAllUserStampWFH(); 
+        echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+    }
+
+    public function GetData_get(){
+       
+        $result = $this->Model_HelpCenter->GetData_Issue(); 
+        echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+    }
 
   
  
