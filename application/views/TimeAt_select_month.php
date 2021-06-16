@@ -110,6 +110,10 @@ p {
   border-radius: 8px;
 }
 
+small {
+  font-size: 10px;
+}
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
@@ -177,8 +181,8 @@ p {
                                 <tr style="background-color: #F9C4B8">
                                 
                                     <td><?php echo $key;?></td>
-                                    <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>
-                                    <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["in_channel"]);?></small></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["out_channel"]);?></small></td>
                                         
                                 </tr> 
 
@@ -205,8 +209,8 @@ p {
                                 <tr style="background-color: #C1F57F">
                                 
                                     <td><?php echo $key;?></td>
-                                    <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>
-                                    <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["in_channel"]);?></small></td>
+                                    <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["out_channel"]);?></small></td>
                                         
                                 </tr> 
 
@@ -241,13 +245,15 @@ p {
                                     if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed[$key]['LEAVE_HALF_TYPE'] == 'M'){ ?>
                                       <td style="background-color: #f0c98d"  ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."เช้า");?></td>  <?php 
                                     }else{ ?>
-                                      <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>  <?php 
+                                        <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["in_channel"]);?></small></td> 
+                                       <?php 
                                     }
                                 }else{
                                     if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed[$key]['LEAVE_HALF_TYPE'] == 'M'){ ?>
-                                       <td style="background-color: #f0c98d"  ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."เช้า");?></td>  <?php 
+                                      <td style="background-color: #f0c98d"  ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."เช้า");?></td>  <?php 
                                     }else{ ?>
-                                      <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>  <?php 
+                                      <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["in_channel"]);?></small></td> 
+                                       <?php 
                                 
                                     }
                                }
@@ -265,16 +271,16 @@ p {
                                         <td style="background-color: #f0c98d"  ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."บ่าย");?></td>  <?php 
                                       }else{    ?>
                                       
-                                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>  <?php 
+                                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["out_channel"]);?></small></td>
+                                         <?php 
 
                                       }
                                   }else{
                                       if($result_detail_time_feed[$key]['LEAVE_DAY_TYPE'] == 'H' && $result_detail_time_feed[$key]['LEAVE_HALF_TYPE'] == 'A'){ ?>
                                         <td style="background-color: #f0c98d" ><?php print_r($result_detail_time_feed[$key]["PNLT_NAME"]."บ่าย");?></td>  <?php 
-                                      }else{
-                                       
-                                        print_r($result_detail_time_feed[$key]["out_stamp"]);  ?>
-                                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>  <?php 
+                                      }else{ ?> 
+                                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["out_channel"]);?></small></td>
+                                        <?php 
                       
                                           
                                       }
@@ -293,8 +299,8 @@ p {
                     <tr>
                             
                         <td><?php echo $key;?></td>
-                        <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]);?></td>
-                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]);?></td>
+                        <td><?php print_r($result_detail_time_feed[$key]["in_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["in_channel"]);?></small></td>
+                        <td><?php print_r($result_detail_time_feed[$key]["out_stamp"]); echo "<br>";?> <small><?php print_r($result_detail_time_feed[$key]["out_channel"]);?></small></td>
                                 
                     </tr> 
                 

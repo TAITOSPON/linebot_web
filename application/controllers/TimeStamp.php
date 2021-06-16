@@ -353,6 +353,7 @@ class TimeStamp extends CI_Controller {
 
             // if($status_time_stamp['statuscheck_wifi'] == "true"){
 
+                $status_time_stamp['category'] =  $result['category'];
                 $result['time_stamp_log_status_wifi'] = $status_time_stamp;
         
                 $PostTimeStamp_result =  array(json_decode($this->Model_TimeStamp->PostTimeStamp($result), true)); 
