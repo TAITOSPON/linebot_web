@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Timestamp</title>
+  <title>TOAT | Timestamp</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <style>
@@ -52,6 +52,13 @@
       background-color: #D39D2B;
     }
 
+    .center {
+      display: block;
+      margin-left: auto;
+      margin-right: auto;
+      width: 100%;
+      border-radius: 8px;
+    }
     .imgcontainer {
       text-align: center;
       margin: 24px 0 12px 0;
@@ -243,12 +250,16 @@
         <div id="clock"></div>
         <div id="p_"></div>
         <div id="latlon"></div>
-        <button type="submit" id="togglee" class="buttonradius" hidden >บันทึกเวลา</button>
+        <button type="submit" id="togglee" class="buttonradius" onclick="HideSubmit();" hidden >บันทึกเวลา</button>
         <!-- <p>คุณกำลังเชื่อมต่อ Wifi <i class="fa fa-wifi" style="font-size:24px;color:green;"></i> ของการยาสูบแห่งประเทศไทย</p> -->
         <div id="p_alert"></div>
         <div id="feed_time"></div>
+
+        <img src="https://www.thaitobacco.or.th/th/wp-content/uploads/2021/05/S__131268611.jpg" class="center">
        
       </div> 
+
+      
 
            
       <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBMJt2oRKYCBQ7ZO-_kI-EVXV18ko8Dzu0&callback=initMap&libraries=&v=weekly" defer ></script>
@@ -471,7 +482,9 @@
             document.getElementById('togglee').innerText = 'บันทึกเวลา (WFH)';
         }
 
-
+        function HideSubmit() {
+          document.getElementById('togglee').hidden = true;
+        }
 
         
         function logIn(){  liff.login({ redirectUri: window.location.href })  }

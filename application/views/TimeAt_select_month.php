@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>รายละเอียดเวลาเข้า-ออกงาน</title>
+<title>TOAT | รายละเอียดเวลาเข้า-ออกงาน</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 body {font-family: Arial, Helvetica, sans-serif;}

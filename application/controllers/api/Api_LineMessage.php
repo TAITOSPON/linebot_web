@@ -10,6 +10,7 @@ class Api_LineMessage extends REST_Controller{
             parent::__construct();
             $this->load->model('Model_User');
             $this->load->model('Model_LineMessage');
+            $this->load->model('Model_HelpCenter');
             $this->JWT = new CreatorJwt();
         }
     
@@ -75,6 +76,105 @@ class Api_LineMessage extends REST_Controller{
 
         }
 
+
+
+        public function SetImgBranner_post(){
+    
+            if(isset($_FILES['support_set_img_log_name'])){
+
+                $data_['user_ad_code']                     = $this->input->post('user_ad_code');
+                $data_['support_set_img_log_date_start']   = $this->input->post('support_set_img_log_date_start');
+                $data_['support_set_img_log_date_end']     = $this->input->post('support_set_img_log_date_end');
+    
+
+                if(!empty(  $data_['user_ad_code'] )){
+                    if(!empty(  $data_['support_set_img_log_date_start'] )){
+                        if(!empty(  $data_['support_set_img_log_date_end'] )){
+
+                            $img_branner = 'https://webhook.toat.co.th/linebot/web/src/img_branner/'.$this->upload_img_branner('support_set_img_log_name',"support_set_img_log_name", APPPATH. '../src/img_branner/' , $data_['user_ad_code']  ) ;
+                
+            
+                            $data_['support_set_img_log_name']     = $img_branner;
+                
+                            // print_r($data_);
+                    
+                            $result = $this->Model_HelpCenter->InsetLogSetImgBranner($data_);
+                
+                            if($result == "true"){
+                                $respons = array(   'status' => "true" ,  'result' => $img_branner );
+                    
+                            }else{
+                                $respons = array( 'status' => "false" ,   'result' => "set img false"  );
+                            }
+
+
+
+                        }else{
+                            $respons = array( 'status' => "false" ,   'result' => "request support_set_img_log_date_end"  );
+                        }
+                    }else{
+                        $respons = array( 'status' => "false" ,   'result' => "request support_set_img_log_date_start"  );
+                    }
+                }else{
+                    $respons = array( 'status' => "false" ,   'result' => "request user_ad_code"  );
+                }
+            }else{
+                $respons = array( 'status' => "false" ,   'result' => "request support_set_img_log_name"  );
+            }
+
+            echo json_encode($respons,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+          
+    
+        }
+    
+        public function upload_img_branner($file_img,$user_id,	$path_img , $ls_shop_id){
+
+            $success_upload_img = "อัพเดตรูปภาพ สำเร็จ";
+            $error_upload_img   = "อัพเดตรูปภาพ ไม่สำเร็จ";
+    
+        
+            $image_name = $user_id."_".$ls_shop_id."_".date('YmdHis');
+    
+            
+            $config = array(
+                'file_name'     => $image_name,
+                'allowed_types' => 'jpg|jpeg|png',
+                'overwrite' => TRUE,
+                'upload_path' => $path_img);
+                
+            $this->load->library('upload'); 
+    
+    
+            $this->upload->initialize($config);
+    
+            if (!$this->upload->do_upload($file_img)){
+               
+                    $response = ['status' => false, 'msg' => $this->upload->display_errors()];
+    
+                    // print_r($response);
+                    return "null";
+                
+            }else{
+            
+                // $response = ['status' => true, 'msg' => $success_upload_img,'img' => $this->base_server_url.$this->upload->data('file_name')];
+    
+                $upload_data = $this->upload->data();
+    
+                $response = ['status' => true, 'msg' => $success_upload_img, 'img' =>  $upload_data['file_name'] ];
+                // print_r($response);
+                return $upload_data['file_name'];
+           
+    
+            }
+        }
+    
+
+        public function GetImgBranner_get(){
+
+        
+            $respons =$this->Model_HelpCenter->GetImgBranner(); 
+            echo json_encode($respons,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        }
 
     
      

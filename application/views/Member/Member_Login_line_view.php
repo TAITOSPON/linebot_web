@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Member</title>
+<title>TOAT | Member</title>
 <meta name="HandheldFriendly" content="true" />
 <meta name="MobileOptimized" content="320" />
 <meta name="viewport" content="initial-scale=0.9, maximum-scale=0.9, width=device-width, user-scalable=no" />

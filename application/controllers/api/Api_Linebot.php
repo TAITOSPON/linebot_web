@@ -36,12 +36,56 @@ class Api_Linebot extends REST_Controller{
         echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
 
     }
-    public function GeAllUserStampWFH_get(){
+    public function GetAllUserStampWFH_get(){
        
-        $result = $this->Model_HelpCenter->GeAllUserStampWFH(); 
+        $result = $this->Model_HelpCenter->GetAllUserStampWFH(); 
         echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+      
+        // $this->Check($result);
+     
+
+       
 
     }
+
+    // public function Check($query){
+
+    //     $status = "TRUE";
+
+    //     for($i=0; $i < sizeof($query); $i++){
+
+            
+    //         if( $query[$i]["time_stamp_log_province"] == "empty"){
+
+    //             $status = "FALSE";
+    //         }
+    //     }
+
+    //     if($status == "FALSE"){
+
+    //         $result = $this->Model_HelpCenter->RE_GetAllUserStampWFH($query); 
+        
+    //         $this->Check($result);
+
+    //     }else{
+
+    //         echo json_encode($query,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    //     }
+
+    // }
+       
+
+
+    public function GeAllUserStamp_post(){
+        $data = json_decode(file_get_contents('php://input'), true);
+
+        $result = $this->Model_HelpCenter->RE_GetAllUserStampWFH($data); 
+        echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+        
+        // echo json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+
+    }
+    
 
     public function GetData_get(){
        
