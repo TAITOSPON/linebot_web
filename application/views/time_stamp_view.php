@@ -235,7 +235,8 @@
         <input type="hidden" id="user_ad_code" name="user_ad_code"  value="<?php echo $result_user["user_ad_code"] ?>" >
         <input type="hidden" id="ip" name="ip"  value="<?php echo$status_time_stamp['status']['ip'] ?>" >
         <input type="hidden" id="status_wfh" name="status_wfh"  value="<?php echo $status_time_stamp['status']['status_wfh'] ?>" >
-
+        <input type="hidden" id="statuscheck_wifi" name="statuscheck_wifi"  value="<?php  echo $status_time_stamp['status']['statuscheck_wifi']?>" >
+        
         <input type="hidden" id="latlong" name="latlong" >
         <input type="hidden" id="os" name="os" >
 

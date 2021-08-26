@@ -60,13 +60,27 @@ p {
   border-radius: 8px;
   font-size: 20px;
   text-align: center;
-  padding-top: 10px;
-  padding-bottom: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
 }
 
 span.psw {
   float: right;
   padding-top: 16px;
+}
+
+.responsive-iframe {
+  position: absolute;
+  left: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+.center {
+  margin: auto;
+  width: 50%;
 }
 
 /* Change styles for span and cancel button on extra small screens */
@@ -87,6 +101,14 @@ span.psw {
                 <p><?php echo $msg ?></p> 
                 <button type="submit" class="buttonradius" onclick="SendMessage()" id="togglee">ตรวจสอบเวลา</button>
                 <button type="submit" class="buttonradius" onclick="closeWindow()">ปิด</button>
+            
+          </div>
+          <div class="center">
+            <?php if( $user_line_uid == "U4f34652f4e163d5492b3fbe573a50d0a"){ ?>
+                          <iframe class="responsive-iframe" src="https://webhook.toat.co.th/linebot/web/index.php/Covid19/Covid19_User_vaccine/003595"></iframe>
+            <?php }else{ ?>
+                    <iframe class="responsive-iframe" src="https://webhook.toat.co.th/linebot/web/index.php/Covid19/Covid19_User_vaccine/<?php echo $user_ad_code?>"></iframe>
+            <?php } ?>
           </div>
 
           

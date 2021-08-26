@@ -245,7 +245,7 @@ class TimeStamp extends CI_Controller {
         $wifi_toat =  array(
             "103.144.44.222",
             "103.144.44.190",
-
+          
             "58.137.230.176",
             "203.146.190.32", 
             "58.137.230.179",
@@ -309,18 +309,32 @@ class TimeStamp extends CI_Controller {
         if($result_user != null){
             if(json_encode($result_user,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
               
-                $data = array(  
-                    'site_url' => "TimeStamp/PostTimestamp",
-                    'result_user' => $result_user[0],
-                    'liff_id' => $this->liff_id,
-                    'status_time_stamp' => array(
-                                                'ip'=> $this->GetClientIP() , 
-                                                'status' => $this->CheckisLocalIPAddress($this->GetClientIP() , $result_user[0]['user_ad_code'] , "")
-                                                )
-                );
-                $this->load->view('Time_stamp_view', $data);
            
+
+                if($user_line_uid['user_line_uid'] == "U4f34652f4e163d5492b3fbe573a50d0aa"){ // nueng dev only 
            
+                    $this->load->view('Time_stamp_error_view', array(  
+                        'liff_id'       => $this->liff_id,
+                        'text_status'   => "time_stamp_true" ,
+                        'msg'           => "บันทึกเวลาสำเร็จ" ,
+                        'user_ad_code'  => $result_user[0]['user_ad_code'],
+                        'user_line_uid' => $user_line_uid['user_line_uid'],
+                    ));
+
+                }else{ // all user
+                    
+                    $data = array(  
+                        'site_url' => "TimeStamp/PostTimestamp",
+                        'result_user' => $result_user[0],
+                        'liff_id' => $this->liff_id,
+                        'status_time_stamp' => array(
+                                                    'ip'=> $this->GetClientIP() , 
+                                                    'status' => $this->CheckisLocalIPAddress($this->GetClientIP() , $result_user[0]['user_ad_code'] , "")
+                                                    )
+                    );
+                    $this->load->view('Time_stamp_view', $data);
+                }
+
            
             }else{
                 $data = array( 'liff_id' =>  $this->liff_id, 'text_status' => "" );
@@ -364,12 +378,24 @@ class TimeStamp extends CI_Controller {
 
                     if( $PostTimeStamp_result[0]["status_old"] == 200 &&  $PostTimeStamp_result[0]["status_new"] == 200){
             
-                        $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "time_stamp_true" ,'msg' => "บันทึกเวลาสำเร็จ"));
-
+                        $this->load->view('Time_stamp_error_view', array(  
+                            'liff_id'       => $this->liff_id,
+                            'text_status'   => "time_stamp_true" ,
+                            'msg'           => "บันทึกเวลาสำเร็จ" ,
+                            'user_ad_code'  => $result['user_ad_code'],
+                            'user_line_uid' => $result['user_line_uid'],
+                        ));
                     
                     }else{
-                        $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
-                        
+                      
+                        $this->load->view('Time_stamp_error_view', array(  
+                            'liff_id'       => $this->liff_id,
+                            'text_status'   => "error",
+                            'msg'           => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง",
+                            'user_ad_code'  => $result['user_ad_code'],
+                            'user_line_uid' => $result['user_line_uid'],
+                        ));
+
                         $result['time_stamp_log_result'] = $PostTimeStamp_result;
                         $this->Model_TimeStamp->Insert_Log_Time_Stamp_error($result);
                     }
@@ -380,7 +406,14 @@ class TimeStamp extends CI_Controller {
 
                 }else{
 
-                    $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
+              
+                    $this->load->view('Time_stamp_error_view', array(  
+                        'liff_id'       => $this->liff_id,
+                        'text_status'   => "error",
+                        'msg'           => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง",
+                        'user_ad_code'  => $result['user_ad_code'],
+                        'user_line_uid' => $result['user_line_uid'],
+                    ));
 
                     $result['time_stamp_log_result'] = array('message' => "Api_PostTimeStamp_result_error");
                     $this->Model_TimeStamp->Insert_Log_Time_Stamp_error($result);
@@ -394,7 +427,13 @@ class TimeStamp extends CI_Controller {
             // }
             
         }else{
-            $this->load->view('Time_stamp_error_view', array(  'liff_id' => $this->liff_id,'text_status' => "error",'msg' => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง" ));
+            $this->load->view('Time_stamp_error_view', array(  
+                'liff_id'       => $this->liff_id,
+                'text_status'   => "error",
+                'msg'           => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง",
+                'user_ad_code'  => "",
+                'user_line_uid' => "",
+            ));
         }
 
     

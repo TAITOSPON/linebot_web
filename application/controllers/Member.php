@@ -81,6 +81,13 @@ class Member extends CI_Controller {
 
     }
 
+         
+    public function Member_TOAT_Askinout(){
+
+        $this->Member_view("askinout/askinout",$this->liff_id_member);
+
+    }
+
 
     
     public function Member_view($page,$liff_id){   
