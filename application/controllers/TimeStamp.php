@@ -250,6 +250,10 @@ class TimeStamp extends CI_Controller {
             "203.146.190.32", 
             "58.137.230.179",
             "58.137.230.178",
+            "1.1.253.10",
+            "1.1.253.2",
+            "58.137.91.30",
+            "1.179.205.254",
 
             "1.4.158.35" // LUMPANG
 
@@ -289,8 +293,25 @@ class TimeStamp extends CI_Controller {
 
         }else if($staus_location == "6"){
 
+            $category = "LINE_KT";
+
+        }else if($staus_location == "7"){
+
+            $category = "LINE_KT";
+
+        }else if($staus_location == "8"){
+
+            $category = "LINE_KT";
+
+        }else if($staus_location == "9"){
+
+            $category = "LINE_KT";
+        }
+        else if($staus_location == "10"){
+
             $category = "LINE_NTM_LAMPANG";
         }
+        
         
 
         return $category;
@@ -311,7 +332,7 @@ class TimeStamp extends CI_Controller {
               
            
 
-                if($user_line_uid['user_line_uid'] == "U4f34652f4e163d5492b3fbe573a50d0aa"){ // nueng dev only 
+                if($user_line_uid['user_line_uid'] == "U4f34652f4e163d5492b3fbe573a50d0aa"){ // nueng  only  for service dev
            
                     $this->load->view('Time_stamp_error_view', array(  
                         'liff_id'       => $this->liff_id,

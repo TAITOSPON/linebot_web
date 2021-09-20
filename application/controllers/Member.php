@@ -88,6 +88,13 @@ class Member extends CI_Controller {
 
     }
 
+             
+    public function Member_TOAT_Tax(){
+
+        $this->Member_view("tax",$this->liff_id_member);
+
+    }
+
 
     
     public function Member_view($page,$liff_id){   

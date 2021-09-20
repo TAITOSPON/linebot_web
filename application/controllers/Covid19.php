@@ -171,6 +171,37 @@ class Covid19 extends CI_Controller {
     
     }
 
+    public function Get_Covid19_User_vaccine($user_ad_code){
+ 
+       
+        $result = $this->Model_Covid19->Get_vaccine_with_user_ad_code($user_ad_code);  
+        $data['data'] = $result;
+
+     
+        if($data['data'] != null){
+
+    
+            $datenow = date("Y-m-d");
+
+            $date_second = explode("/", $data['data']['second']);
+            $date_second = date("Y-m-d", strtotime( $date_second[2]."-".$date_second[1]."-".$date_second[0]));
+            
+            if($datenow <=  $date_second){
+                
+                $data = array('status' => "false",'result'=> $data);
+            }else{
+
+                $data = array('status' => "false",'result'=> "null");
+            
+            }
+           
+        }else{
+            $data = array('status' => "false",'result'=> "null");
+        }  
+    
+        echo json_encode($data,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+    }
+
 
     
 }
