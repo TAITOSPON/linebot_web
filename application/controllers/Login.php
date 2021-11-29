@@ -103,29 +103,38 @@ class Login extends CI_Controller {
 
             $this->load->model('Model_User');
             // $status_user_ad = $this->Model_User->Set_user_ad($result);
-            
-            if($this->Model_User->Set_user_ad($result)){
-                if($this->Model_User->Set_user_line_account($result)){
-                    if($this->Model_User->Set_user_connect_login($result)){
+            if($this->Model_User->CheckLoginDuplicateUser($result)){
 
-               
-                        $this->Goto_login_success_view("login_true_first");
-                        $this->Insert_log_login($result);
+                if($this->Model_User->Set_user_ad($result)){
+                    if($this->Model_User->Set_user_line_account($result)){
+                        if($this->Model_User->Set_user_connect_login($result)){
+
+                
+                        
+                                $this->Goto_login_success_view("login_true_first");
+                                $this->Insert_log_login($result);
+        
+                        
+                    
+                        }else {
+                            // echo "db user_connect false";
+                            $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
+                        }
 
                     }else {
-                        // echo "db user_connect false";
+                        // echo "db user_line false";
                         $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
                     }
-
+    
                 }else {
-                    // echo "db user_line false";
+                    // echo "db user_ad false";
                     $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
                 }
-  
-            }else {
-                // echo "db user_ad false";
-                $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
+
+            }else{
+                $this->load->view('login_error_view',array( 'text_status' => "ขอภัยเนื่องจากคุณได้ทำการออกจากระบบจากอีกอุปกรณ์ จะสามารถเข้าสู่ระบบได้อีกครั้งหลังจาก 30 นาทีหลังจากเวลาที่ออกจากระบบ" ));
             }
+
 
     
 
@@ -157,6 +166,8 @@ class Login extends CI_Controller {
 
     //     return true;
     // }
+
+
 
 
 }  

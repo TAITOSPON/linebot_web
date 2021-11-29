@@ -189,7 +189,7 @@ span.psw {
                       liff.closeWindow()  
                       logOut()
                   });   
-              }else if(text_status == "Covid19_not_login"){
+              }else if (text_status == "Covid19_not_login"){
 
                 liff.sendMessages([{
                       type : "text",
@@ -208,7 +208,7 @@ span.psw {
                       logOut()
                   });   
                   
-                }else if(text_status == "Covid19_boss_confirm_not_login"){
+              }else if (text_status == "Covid19_boss_confirm_not_login"){
 
                   liff.sendMessages([{
                         type : "text",
@@ -226,6 +226,24 @@ span.psw {
                         liff.closeWindow()  
                         logOut()
                     });   
+                }else if (text_status == "System_work_not_login"){
+                
+                    liff.sendMessages([{
+                          type : "text",
+                          text : "ระบบงาน ยสท.",
+                      }]
+
+                      ).then(function () {
+                          // window.alert("Message sent");
+                          console.log('message sent');
+                          liff.closeWindow()  
+                          logOut()
+                      }).catch(function (error) {
+                          // window.alert("Error sending message: " + error);
+                          // console.log('error', err);
+                          liff.closeWindow()  
+                          logOut()
+                      });       
               }else{
                   liff.closeWindow()  
                   logOut()

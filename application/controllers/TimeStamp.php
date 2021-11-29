@@ -207,7 +207,10 @@ class TimeStamp extends CI_Controller {
         $wifi_toat_local =  array(
             "172.16." , 
             "172.31." , 
-            "172.18."
+            "172.18." ,
+    
+
+            
         );
 
         $ip = substr((string)$IPAddress, 0, 7);
@@ -255,7 +258,46 @@ class TimeStamp extends CI_Controller {
             "58.137.91.30",
             "1.179.205.254",
 
-            "1.4.158.35" // LUMPANG
+            "1.4.158.35", // LUMPANG
+
+            "182.52.136.22",        // LINE_CMG01        index 11  สำนักงานยาสูบเชียงใหม่
+            "1.4.158.27",           // LINE_CMG02        index 12  สถานีใบยาสันมหาพน
+            "1.4.158.28",           // LINE_CMG03        index 13  สถานีใบยาปากทาง
+            "1.4.158.29",           // LINE_CMG04        index 14  สถานีใบยาห้วยไซ
+            "1.4.158.26",           // LINE_CMG05        index 15  สถานีใบยาแม่เลน
+            "182.52.136.29",        // LINE_CMG06        index 16  โกดังเก็บใบยาแม่โจ้
+            "182.53.230.192",       // LINE_CMG07        index 17  สถานีทดลองยาสูบแม่โจ้
+            "182.52.136.23",        // LINE_CHL01        index 18  สำนักงานยาสูบเชียงราย
+            "1.4.158.32",           // LINE_CHL02        index 19  สถานีใบยาป่าก่อดำ
+            "1.4.158.33",           // LINE_CHL03        index 20  สถานีใบยาป่าสักขวาง
+            "1.4.158.34",           // LINE_CHL04        index 21  สถานีใบยาเวียงพาน
+            "182.52.136.28",        // LINE_PHR01        index 22  สำนังานยาสูบแพร่
+            "1.4.158.30",           // LINE_PHR02        index 23  สถานีใบยาทุ่งน้าว
+            "1.4.158.31",           // LINE_PHR03        index 24  สถานีใบยาร้องกวาง
+            "182.52.136.34",        // LINE_PHR04        index 25  โรงอบใบยาเด่นชัยupdateCID
+            "101.109.112.234",      // LINE_PET01        index 26  สำนักงานยาสูบเพชรบูรณ์
+            "1.20.199.151",         // LINE_PET02        index 27  สถานีใบยานางั่ว
+            "1.20.199.150",         // LINE_PET03        index 28  สถานีใบยาท่าพล
+            "125.25.201.16",        // LINE_SUK01        index 29  สำนักงานยาสูบสุโขทัย
+            "1.20.199.148",         // LINE_SUK02        index 30  สถานีใบยาศรีสำโรง
+            "1.20.199.149",         // LINE_SUK03        index 31  สถานีใบยาหนองยาว
+            "182.52.57.29",         // LINE_BAP01        index 32  สำนักงานยาสูบบ้านไผ่
+            "1.0.138.132",          // LINE_BAP02        index 33  สถานีใบยาหนองโก
+            "1.0.138.174",          // LINE_BAP03        index 34  สถานีใบยาไทรงาม1
+            "1.0.138.175",          // LINE_BAP04        index 35  สถานีใบยาไทรงาม2
+            "182.52.57.34",         // LINE_BAP05        index 36  โรงทำความสะอาดใบยาเตอร์กิชชนบท
+            "182.52.57.35",         // LINE_NOK01        index 37  สำนักงานยาสูบหนองคาย
+            "1.0.138.159",          // LINE_NOK02        index 38  สถานีใบยาศรีเชียงใหม่
+            "1.0.138.158",          // LINE_NOK03        index 39  สถานีใบยาโพนสา
+            "1.0.138.151",          // LINE_NOK04        index 40  สถานีใบยาปากสวย
+            "182.52.57.37",         // LINE_NAP01        index 41  สำนักงานยาสูบนครพนม
+            "1.0.138.135",          // LINE_NAP02        index 42  สถานีใบยาบ้านแพง
+            "1.0.138.157",          // LINE_NAP03        index 43  สถานีใบยาท่าสีไค
+            "1.0.138.143",          // LINE_NAP05        index 44  สถานีใบยานาทาม
+            "1.0.138.144",          // LINE_NAP06        index 45  สถานีใบยาดอนนางหงส์
+            "1.0.138.137",          // LINE_NAP07        index 46  สถานีใบยาไชยบุรี
+            "1.4.158.35",           // LINE_NTM_LAMPANG  index 47  ศูนย์บริหารการขายพื้นที่ภาคเหนือ(ลำปาง)
+
 
         );
 
@@ -311,7 +353,160 @@ class TimeStamp extends CI_Controller {
 
             $category = "LINE_NTM_LAMPANG";
         }
+
+
+        else if($staus_location == "11"){
+
+            $category = "LINE_CMG01";
+        }
+        else if($staus_location == "12"){
+
+            $category = "LINE_CMG02";
+        }
+        else if($staus_location == "13"){
+
+            $category = "LINE_CMG03";
+        }
+        else if($staus_location == "14"){
+
+            $category = "LINE_CMG04";
+        }
+        else if($staus_location == "15"){
+
+            $category = "LINE_CMG05";
+        }
+        else if($staus_location == "16"){
+
+            $category = "LINE_CMG06";
+        }
+        else if($staus_location == "17"){
+
+            $category = "LINE_CMG07";
+        }
+        else if($staus_location == "18"){
+
+            $category = "LINE_CHL01";
+        }
+        else if($staus_location == "19"){
+
+            $category = "LINE_CHL02";
+        }
+        else if($staus_location == "20"){
+
+            $category = "LINE_CHL03";
+        }
+        else if($staus_location == "21"){
+
+            $category = "LINE_CHL04";
+        }
+        else if($staus_location == "22"){
+
+            $category = "LINE_PHR01";
+        }
+        else if($staus_location == "23"){
+
+            $category = "LINE_PHR02";
+        }
+        else if($staus_location == "24"){
+
+            $category = "LINE_PHR03";
+        }
+        else if($staus_location == "25"){
+
+            $category = "LINE_PHR04";
+        }
+        else if($staus_location == "26"){
+
+            $category = "LINE_PET01";
+        }
+        else if($staus_location == "27"){
+
+            $category = "LINE_PET02";
+        }
+        else if($staus_location == "28"){
+
+            $category = "LINE_PET03";
+        }
+        else if($staus_location == "29"){
+
+            $category = "LINE_SUK01";
+        }
+        else if($staus_location == "30"){
+
+            $category = "LINE_SUK02";
+        }
+        else if($staus_location == "31"){
+
+            $category = "LINE_SUK03";
+        }
+        else if($staus_location == "32"){
+
+            $category = "LINE_BAP01";
+        }
+        else if($staus_location == "33"){
+
+            $category = "LINE_BAP02";
+        }
+        else if($staus_location == "34"){
+
+            $category = "LINE_BAP03";
+        }
+        else if($staus_location == "35"){
+
+            $category = "LINE_BAP04";
+        }
+        else if($staus_location == "36"){
+
+            $category = "LINE_BAP05";
+        }
+        else if($staus_location == "37"){
+
+            $category = "LINE_NOK01";
+        }
+        else if($staus_location == "38"){
+
+            $category = "LINE_NOK02";
+        }
+        else if($staus_location == "39"){
+
+            $category = "LINE_NOK03";
+        }
+        else if($staus_location == "40"){
+
+            $category = "LINE_NOK04";
+        }
+        else if($staus_location == "41"){
+
+            $category = "LINE_NAP01";
+        }
+        else if($staus_location == "42"){
+
+            $category = "LINE_NAP02";
+        }
+        else if($staus_location == "43"){
+
+            $category = "LINE_NAP03";
+        }
+        else if($staus_location == "44"){
+
+            $category = "LINE_NAP05";
+        }
+        else if($staus_location == "45"){
+
+            $category = "LINE_NAP06";
+        }
+        else if($staus_location == "46"){
+
+            $category = "LINE_NAP07";
+        }
+        else if($staus_location == "47"){
+
+            $category = "LINE_NTM_LAMPANG";
+        }
+
         
+        
+
         
 
         return $category;

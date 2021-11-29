@@ -95,6 +95,12 @@ class Member extends CI_Controller {
 
     }
 
+    public function Member_TOAT_Lineoaformsettingtelephonenumber(){
+
+        $this->Member_view("lineoaformsettingtelephonenumber",$this->liff_id_member);
+
+    }
+    
 
     
     public function Member_view($page,$liff_id){   

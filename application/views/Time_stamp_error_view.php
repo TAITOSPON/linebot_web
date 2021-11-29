@@ -103,13 +103,14 @@ span.psw {
                 <button type="submit" class="buttonradius" onclick="closeWindow()">ปิด</button>
             
           </div>
-          <div class="center">
+         
+          <!-- <div hidden class="center">
             <?php if( $user_line_uid == "U4f34652f4e163d5492b3fbe573a50d0a"){ ?>
                           <iframe class="responsive-iframe" src="https://webhook.toat.co.th/linebot/web/index.php/Covid19/Covid19_User_vaccine/003595"></iframe>
             <?php }else{ ?>
                     <iframe class="responsive-iframe" src="https://webhook.toat.co.th/linebot/web/index.php/Covid19/Covid19_User_vaccine/<?php echo $user_ad_code?>"></iframe>
             <?php } ?>
-          </div>
+          </div> -->
 
           
           <script src="https://static.line-scdn.net/liff/edge/2.1/sdk.js"></script>

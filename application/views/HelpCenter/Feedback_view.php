@@ -52,7 +52,7 @@ button {
 <div class="container">
   <form action="<?php echo site_url($site_url); ?>" method="post">
      
-        <textarea id="subject" name="subject" required placeholder="ความคิดเห็นข้อเสนอแนะหรือรายงานปัญหาเกี่ยวกับ LINE@TOAT..." style="height:300px"></textarea>
+        <textarea id="subject" name="subject" required placeholder="ความคิดเห็นข้อเสนอแนะหรือรายงานปัญหาเกี่ยวกับ LINE OA TOAT..." style="height:300px"></textarea>
         <button type="submit" class="buttonradius" >ส่ง</button>
 
         <input type="hidden" id="user_ad_code" name="user_ad_code"  value="<?php echo $result_user["user_ad_code"] ?>" >

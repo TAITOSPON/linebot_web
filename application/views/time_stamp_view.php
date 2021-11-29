@@ -229,6 +229,7 @@
         <div id="date"></div>
  
         <p><?php echo $result_user["user_ad_name"] ?></p> 
+        <!-- <p><?php print_r($result_user); ?></p>  -->
 
         <input type="hidden" id="timestamp" name="timestamp" >
         <input type="hidden" id="category" name="category"  >
@@ -256,8 +257,9 @@
         <div id="p_alert"></div>
         <div id="feed_time"></div>
 
-        <img src="https://www.thaitobacco.or.th/th/wp-content/uploads/2021/05/S__131268611.jpg" class="center">
-       
+        <img src="https://www.thaitobacco.or.th/p2090.jpg" class="center">
+        <!-- <img src="https://webhook.toat.co.th/linebot/web/src/Inkedlinerichmessage_fix_11.06.64_LI-.jpg" class="center"> -->
+        
       </div> 
 
       
@@ -452,7 +454,7 @@
 
             document.getElementById("category").value = category;
             document.getElementById('togglee').hidden = false;
-            document.getElementById("p_alert").innerHTML = "<i class='fa fa-wifi' style='font-size:24px;color:#88E742;'></i> คุณกำลังเชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย ";
+            document.getElementById("p_alert").innerHTML = "<i class='fa fa-wifi' style='font-size:24px;color:#88E742;'></i> คุณกำลังเชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย ("+category+")";
 
             if(category == "LINE_WFH"){
                 WFH();
@@ -463,10 +465,8 @@
           }else{
             
             WFH();
-            // document.getElementById('togglee').hidden = true;
-            // window.alert("กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย");
-            // liff.closeWindow()
          
+            // NotAllowTimeStamp();
 
           }
          
@@ -481,6 +481,12 @@
             document.getElementById("p_alert").innerHTML = "<i class='fa fa-wifi' style='font-size:24px;color:red;'></i> คุณไม่ได้เชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย \nระบบจะบันทึกเวลาด้วย Work from home ";
             document.getElementById("togglee").className = "buttonradius_wfh";
             document.getElementById('togglee').innerText = 'บันทึกเวลา (WFH)';
+        }
+
+        function NotAllowTimeStamp(){
+            document.getElementById('togglee').hidden = true;
+            window.alert("กรุณาบันทึกเวลาด้วย wifi ของการยาสูบแห่งประเทศไทย");
+            liff.closeWindow()
         }
 
         function HideSubmit() {
