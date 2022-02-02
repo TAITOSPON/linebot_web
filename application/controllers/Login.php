@@ -103,22 +103,28 @@ class Login extends CI_Controller {
 
             $this->load->model('Model_User');
             // $status_user_ad = $this->Model_User->Set_user_ad($result);
+
             if($this->Model_User->CheckLoginDuplicateUser($result)){
 
                 if($this->Model_User->Set_user_ad($result)){
                     if($this->Model_User->Set_user_line_account($result)){
-                        if($this->Model_User->Set_user_connect_login($result)){
-
+                        if($this->Model_User->CheckLogin($result)){
+                            if($this->Model_User->Set_user_connect_login($result)){
                 
                         
                                 $this->Goto_login_success_view("login_true_first");
                                 $this->Insert_log_login($result);
         
                         
-                    
+                            }else {
+                                // echo "db user_connect false";
+                                $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
+                            }
+
                         }else {
-                            // echo "db user_connect false";
-                            $this->load->view('login_error_view',array( 'text_status' => "เกิดข้อผิดพลาดกรุณาลองใหม่" ));
+                            // still login other device
+                            $this->load->view('login_error_view',array( 'text_status' => "ขออภัยรหัสพนักงานของคุณเข้าสู่ระบบแล้ว<br>จากอีกอปุกรณ์<br>กรุณาออกจากระบบจากอีกอุปกรณ์ก่อน" ));
+
                         }
 
                     }else {
@@ -132,7 +138,7 @@ class Login extends CI_Controller {
                 }
 
             }else{
-                $this->load->view('login_error_view',array( 'text_status' => "ขอภัยเนื่องจากคุณได้ทำการออกจากระบบจากอีกอุปกรณ์ จะสามารถเข้าสู่ระบบได้อีกครั้งหลังจาก 30 นาทีหลังจากเวลาที่ออกจากระบบ" ));
+                $this->load->view('login_error_view',array( 'text_status' => "ขออภัย<br>เนื่องจากคุณได้ทำการออกจากระบบจากอีกอุปกรณ์<br>จะสามารถเข้าสู่ระบบได้อีกครั้งหลังจาก 30 นาทีหลังจากเวลาที่ออกจากระบบเพื่อป้องการทุจริต" ));
             }
 
 

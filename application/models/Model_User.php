@@ -95,11 +95,31 @@ class Model_User extends CI_Model
         return false;  
     }
 
+
+    public function CheckLogin($result){
+       
+        $result_check_login = $this->Get_line_uid_with_user_ad($result);
+        $result_check_login_data = $result_check_login['result']; 
+        if(sizeof($result_check_login_data) != 0){
+            if($result_check_login_data[0]['user_line_uid'] == ""){
+                return true;
+            }else{
+                $result['login_type'] = 'Try_Other_Device_Not_Logout';
+                $this->Insert_Log_Login($result);
+                return false;
+            }
+          
+        }else{
+            return true;
+        }
+
+    }
     public function Set_user_connect_login($result) {
         
         // ---logout before ---//
-        $this->Set_user_logout($result);
-
+        // $this->Set_user_logout($result);
+        
+      
        
         // --- new connect ---//
         $user_ad_code = $result['PERSON_CODE'];
@@ -222,12 +242,90 @@ class Model_User extends CI_Model
         $this->db->insert('lb_login_log', $data);
     }
 
+    public function CheckLoginDuplicateUser($result){
+
+        $user_ad_code = $result["user_ad_code"];
+        $user_line_uid = $result['user_line_uid'];
 
 
-
-
-
+        if($this->CheckLoginDuplicateUid($result)){
+            
+            $query = $this->db->query("SELECT * FROM `lb_login_log` 
+            WHERE user_ad_code = '$user_ad_code'  
+            AND login_type = 'Logout'
+            ORDER BY `lb_login_log`.`login_id` DESC LIMIT 1")->result_array();
+        
+            if(sizeof($query) != 0){
+                if( $user_line_uid != $query[0]['user_line_uid']){
+                   
+                    $date_logout = $query[0]['login_date'];
+                    $date_status =  date("Y-m-d H:i:s",strtotime(date( $date_logout)." +30 minutes"));
+                  
+                    if(date("Y-m-d H:i:s") <  $date_status ){
+                      
+                        $result['login_type'] = 'Try_Other_Device';
+                        $this->Insert_Log_Login($result);
+                        
+                        return false;
     
+                    }else{
+    
+                        return true;
+                    }
+                
+                }else{
+                    
+                    return true;
+                }
+            }
+
+            return true;
+        }
+    
+
+
+
+    }
+
+    public function CheckLoginDuplicateUid($result){
+       
+        $user_ad_code = $result["user_ad_code"];
+        $user_line_uid = $result['user_line_uid'];
+
+        $query_uid = $this->db->query(" SELECT * FROM `lb_login_log` 
+        WHERE user_line_uid ='$user_line_uid'
+        AND login_type = 'Logout'
+        ORDER BY `lb_login_log`.`login_id` DESC LIMIT 1")->result_array();
+        
+        if(sizeof($query_uid) != 0){
+
+            if( $user_ad_code != $query_uid[0]['user_ad_code']){
+                
+                $date_logout_uid = $query_uid[0]['login_date'];
+
+                $date_status_uid =  date("Y-m-d H:i:s",strtotime(date( $date_logout_uid)." +30 minutes"));
+                if(date("Y-m-d H:i:s") <  $date_status_uid ){
+                    
+                    $result['login_type'] = 'Try_Other_Device';
+                    $this->Insert_Log_Login($result);
+
+                    return false;
+    
+                }else{
+                    return true;
+                }
+
+             }else{
+                    
+                return true;
+            }
+          
+        }
+
+        return true;
+       
+    }
+
 
   
 } 

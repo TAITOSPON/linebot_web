@@ -59,6 +59,8 @@ span.psw {
   padding-top: 16px;
 }
 
+
+
 /* Change styles for span and cancel button on extra small screens */
 @media screen and (max-width: 300px) {
   span.psw {
@@ -74,8 +76,9 @@ span.psw {
   <body>
     <form action="<?php echo site_url('Login'); ?>" method="get">
         <div class="container">
-
-              <label idfor="text_status"><b><?php echo $text_status;?></b></label>   
+              <div style="text-align:center;">
+                <label style=" text-align: center; " idfor="text_status"><b><?php echo $text_status;?></b></label>   
+              </div> 
               <button type="submit" class="buttonradius" >ลองใหม่อีกครั้ง</button>
         </div>
       

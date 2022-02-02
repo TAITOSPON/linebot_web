@@ -68,8 +68,9 @@ class SystemWork extends CI_Controller {
 
             // $site_url = $this->Model_Member->Get_Member_TOAT($result[0]["user_ad_code"],$page);
 
-            $site_url = "https://change.toat.co.th/invMn/index.php/sale/LastMntCompare";
-
+            // $site_url = "https://change.toat.co.th/invMn/index.php/sale/LastMntCompare";
+            $site_url = "https://healthlink.toat.co.th/saleDashboard";
+            
             $data = array( 
                 'site_url' => $site_url ,
             );
