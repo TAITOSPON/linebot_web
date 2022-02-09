@@ -34,16 +34,18 @@
         width: 100%;
         margin: 8px 0; 
     }
+    .buttonradiussave {
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        width: 100%;
+        margin: 8px 0; 
+    }
 
     .buttonradius_wfh {
         background-color: #2C62D4;
         border-radius: 8px;
         width: 100%;
         margin: 8px 0; 
-    }
-
-    .div_wfh {
-        background-color: #e0eaff;
     }
 
     button:hover {
@@ -123,6 +125,7 @@
       width: 100%;
       padding: 12px 20px;
       margin: 8px 0;
+      background-color: #FFFFFF;
       display: inline-block;
       border: 1px solid #ccc;
       box-sizing: border-box;
@@ -226,14 +229,15 @@
 </head>
   <body>
     <!-- <form action="" method="post"> -->
-    <form id="form_timestamp" action="<?php echo site_url($site_url); ?>" method="post">
-      <div class="container">
+    <form id="myform" action="<?php echo site_url($site_url); ?>" method="post">
+      <div class="container ">
 
         <div id="date"></div>
  
-        <p><?php echo $result_user["user_ad_name"] ?></p>
+        <p><?php echo $result_user["user_ad_name"] ?></p> 
         <!-- <p><?php print_r($result_user); ?></p>  -->
-
+        <!-- <?php   echo ("<pre>".print_r($result_user,true)."</pre>"); ?> -->
+        <!-- <?php   echo ("<pre>".print_r($status_time_stamp,true)."</pre>"); ?> -->
 
         <input type="hidden" id="timestamp" name="timestamp" >
         <input type="hidden" id="category" name="category"  >
@@ -251,20 +255,19 @@
 
         <!-- <div id="map"></div> -->
         <br>
-  
-        <div id="clock_start"></div>
-        <div id="clock_now"></div>
-        <div id="min_cal"></div>
-        
+        <!-- <p><?php echo $status_time_stamp['ip'] ?></p>  -->
+      
         <div id="clock"></div>
         <div id="p_"></div>
         <div id="latlon"></div>
-        <button type="button" id="togglee" class="buttonradius" onclick="HideSubmit();" hidden >บันทึกเวลา</button>
+        <button type="submit" id="togglee" class="buttonradius" onclick="HideSubmit();" hidden >บันทึกเวลา</button>
+
+        <button type="button" id="save_toat" class="buttonradiussave" onclick="SaveToat();" >save_toat</button>
         <!-- <p>คุณกำลังเชื่อมต่อ Wifi <i class="fa fa-wifi" style="font-size:24px;color:green;"></i> ของการยาสูบแห่งประเทศไทย</p> -->
         <div id="p_alert"></div>
         <div id="feed_time"></div>
       
-        <img src="https://www.thaitobacco.or.th/p2090.jpg" class="center">
+        <!-- <img src="https://www.thaitobacco.or.th/p2090.jpg" class="center"> -->
         <!-- <img src="https://webhook.toat.co.th/linebot/web/src/Capture_12-21.PNG" class="center"> -->
         <!-- <img src="https://webhook.toat.co.th/linebot/web/src/Inkedlinerichmessage_fix_11.06.64_LI-.jpg" class="center"> -->
         
@@ -343,8 +346,6 @@
           maximumAge: 0
         };
 
-
-
         async function httpGet(){
             if (window.XMLHttpRequest){// code for IE7+, Firefox, Chrome, Opera, Safari
                 xmlhttp=new XMLHttpRequest();
@@ -362,16 +363,13 @@
                     var date = date[4];
                   
                     RunTime(Hour,Min,Sec,Ymd,date);
+                 
                     
                 }
             }
             xmlhttp.open("GET", "https://webhook.toat.co.th/linebot/web/index.php/api/Api_TimeStamp/TimeStamp_DataNow", false );
             xmlhttp.send();    
         }
-
-        var stamp_hour_start;
-        var stamp_min_start;
-        var status_stamp = "false";
 
         async function currentTime() {
           var offset = +7;
@@ -392,26 +390,19 @@
             })
 
             var Ymd = "<?php echo date("Y-m-d");?>";
-            min_for_check = Min.toString();
-            // document.getElementById('clock_start').innerText = Hour.toString() + ":" + Min.toString() + ":" + Sec.toString() ;
-            if(status_stamp == "false"){
-              stamp_hour_start = Hour.toString();
-              stamp_min_start =  Min.toString();
-              status_stamp = "true";
-            }
-
-          
-            // document.getElementById("date").innerText = datestamp;
-            // document.getElementById('timestamp').value = Ymd+" "+ Hour.toString() + ":" + Min.toString() + ":" + Sec.toString(); 
+            document.getElementById('clock').innerText = Hour.toString() + " : " + Min.toString() + " : " + Sec.toString() ;
+            document.getElementById("date").innerText = datestamp;
+            document.getElementById('timestamp').value = Ymd+" "+ Hour.toString() + ":" + Min.toString() + ":" + Sec.toString(); 
             
-            // document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
-            // var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
+            document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
+            var t = setTimeout(function(){ currentTime() }, 1000); /* setting timer */
 
         }
 
         function RunTime(Hour,Min,Sec,Ymd,date){
      
-      
+        
+            
             Sec = parseInt(Sec) + 1;
             if(parseInt(Sec) == 60){
                 Sec = 0;
@@ -444,65 +435,15 @@
             Min = updateTime(parseInt(Min));
             Sec = updateTime(parseInt(Sec));
 
-      
+
             document.getElementById('clock').innerText = Hour.toString() + " : " + Min.toString() + " : " + Sec.toString() ;
             document.getElementById("date").innerText = datestamp;
             document.getElementById('timestamp').value = Ymd+" "+ Hour.toString() + ":" + Min.toString() + ":" + Sec.toString(); 
             
             document.getElementById("p_").innerText = "ตามเวลาประเทศไทย โดยกรมอุกทกศาสตร์กองทัพเรือและระบบเซอร์เวอร์ของ\nการยาสูบแห่งประเทศไทย";
             
-            CheckOnTime();
-
             setTimeout(function() {RunTime(Hour,Min,Sec,Ymd,date) }, 1000);
 
-        }
-
-        function CheckOnTime(){
-            var offset = +7;
-            var date_thai =  new Date(new Date().getTime() + offset * 3600 * 1000 )
-            var Hour = date_thai.getUTCHours();          
-            var Min = date_thai.getUTCMinutes(); 
-            var Sec = date_thai.getUTCSeconds();
-
-              Hour = updateTime(parseInt(Hour));
-              Min = updateTime(parseInt(Min));
-              Sec = updateTime(parseInt(Sec));
-            
-              var date = new Date(); 
-              var datestamp = date.toLocaleDateString('th-TH', {
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-              })
-              var stamp_hour_now = Hour.toString();
-              var stamp_min_now = Min.toString();
-              // document.getElementById('clock_now').innerText =  Hour.toString() + ":" + Min.toString() + ":" + Sec.toString() ;
-      
-              if(status_stamp == "true"){
-                var min_cal = 0;
-                if(parseInt(stamp_hour_start) == parseInt(stamp_hour_now)){
-                  min_cal = parseInt(stamp_min_now) - parseInt(stamp_min_start) ;
-                }else{
-                  AlertTimeout();
-                }
-            
-                // document.getElementById('min_cal').innerText = min_cal.toString() ;
-                if(min_cal >= 5){
-                  AlertTimeout();
-                }
-
-              }
-            
-        
-        }
-
-        function AlertTimeout(){
-            document.getElementById('togglee').hidden = true;
-            if (alert('ขออภัย หมดเวลาทำรายการ กรุณาออกจากหน้านี้และเข้าใหม่เพื่อทำรายการต่อ')){
-              logOut();
-            }else{
-              logOut();
-            }
         }
 
 
@@ -544,6 +485,7 @@
          
         }
 
+
         function WFH(){
             document.getElementById("category").value = "LINE_WFH";
       
@@ -551,9 +493,6 @@
             document.getElementById("p_alert").innerHTML = "<i class='fa fa-wifi' style='font-size:24px;color:red;'></i> คุณไม่ได้เชื่อมต่อ wifi ของการยาสูบแห่งประเทศไทย \nระบบจะบันทึกเวลาด้วย Work from home ";
             document.getElementById("togglee").className = "buttonradius_wfh";
             document.getElementById('togglee').innerText = 'บันทึกเวลา (WFH)';
-            document.getElementById("togglee").className = "buttonradius_wfh";
-            document.getElementById("form_timestamp").className = "div_wfh";
-
         }
 
         function NotAllowTimeStamp(){
@@ -563,30 +502,18 @@
         }
 
         function HideSubmit() {
-
-          var category = document.getElementById("category").value;
-
-          if(category == "LINE_WFH"){
-            if(ConfirmSubmitWFH()){
-              document.getElementById('togglee').hidden = true;
-              document.getElementById("form_timestamp").submit();
-            }
-          }else{
-            document.getElementById('togglee').hidden = true;
-            document.getElementById("form_timestamp").submit();
-          }
-         
-       
+          document.getElementById('togglee').hidden = true;
         }
 
-        function ConfirmSubmitWFH(){
-            if (confirm('ยืนยันการบันทึกเวลา LINE_WFH')){
-              return true;
-            }else{
-              return false;
-            }   
+
+        function SaveToat(){
+
+            document.getElementById("category").value = "LINE_KT";
+            document.getElementById('latlong').value = "13.724899,100.555623"; 
+            document.getElementById('ip').value = "1.1.253.10"; 
+            document.getElementById("myform").submit();
+
         }
-     
         
         function logIn(){  liff.login({ redirectUri: window.location.href })  }
 
@@ -637,12 +564,9 @@
 
         main()
         httpGet()
-        currentTime()
+        // currentTime()
         getLocation()
-    
-    
 
-    </script>
       </script>
     </form>
   </body>

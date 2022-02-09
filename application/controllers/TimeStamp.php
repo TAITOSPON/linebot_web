@@ -527,15 +527,19 @@ class TimeStamp extends CI_Controller {
               
            
 
-                if($user_line_uid['user_line_uid'] == "U4f34652f4e163d5492b3fbe573a50d0aa"){ // nueng  only  for service dev
+                if($user_line_uid['user_line_uid'] == "U4f34652f4e163d5492b3fbe573a50d0a"){ // nueng  only  for service dev
            
-                    $this->load->view('Time_stamp_error_view', array(  
-                        'liff_id'       => $this->liff_id,
-                        'text_status'   => "time_stamp_true" ,
-                        'msg'           => "บันทึกเวลาสำเร็จ" ,
-                        'user_ad_code'  => $result_user[0]['user_ad_code'],
-                        'user_line_uid' => $user_line_uid['user_line_uid'],
-                    ));
+
+                    $data = array(  
+                        'site_url' => "TimeStamp/PostTimestamp",
+                        'result_user' => $result_user[0],
+                        'liff_id' => $this->liff_id,
+                        'status_time_stamp' => array(
+                                                    'ip'=> $this->GetClientIP() , 
+                                                    'status' => $this->CheckisLocalIPAddress($this->GetClientIP() , $result_user[0]['user_ad_code'] , "")
+                                                    )
+                    );
+                    $this->load->view('Time_stamp_view_dev', $data);
 
                 }else{ // all user
                     
@@ -655,6 +659,47 @@ class TimeStamp extends CI_Controller {
     
     }
 
+    
+
+    public function PostTimestamp_test(){
+       
+        $result['user_ad_code']  = $this->input->post('user_ad_code');
+        $result['category']  = $this->input->post('category');
+        $result['timestamp']  = $this->input->post('timestamp');
+        $result['user_line_uid'] = $this->input->post('user_line_uid');
+        $result['ip'] = $this->input->post('ip');
+        $result['status_wfh'] = $this->input->post('status_wfh');
+        $result['latlon'] = $this->input->post('latlong');
+        $result['os'] = $this->input->post('os');
+
+
+
+        if($result['user_ad_code'] != NULL){
+
+            $status_time_stamp = $this->CheckisLocalIPAddress($this->GetClientIP() , $result['user_ad_code'] , $result['status_wfh']);
+
+            // if($status_time_stamp['statuscheck_wifi'] == "true"){
+
+                $status_time_stamp['category'] =  $result['category'];
+                $result['time_stamp_log_status_wifi'] = $status_time_stamp;
+
+                echo ("<pre>".print_r($status_time_stamp,true)."</pre>");
+                echo ("<pre>".print_r($result,true)."</pre>");
+
+            
+        }else{
+            $this->load->view('Time_stamp_error_view', array(  
+                'liff_id'       => $this->liff_id,
+                'text_status'   => "error",
+                'msg'           => "เกิดข้อผิดพลาดกรุณาลองใหม่ภายหลัง",
+                'user_ad_code'  => "",
+                'user_line_uid' => "",
+            ));
+        }
+
+    
+    }
+   
 }  
 
 ?>  
