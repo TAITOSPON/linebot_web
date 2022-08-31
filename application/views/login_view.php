@@ -3,9 +3,14 @@
 <head>
 <title>TOAT | Login</title> 
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- <link rel="stylesheet" href="<?=base_url()?>assets/fonts/thsarabunnew.css" /> -->
+
+
 <style>
+
 body {font-family: Arial, Helvetica, sans-serif;}
-form {border: 3px solid #f1f1f1;}
+/* body {font-family: 'THSarabunNew', sans-serif;} */
+form {border: 3px solid #f1f1f1; }
 
 input[type=text], input[type=password] ,input[type=number] {
   width: 100%;
@@ -14,16 +19,18 @@ input[type=text], input[type=password] ,input[type=number] {
   display: inline-block;
   border: 1px solid #ccc;
   box-sizing: border-box;
+  font-family: 'THSarabunNew', sans-serif;
 }
 
 button {
-  background-color: #D39D2B;
+  background-color: #d3af04;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
   border: none;
   cursor: pointer;
   width: 100%;
+  font-family: 'THSarabunNew', sans-serif;
 }
 
 .buttonradius {
@@ -37,8 +44,9 @@ button:hover {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #D39D2B;
+  background-color: #d3af04;
 }
+
 
 .imgcontainer {
   text-align: center;

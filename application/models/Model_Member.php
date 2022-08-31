@@ -19,7 +19,8 @@ class Model_Member extends CI_Model
     
     public function template_gen(){
         $data = array(
-            'menu_left' => $this->menu_left(),   
+            // 'menu_left' => $this->menu_left(),   
+            'menu_left' => "",   
         );
         return $data;
     }
@@ -195,35 +196,35 @@ class Model_Member extends CI_Model
             $personal = "https://memberapp.toat.co.th/memberapi/api/personalapi?id=".$user_ad_code;
             $data["personal"] = json_decode(file_get_contents($personal));
     
-            $education = "https://memberapp.toat.co.th/memberapi/api/educationapi?id=".$user_ad_code;
-            $data["education"] = json_decode(file_get_contents($education));
+            // $education = "https://memberapp.toat.co.th/memberapi/api/educationapi?id=".$user_ad_code;
+            // $data["education"] = json_decode(file_get_contents($education));
     
-            $child = "https://memberapp.toat.co.th/memberapi/api/childapi?id=".$user_ad_code;
-            $data["child"] = json_decode(file_get_contents($child));
+            // $child = "https://memberapp.toat.co.th/memberapi/api/childapi?id=".$user_ad_code;
+            // $data["child"] = json_decode(file_get_contents($child));
     
-            $decoration = "https://memberapp.toat.co.th/memberapi/api/decorationapi?id=".$user_ad_code;
-            $data["decoration"] = json_decode(file_get_contents($decoration));
+            // $decoration = "https://memberapp.toat.co.th/memberapi/api/decorationapi?id=".$user_ad_code;
+            // $data["decoration"] = json_decode(file_get_contents($decoration));
     
-            $upgradeposition = "https://memberapp.toat.co.th/memberapi/api/upgradepositionapi?id=".$user_ad_code;
-            $data["upgradeposition"] = json_decode(file_get_contents($upgradeposition));
+            // $upgradeposition = "https://memberapp.toat.co.th/memberapi/api/upgradepositionapi?id=".$user_ad_code;
+            // $data["upgradeposition"] = json_decode(file_get_contents($upgradeposition));
     
-            $upgradesalary = "https://memberapp.toat.co.th/memberapi/api/upgradesalaryapi?id=".$user_ad_code;
-            $data["upgradesalary"] = json_decode(file_get_contents($upgradesalary));
+            // $upgradesalary = "https://memberapp.toat.co.th/memberapi/api/upgradesalaryapi?id=".$user_ad_code;
+            // $data["upgradesalary"] = json_decode(file_get_contents($upgradesalary));
     
-            $upgradesalarydocid = "https://memberapp.toat.co.th/memberapi/api/upgradesalarydocidapi?id=".$user_ad_code;
-            $data["upgradesalarydocid"] = json_decode(file_get_contents($upgradesalarydocid));
+            // $upgradesalarydocid = "https://memberapp.toat.co.th/memberapi/api/upgradesalarydocidapi?id=".$user_ad_code;
+            // $data["upgradesalarydocid"] = json_decode(file_get_contents($upgradesalarydocid));
     
     
     
             $result = array( 
                 'ImagePersonal' => $data["ImagePersonal"],
                 'personal' => $data["personal"] ,
-                'education' =>  $data["education"],
-                'child' => $data["child"],
-                'decoration' => $data["decoration"],
-                'upgradeposition' => $data["upgradeposition"],
-                'upgradesalary' => $data["upgradesalary"],
-                'upgradesalarydocid' => $data["upgradesalarydocid"],
+                // 'education' =>  $data["education"],
+                // 'child' => $data["child"],
+                // 'decoration' => $data["decoration"],
+                // 'upgradeposition' => $data["upgradeposition"],
+                // 'upgradesalary' => $data["upgradesalary"],
+                // 'upgradesalarydocid' => $data["upgradesalarydocid"],
     
             );
 

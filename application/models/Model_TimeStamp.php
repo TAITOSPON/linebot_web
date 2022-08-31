@@ -132,6 +132,33 @@ class Model_TimeStamp extends CI_Model
         
     }
 
+    public function GetLoginLog(){
+       
+        $query = $this->db->query(" SELECT * FROM `lb_login_log` INNER JOIN lb_user_ad ON lb_login_log.user_ad_code=lb_user_ad.user_ad_code 
+        AND login_date Like '2022-07%'
+        ORDER BY `lb_login_log`.`login_id`  DESC")->result_array();
+        return $query ;
+     }
+  
+
+    // public function Getdataforfixed($user_ad_code){
+    //     $query = $this->db->query(" SELECT time_stamp_log FROM `lb_time_stamp_log`
+    //     WHERE (time_stamp_log_ip = '1.1.253.10' or time_stamp_log_ip = '1.1.253.2') 
+    //     AND user_ad_code = '$user_ad_code'
+    //     AND time_stamp_log_datetime LIKE '2021-09-20%'
+    //     and time_stamp_log_status_wifi LIKE '%LINE_WFH%' ORDER BY `lb_time_stamp_log`.`time_stamp_log_id` ASC LIMIT 1")->result_array();
+    //     return $query ;
+    // }
+
+    // public function Getalluserfixed(){
+    //     $query = $this->db->query(" SELECT DISTINCT user_ad_code FROM `lb_time_stamp_log`
+    //     WHERE   (time_stamp_log_ip = '1.1.253.10' or time_stamp_log_ip = '1.1.253.2') 
+    //     and time_stamp_log_status_wifi LIKE '%LINE_WFH%'  
+    //     AND time_stamp_log_datetime LIKE '2021-09-20%'
+    //     ORDER BY `lb_time_stamp_log`.`time_stamp_log_id` ASC")->result_array();
+    //     return $query ;
+    // }
+
 
 
 

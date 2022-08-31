@@ -17,7 +17,7 @@ input[type=text], input[type=password] {
 }
 
 button {
-  background-color: #D39D2B;
+  background-color: #d3af04;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -33,7 +33,7 @@ button:hover {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #D39D2B;
+  background-color: #d3af04;
 }
 
 .imgcontainer {
@@ -151,7 +151,7 @@ span.psw {
                             }else if(site_url == "HelpCenter/Help"){
                                 window.alert("กรุณาเข้าทำรายการ Line mobile เท่านั้น");
                                 window.close(); 
-                            }else if(site_url == "Covid19/Covid19_emp_form" ||site_url == "Covid19/Covid19_boss_form" ){
+                            }else if(site_url == "Covid19/Covid19_emp_form" || site_url == "Covid19/Covid19_boss_form"   || site_url == "Covid19/Covid19_admid_form"){
                                 window.open("https://change.toat.co.th/covid19/index.php/","_blank");
                                 window.close(); 
                             }else{

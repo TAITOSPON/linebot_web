@@ -17,7 +17,7 @@ input[type=text], input[type=password] {
 }
 
 button {
-  background-color: #D39D2B;
+  background-color: #d3af04;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -33,7 +33,7 @@ button:hover {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #D39D2B;
+  background-color: #d3af04;
 }
 
 .imgcontainer {

@@ -17,7 +17,7 @@ input[type=text], input[type=password] {
 }
 
 button {
-  background-color: #D39D2B;
+  background-color: #d3af04;
   color: white;
   padding: 14px 20px;
   margin: 8px 0;
@@ -37,7 +37,7 @@ button:hover {
 .cancelbtn {
   width: auto;
   padding: 10px 18px;
-  background-color: #D39D2B;
+  background-color: #d3af04;
 }
 
 .imgcontainer {
@@ -99,7 +99,7 @@ span.psw {
       <!-- <form > -->
           <div class="container">
                 <p><?php echo $msg ?></p> 
-                <button type="submit" class="buttonradius" onclick="SendMessage()" id="togglee">ตรวจสอบเวลา</button>
+                <button type="submit" class="buttonradius" onclick="SendMessage()" id="togglee">ตรวจสอบข้อมูล</button>
                 <button type="submit" class="buttonradius" onclick="closeWindow()">ปิด</button>
             
           </div>
@@ -136,7 +136,7 @@ span.psw {
 
                     liff.sendMessages([{
                         type : "text",
-                        text : "ตรวจสอบเวลาเข้างาน",
+                        text : "ตรวจสอบข้อมูล",
                     }]
 
                     ).then(function () {

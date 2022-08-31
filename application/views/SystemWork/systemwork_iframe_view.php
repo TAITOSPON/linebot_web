@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>TOAT | ระบบงาน ยสท.</title>
+<title>TOAT | <?php echo $title; ?></title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
 

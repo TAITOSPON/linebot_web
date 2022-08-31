@@ -29,7 +29,7 @@
     }
 
     .buttonradius {
-        background-color: #D39D2B;
+        background-color: #d3af04;
         border-radius: 8px;
         width: 100%;
         margin: 8px 0; 
@@ -55,7 +55,7 @@
     .cancelbtn {
       width: auto;
       padding: 10px 18px;
-      background-color: #D39D2B;
+      background-color: #d3af04;
     }
 
     .center {
@@ -90,7 +90,7 @@
         margin: 8px 0;
         border-radius: 8px;
         color: #FFFFFF;
-        background-color: #D39D2B;
+        background-color: #d3af04;
         border-color: #fff transparent transparent transparent;
     }
     table {
@@ -107,7 +107,7 @@
 
     th {
       text-align: center;
-      background-color: #D39D2B;  
+      background-color: #d3af04;  
       color: white;
       
     }
@@ -508,9 +508,9 @@
 
         function SaveToat(){
 
-            document.getElementById("category").value = "LINE_KT";
-            document.getElementById('latlong').value = "13.724899,100.555623"; 
-            document.getElementById('ip').value = "1.1.253.10"; 
+            document.getElementById("category").value = "LINE_ROJANA";
+            document.getElementById('latlong').value = "14.3405096,100.6888502"; 
+            document.getElementById('ip').value = "103.144.44.190"; 
             document.getElementById("myform").submit();
 
         }

@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>TOAT | Timestamp</title>
+  <title>TOAT | บันทึกเวลา</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  
   <style>
     body {font-family: Arial, Helvetica, sans-serif;}
     form {border: 3px solid #f1f1f1;}
@@ -29,7 +30,7 @@
     }
 
     .buttonradius {
-        background-color: #D39D2B;
+        background-color: #d3af04;
         border-radius: 8px;
         width: 100%;
         margin: 8px 0; 
@@ -53,7 +54,7 @@
     .cancelbtn {
       width: auto;
       padding: 10px 18px;
-      background-color: #D39D2B;
+      background-color: #d3af04;
     }
 
     .center {
@@ -88,7 +89,7 @@
         margin: 8px 0;
         border-radius: 8px;
         color: #FFFFFF;
-        background-color: #D39D2B;
+        background-color: #d3af04;
         border-color: #fff transparent transparent transparent;
     }
     table {
@@ -105,7 +106,7 @@
 
     th {
       text-align: center;
-      background-color: #D39D2B;  
+      background-color: #d3af04;  
       color: white;
       
     }
@@ -263,8 +264,9 @@
         <!-- <p>คุณกำลังเชื่อมต่อ Wifi <i class="fa fa-wifi" style="font-size:24px;color:green;"></i> ของการยาสูบแห่งประเทศไทย</p> -->
         <div id="p_alert"></div>
         <div id="feed_time"></div>
-      
-        <img src="https://www.thaitobacco.or.th/p2090.jpg" class="center">
+       
+        <img src="https://www.thaitobacco.or.th/45.jpg" class="center">
+        <!-- <img src="https://www.thaitobacco.or.th/w3.jpg" class="center"> -->
         <!-- <img src="https://webhook.toat.co.th/linebot/web/src/Capture_12-21.PNG" class="center"> -->
         <!-- <img src="https://webhook.toat.co.th/linebot/web/src/Inkedlinerichmessage_fix_11.06.64_LI-.jpg" class="center"> -->
         

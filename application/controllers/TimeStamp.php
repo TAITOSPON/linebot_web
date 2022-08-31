@@ -539,8 +539,8 @@ class TimeStamp extends CI_Controller {
                                                     'status' => $this->CheckisLocalIPAddress($this->GetClientIP() , $result_user[0]['user_ad_code'] , "")
                                                     )
                     );
-                    $this->load->view('Time_stamp_view_dev', $data);
-
+                    $this->load->view('Time_stamp_view_test', $data);
+                    // $this->load->view('Time_stamp_view', $data);
                 }else{ // all user
                     
                     $data = array(  

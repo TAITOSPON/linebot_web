@@ -99,7 +99,9 @@ class HelpCenter extends CI_Controller {
     }
 
 
- 
+    public function FeedbackDetail(){
+        $this->load->view('HelpCenter/Feedback_detail_view'); 
+    }
 
 }  
 

@@ -29,7 +29,7 @@
     }
 
     .buttonradius {
-        background-color: #D39D2B;
+        background-color: #d3af04;
         border-radius: 8px;
         width: 100%;
         margin: 8px 0; 
@@ -53,7 +53,7 @@
     .cancelbtn {
       width: auto;
       padding: 10px 18px;
-      background-color: #D39D2B;
+      background-color: #d3af04;
     }
 
     .center {
@@ -88,7 +88,7 @@
         margin: 8px 0;
         border-radius: 8px;
         color: #FFFFFF;
-        background-color: #D39D2B;
+        background-color: #d3af04;
         border-color: #fff transparent transparent transparent;
     }
     table {
@@ -105,7 +105,7 @@
 
     th {
       text-align: center;
-      background-color: #D39D2B;  
+      background-color: #d3af04;  
       color: white;
       
     }

@@ -16,6 +16,15 @@ class Api_User extends REST_Controller{
  
        }
 
+       public function User_logout_with_ad_post(){
+
+              $data = json_decode(file_get_contents('php://input'), true);
+              $this->load->model('Model_User');
+              $result = $this->Model_User->User_logout_with_ad($data);  
+              echo json_encode($result,JSON_PRETTY_PRINT);
+ 
+       }
+
        public function User_check_login_post(){
 
               $data = json_decode(file_get_contents('php://input'), true);
@@ -43,8 +52,13 @@ class Api_User extends REST_Controller{
               echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
        }
 
+       // UPDATE `lb_user_connect` SET `user_line_uid` = '' WHERE `lb_user_connect`.`user_connect_id` = 2019;
 
-
+       public function Get_test_post(){
+              $data = json_decode(file_get_contents('php://input'), true);
+              $this->load->model('Model_User');
+              $result = $this->Model_User->Get_test($data);  
+              echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+       }
      
-
 }

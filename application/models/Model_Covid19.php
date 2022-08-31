@@ -21594,4 +21594,13 @@ class Model_Covid19 extends CI_Model{
         }
         return null;
     }
+
+
+    public function UserDoctorAppointmentStart($user_ad_code){
+        $date = date('Y-m-d');
+        $data = 'https://mis.thaitobacco.or.th/TOAT_HOSPITAL/api/AAPPMNTPatience?empCode='.$user_ad_code.'&appmntDay='.$date;
+        $data = file_get_contents($data);
+        $data = json_decode($data, true);
+        return $data ; 
+    }
 }

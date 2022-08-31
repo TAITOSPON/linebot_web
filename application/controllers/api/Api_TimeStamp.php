@@ -37,6 +37,12 @@ class Api_TimeStamp extends REST_Controller{
      }
 
 
+   public function GetLoginLog_get(){
+      $result = $this->Model_TimeStamp->GetLoginLog();
+      echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT);
+      
+   }
+
    //   public function fixed_log_get(){
 
 

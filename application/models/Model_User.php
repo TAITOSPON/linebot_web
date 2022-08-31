@@ -326,6 +326,38 @@ class Model_User extends CI_Model
        
     }
 
+    public function User_logout_with_ad($result){
 
+        $user_ad_code = $result["user_ad_code"];
+
+          $data = array('user_line_uid' => "");
+
+        $this->db->trans_begin();
+        $this->db->where('user_ad_code', $user_ad_code)->set($data)->update('lb_user_connect');
+                
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            
+            return array('status' => false, 'result' => "logout_update_false" ,'data' => "");
+        } else {
+            $this->db->trans_commit();
+            return array('status' => true, 'result' => "logout_update_true" ,'data' =>  "");
+        }
+
+        return array('status' => false, 'result' => "logout_update_error" ,'data' =>  "");
+    }
+
+
+    public function Get_test($result){
+        $user_ad_code = $result['user_ad_code'];
+       
+        $data = $this->db->query(" SELECT *
+        FROM `lb_user_line_account`  
+        INNER JOIN lb_user_connect 
+        ON lb_user_line_account.user_line_uid= lb_user_connect.user_line_uid 
+        WHERE lb_user_connect.user_ad_code = '$user_ad_code'")->result_array();
+        
+        return $data;
+    }
   
 } 

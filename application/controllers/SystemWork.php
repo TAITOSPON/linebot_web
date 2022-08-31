@@ -52,7 +52,6 @@ class SystemWork extends CI_Controller {
 
     }
 
-   
     public function SystemWork_view($page,$liff_id){   
        
 
@@ -72,6 +71,7 @@ class SystemWork extends CI_Controller {
             $site_url = "https://healthlink.toat.co.th/saleDashboard";
             
             $data = array( 
+                'title' => "รายงานการขาย",
                 'site_url' => $site_url ,
             );
 
@@ -87,6 +87,45 @@ class SystemWork extends CI_Controller {
         }
     }
     
+    public function TimeattPeriod(){
+        
+        $this->TimeattPeriod_view("",$this->liff_id_systemwork);
+
+    }
+    
+    public function TimeattPeriod_view($page,$liff_id){
+
+        $user_line_uid["user_line_uid"] = $this->input->post('user_line_uid');
+  
+        $result = $this->Model_User->Get_user_ad_with_line_uid($user_line_uid);  
+ 
+        // echo json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); exit();
+
+        if(json_encode($result,JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT) != "[]"){
+   
+            $user_ad_code = $result[0]["user_ad_code"];
+
+            $site_url = "https://change.toat.co.th/timeatt/index.php/period/bypassEmp/".$user_ad_code."/1234";
+       
+            
+            $data = array( 
+                'title' => "ระบบการแลกเปลี่ยนเวร",
+                'site_url' => $site_url ,
+            );
+
+            $this->load->view('SystemWork/systemwork_iframe_view', $data); 
+    
+        }else{
+
+    
+            $data = array( 'liff_id' => $liff_id, 'text_status' => "System_work_not_login" );
+            $this->load->view('login_success_view',$data);
+       
+          
+        }
+    }
+
+
 
 }
 

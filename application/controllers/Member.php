@@ -44,7 +44,6 @@ class Member extends CI_Controller {
             'template'=> $template,
         );
 
-
         $this->load->view('Member/Member_Login_line_view', $data); 
     }
   
